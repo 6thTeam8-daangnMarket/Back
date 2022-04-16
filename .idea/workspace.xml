@@ -99,7 +99,28 @@
       <recent name="com.sparta.clone_backend.dto" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.clone_backend [build]">
+    <configuration name="clone_backend [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/clone_backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="CloneBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="clone_backend.main" />
       <extension name="coverage">
@@ -115,6 +136,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.clone_backend [build]" />
         <item itemvalue="Spring Boot.CloneBackendApplication" />
       </list>
     </recent_temporary>
