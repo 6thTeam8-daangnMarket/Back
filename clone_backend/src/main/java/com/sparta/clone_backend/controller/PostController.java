@@ -1,9 +1,8 @@
 package com.sparta.clone_backend.controller;
 
 
-import com.sparta.clone_backend.dto.PostRequestDto;
+import com.sparta.clone_backend.dto.*;
 
-import com.sparta.clone_backend.dto.ResponseDto;
 import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
@@ -15,14 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import com.sparta.clone_backend.dto.PostDetailResponseDto;
-
-import com.sparta.clone_backend.dto.PostResponseDto;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -54,13 +48,13 @@ public class PostController {
     {
         String imageUrl = S3Uploader.upload(multipartFile, "static");
 
-        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickname, userDetails.getUser().getId());
-        postService.createPost(postRequestDto, userDetails);
+        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickname);
+        postService.createPost(postRequestDto, userDetails.getUser());
     }
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
-    public List<PostResponseDto> getPost() {
+    public List<PostsResponseDto> getPost() {
         return postService.getPost();
     }
 

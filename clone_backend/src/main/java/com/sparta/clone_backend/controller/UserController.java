@@ -26,6 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    // 회원가입
     @PostMapping("/user/signup")
     public User registerUser(@RequestBody SignupRequestDto signupRequestDto){
         return userService.registerUser(signupRequestDto);

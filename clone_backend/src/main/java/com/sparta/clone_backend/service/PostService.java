@@ -37,20 +37,21 @@ public class PostService {
 //        this.postRepository = postRepository;
 //    };
 
-    public PostResponseDto createPost(PostRequestDto requestDto, User user) {
+    public PostResponseDto createPost(PostRequestDto postRequestDto, User user) {
 
         Post post = Post.builder()
                         .user(user)
-                        .postTitle(requestDto.getPostTitle())
-                        .postContents(requestDto.getPostContents())
-                        .imageUrl(requestDto.getImageUrl())
-                        .price(requestDto.getPrice())
-                        .location(requestDto.getLocation())
+                        .postTitle(postRequestDto.getPostTitle())
+                        .postContents(postRequestDto.getPostContents())
+                        .imageUrl(postRequestDto.getImageUrl())
+                        .price(postRequestDto.getPrice())
+                        .location(postRequestDto.getLocation())
                         .createDate(Timestamp.valueOf(LocalDateTime.now()))
                         .updateDate(Timestamp.valueOf(LocalDateTime.now()))
-                        .nickname(requestDto.getNickname())
+                        .nickname(postRequestDto.getNickname())
                         .build();
 
+        System.out.println(post);
         postRepository.save(post);
 
         return PostResponseDto.builder()
@@ -134,5 +135,18 @@ public class PostService {
         }
         return new UserPageResponseDto(userDetails.getNickname(), postsResponseDtos);
     }
+
+    // 게시글 수정
+    public PostResponseDto editPost(Long postId, PostRequestDto requestDto, UserDetailsImpl userDetails) {
+        PostResponseDto responseDto = null;
+
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new IllegalArgumentException("판매하지 않는 상품입니다.")
+        );
+
+        post.update(postId,requestDto.getPostTitle(), requestDto.getPostContents(), requestDto.getPrice());
+        responseDto = new PostResponseDto(responseDto.getPostContents());
+        return responseDto;
     }
+}
 

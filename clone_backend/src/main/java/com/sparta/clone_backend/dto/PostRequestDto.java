@@ -17,7 +17,7 @@ public class PostRequestDto {
     private String createdAt;
     private String nickname;
 
-    public PostRequestDto(String postTitle, String postContents, String imageUrl, int price, String location, String nickname, Long id) {
+    public PostRequestDto(String postTitle, String postContents, String imageUrl, int price, String location, String nickname) {
         this.postTitle = postTitle;
         this.postContents = postContents;
         this.imageUrl = imageUrl;
