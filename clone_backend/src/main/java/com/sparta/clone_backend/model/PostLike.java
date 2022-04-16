@@ -14,11 +14,16 @@ public class PostLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private String username;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)
     private Post post;
+
+
+    public PostLike(String username, Post post) {
+        this.username = username;
+        this.post = post;
+    }
 }

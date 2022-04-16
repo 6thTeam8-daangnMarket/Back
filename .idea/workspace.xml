@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="1차 기능 구현 완료" />
+    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="병합 후 수정 중" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +53,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="write&amp;detail" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -217,14 +217,7 @@
       <option name="project" value="LOCAL" />
       <updated>1650117467333</updated>
     </task>
-    <task id="LOCAL-00011" summary="1차 기능 구현 완료">
-      <created>1650117665621</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1650117665621</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,7 +252,6 @@
     <MESSAGE value="전체게시글, 특정게시글 조회" />
     <MESSAGE value="장바구니 페이지 추가" />
     <MESSAGE value="병합 후 수정 중" />
-    <MESSAGE value="1차 기능 구현 완료" />
-    <option name="LAST_COMMIT_MESSAGE" value="1차 기능 구현 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="병합 후 수정 중" />
   </component>
 </project>
