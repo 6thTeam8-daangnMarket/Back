@@ -13,9 +13,11 @@ import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -24,6 +26,7 @@ import com.sparta.clone_backend.dto.PostDetailResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -39,11 +42,12 @@ public class PostService {
 //        this.postRepository = postRepository;
 //    };
 
+
     // 게시글 생성
-    public PostResponseDto createPost(PostRequestDto requestDto, User user) {
+    public void createPost(PostRequestDto requestDto, UserDetailsImpl userDetails) {
 
         Post post = Post.builder()
-                        .user(user)
+                        .user(userDetails.getUser())
                         .postTitle(requestDto.getPostTitle())
                         .postContents(requestDto.getPostContents())
                         .imageUrl(requestDto.getImageUrl())
@@ -55,11 +59,6 @@ public class PostService {
                         .build();
 
         postRepository.save(post);
-
-        return PostResponseDto.builder()
-
-                .username(user.getUsername())
-                .build();
     }
 
     // 게시글 삭제
@@ -130,4 +129,5 @@ public class PostService {
         responseDto = new PostResponseDto(responseDto.getPostContents());
      return responseDto;
     }
+
 }

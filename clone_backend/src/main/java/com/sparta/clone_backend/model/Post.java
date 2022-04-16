@@ -8,12 +8,9 @@ import com.sparta.clone_backend.dto.PostRequestDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -37,8 +34,6 @@ public class Post extends Timestamped{
     @Column(nullable = true)
     private String imageUrl;
 
-//    private List<MultipartFile> imageUrl = new ArrayList<>();
-
     @Column(nullable = false)
     private int price;
 
@@ -52,6 +47,9 @@ public class Post extends Timestamped{
     @JoinColumn(nullable = false)
     private User user;
 
+    private Timestamp createDate;
+    private Timestamp updateDate;
+//
     public Post(PostRequestDto postRequestDto){
         this.postTitle = postRequestDto.getPostTitle();
         this.postContents = postRequestDto.getPostContents();
@@ -60,9 +58,6 @@ public class Post extends Timestamped{
         this.location = postRequestDto.getLocation();
     }
 
-    private Timestamp createDate;
-    private Timestamp updateDate;
-
     public void update(Long postId, String postTitle, String postContents, int price) {
         this.id= postId;
         this.postTitle = postTitle;
@@ -70,11 +65,4 @@ public class Post extends Timestamped{
         this.price = price;
     }
 
-
-//    public Post(PostRequestDto requestDto) {
-//        this.postTitle = requestDto.getPostTitle();
-//        this.postContents = requestDto.getPostContents();
-//        this.imageUrl = requestDto.getImageUrl();
-//        this.price = requestDto.
-//    }
 }

@@ -9,6 +9,7 @@ import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
 //
 //import com.sparta.clone_backend.service.S3Uploader;
+import com.sparta.clone_backend.service.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,14 +30,32 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-//    private final S3Uploader s3Uploader;
+    private final S3Uploader S3Uploader;
 
-    // 게시글 생성
+//    // 게시글 생성
+//    @PostMapping("/api/write")
+//    public ResponseEntity<String> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        postService.createPost(requestDto, userDetails.getUser());
+//        return ResponseEntity.ok()
+//                .body("작성 완료!");
+//    }
+
+//     게시글 작성
     @PostMapping("/api/write")
-    public ResponseEntity<String> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        postService.createPost(requestDto, userDetails.getUser());
-        return ResponseEntity.ok()
-                .body("작성 완료!");
+    public void upload(
+            @RequestParam("postTitle") String postTitle,
+            @RequestParam("postContents") String postContents,
+            @RequestParam("imageUrl") MultipartFile multipartFile,
+            @RequestParam("price") int price,
+            @RequestParam("location") String location,
+            @RequestParam("nickname") String nickname,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) throws IOException
+    {
+        String imageUrl = S3Uploader.upload(multipartFile, "static");
+
+        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickname, userDetails.getUser().getId());
+        postService.createPost(postRequestDto, userDetails);
     }
 
     // 전체 게시글 조회
@@ -67,19 +86,11 @@ public class PostController {
     }
 
 
-
-
 //    //유저정보, 장바구니 조회
 //    @GetMapping("/user/mypage}")
 //    public mypageResponseDto getPostDetail(@AuthentificationPrincipal UserDetailsImpl userDetails){
 //        return postService.getmypage(userDetails);
 //    }
 
-//    // 이미지 업로드
-//    @PostMapping("/images")
-//    public String upload(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-//        s3Uploader.upload(multipartFile, "static");
-//        return "test";
-//    }
 
 }
