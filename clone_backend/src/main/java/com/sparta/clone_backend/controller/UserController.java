@@ -7,13 +7,13 @@ import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.UserService;
 import com.sparta.clone_backend.utils.StatusMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +32,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    // 회원가입
     @PostMapping("/user/signup")
     public ResponseEntity<StatusMessage> registerUser(@RequestBody SignupRequestDto signupRequestDto){
         StatusMessage statusMessage = new StatusMessage();

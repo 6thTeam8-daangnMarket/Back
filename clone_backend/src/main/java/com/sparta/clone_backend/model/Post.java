@@ -47,6 +47,9 @@ public class Post extends Timestamped{
     @JoinColumn(nullable = false)
     private User user;
 
+    private Timestamp createDate;
+    private Timestamp updateDate;
+//
     public Post(PostRequestDto postRequestDto){
         this.postTitle = postRequestDto.getPostTitle();
         this.postContents = postRequestDto.getPostContents();
@@ -55,14 +58,11 @@ public class Post extends Timestamped{
         this.location = postRequestDto.getLocation();
     }
 
-    private Timestamp createDate;
-    private Timestamp updateDate;
+    public void update(Long postId, String postTitle, String postContents, int price) {
+        this.id= postId;
+        this.postTitle = postTitle;
+        this.postContents  = postContents;
+        this.price = price;
+    }
 
-
-//    public Post(PostRequestDto requestDto) {
-//        this.postTitle = requestDto.getPostTitle();
-//        this.postContents = requestDto.getPostContents();
-//        this.imageUrl = requestDto.getImageUrl();
-//        this.price = requestDto.
-//    }
 }

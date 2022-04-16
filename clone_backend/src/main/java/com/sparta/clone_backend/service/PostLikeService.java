@@ -1,16 +1,13 @@
 package com.sparta.clone_backend.service;
 
-import com.sparta.clone_backend.dto.PostLikeDto;
 import com.sparta.clone_backend.dto.ResponseDto;
 import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.model.PostLike;
-import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
 import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,28 +38,4 @@ public class PostLikeService {
         }
     }
 
-//    @Transactional
-//    public ResponseDto likePost(PostLikeDto postLikeDto) {
-//        ResponseDto responseDto = new ResponseDto();
-//        Long postId = postLikeDto.getPostId();
-//        String username = postLikeDto.getUsername();
-//
-//        PostLike postLike = postLikeRepository.findByPostIdAndUsername(postId,username).orElse(null);
-//
-//        try {
-//            if (postLike == null) {
-//                PostLike saveLike = new PostLike(postId, username);
-//                postLikeRepository.save(saveLike);
-//            }
-//            else {
-//                postLikeRepository.deleteById(postLike.getId());
-//            }
-//
-//            responseDto.setResult(true);
-//        } catch (Exception e) {
-//            responseDto.setResult(false);
-//            responseDto.setErrormessage("하나도 안 좋아요오");
-//        }
-//        return responseDto;
-//    }
 }
