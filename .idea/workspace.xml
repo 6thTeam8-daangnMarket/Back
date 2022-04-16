@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="66a2977e-3514-4501-a32d-907f8ed9ba7b" name="변경" comment="">
       <change afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/utils/StatusMessage$StatusEnum.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/utils/StatusMessage.class" afterDir="false" />
@@ -24,6 +25,9 @@
       <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/security/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/resources/application.properties" afterDir="false" />
     </list>
+=======
+    <list default="true" id="66a2977e-3514-4501-a32d-907f8ed9ba7b" name="변경" comment="" />
+>>>>>>> 39eb74f7b05fe9f9f3562dfaf8baaf8ca7bbef4f
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,6 +64,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -135,7 +147,7 @@
       <workItem from="1650011620685" duration="2779000" />
       <workItem from="1650014580881" duration="12837000" />
       <workItem from="1650040368654" duration="1152000" />
-      <workItem from="1650069673786" duration="421000" />
+      <workItem from="1650069673786" duration="9610000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -165,7 +177,35 @@
       <option name="project" value="LOCAL" />
       <updated>1650040420868</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="전체게시글, 특정게시글 조회">
+      <created>1650070187562</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650070187562</updated>
+    </task>
+    <task id="LOCAL-00006" summary="전체게시글, 특정게시글 조회">
+      <created>1650072262744</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1650072262744</updated>
+    </task>
+    <task id="LOCAL-00007" summary="전체게시글, 특정게시글 조회">
+      <created>1650095617488</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1650095617488</updated>
+    </task>
+    <task id="LOCAL-00008" summary="장바구니 페이지 추가">
+      <created>1650103915333</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1650103915333</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,7 +222,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="home" />
+                        <option value="origin/write&amp;detail" />
                       </list>
                     </value>
                   </entry>
@@ -198,6 +238,7 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="test" />
     <MESSAGE value="전체게시글, 특정게시글 조회" />
-    <option name="LAST_COMMIT_MESSAGE" value="전체게시글, 특정게시글 조회" />
+    <MESSAGE value="장바구니 페이지 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="장바구니 페이지 추가" />
   </component>
 </project>

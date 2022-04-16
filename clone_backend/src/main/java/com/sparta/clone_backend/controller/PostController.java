@@ -1,7 +1,7 @@
 package com.sparta.clone_backend.controller;
 
 
-import com.sparta.clone_backend.dto.PostRequestDto;
+import com.sparta.clone_backend.dto.*;
 
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
@@ -10,10 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import com.sparta.clone_backend.dto.PostDetailResponseDto;
-
-import com.sparta.clone_backend.dto.PostResponseDto;
 
 
 import java.util.List;
@@ -47,7 +43,7 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
-    public List<PostResponseDto> getPost() {
+    public List<PostsResponseDto> getPost() {
         return postService.getPost();
     }
 
@@ -58,11 +54,11 @@ public class PostController {
     }
 
 
-//    //유저정보, 장바구니 조회
-//    @GetMapping("/user/mypage}")
-//    public mypageResponseDto getPostDetail(@AuthentificationPrincipal UserDetailsImpl userDetails){
-//        return postService.getmypage(userDetails);
-//    }
+    //유저정보, 장바구니 조회
+    @GetMapping("/user/mypage")
+    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return postService.getUserPage(userDetails);
+    }
 
 
 }
