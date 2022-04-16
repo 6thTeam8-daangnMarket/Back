@@ -139,10 +139,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        skipPathList.add("POST,/user/**");
 
         //게시글 관련 허용
-        skipPathList.add("GET,/api/posts/**");
-        skipPathList.add("POST,/api/posts/**");
-        skipPathList.add("POST,/api/write/**");
-        skipPathList.add("DELETE,/api/posts/**");
+//        skipPathList.add("GET,/api/posts/**");
+//        skipPathList.add("POST,/api/posts/**");
+//        skipPathList.add("POST,/api/write/**");
+//        skipPathList.add("DELETE,/api/posts/**");
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");

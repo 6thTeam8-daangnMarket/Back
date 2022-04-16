@@ -30,8 +30,4 @@ public class PostLikeController {
                 .body("좋아요 완료!");
     }
 
-//    @PostMapping("/api/posts/{postId}/like")
-//    public ResponseDto likePost(@PathVariable postId, @RequestBody PostLikeDto postLikeDto) {
-//        return postLikeService.likePost();
-//    }
 }

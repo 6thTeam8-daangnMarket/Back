@@ -32,6 +32,7 @@ public class PostService {
 //        this.postRepository = postRepository;
 //    };
 
+    // 게시글 생성
     public PostResponseDto createPost(PostRequestDto requestDto, User user) {
 
         Post post = Post.builder()
