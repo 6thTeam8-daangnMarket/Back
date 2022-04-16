@@ -1,11 +1,11 @@
 package com.sparta.clone_backend.service;
 
 
-import com.sparta.clone_backend.dto.PostRequestDto;
-import com.sparta.clone_backend.dto.PostResponseDto;
+import com.sparta.clone_backend.dto.*;
 
 import com.sparta.clone_backend.model.Post;
 
+import com.sparta.clone_backend.model.PostLike;
 import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
@@ -19,8 +19,6 @@ import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-
-import com.sparta.clone_backend.dto.PostDetailResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,34 +74,28 @@ public class PostService {
     }
 
     //전체 게시글 조회
-    public List<PostResponseDto> getPost() {
+    public List<PostsResponseDto> getPost() {
         List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
-        List<PostResponseDto> postResponseDtos = new ArrayList<>();
+        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
         for (Post post : posts) {
-            int likeCount = 3;
-//                    postLikeRepository.countByPost(post);
 
-            PostResponseDto postResponseDto = new PostResponseDto(
+            PostsResponseDto postsResponseDto = new PostsResponseDto(
                     post.getPostTitle(),
                     post.getImageUrl(),
                     post.getPrice(),
                     post.getLocation(),
                     post.getCreatedAt(),
+                    post.getModifiedAt(),
                     post.getId(),
-                    likeCount
-            );
-            postResponseDtos.add(postResponseDto);
+                    postLikeRepository.countByPost(post));
+            postsResponseDtos.add(postsResponseDto);
         }
-        return postResponseDtos;
+        return postsResponseDtos;
     }
 
     //상세 게시글 조회
     public PostDetailResponseDto getPostDetail(Long postId, UserDetailsImpl userDetails) {
         Post post = postRepository.findById(postId).get();
-
-        int likeCount = 3;
-//            String nickname = "도라에몽";
-//                    postLikeRepository.countByPost(post);
 
         return new PostDetailResponseDto(
                 post.getPostTitle(),
@@ -112,9 +104,35 @@ public class PostService {
                 post.getPrice(),
                 post.getLocation(),
                 post.getCreatedAt(),
-                likeCount,
+                postLikeRepository.countByPost(post),
                 userDetails.getNickname()
         );
+    }
+
+    //유저 페이지,장바구니 조회
+    public UserPageResponseDto getUserPage(UserDetailsImpl userDetails) {
+        String username = userDetails.getUser().getUsername();
+
+        List<PostLike> postLikeObjects = postLikeRepository.findAllByUsername(username);
+        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
+
+        for (PostLike postLikeObject : postLikeObjects) {
+            Post likedPost = postLikeObject.getPost();
+
+            PostsResponseDto postsResponseDto = new PostsResponseDto(
+                    likedPost.getPostTitle(),
+                    likedPost.getImageUrl(),
+                    likedPost.getPrice(),
+                    likedPost.getLocation(),
+                    likedPost.getCreatedAt(),
+                    likedPost.getModifiedAt(),
+                    likedPost.getId(),
+                    postLikeRepository.countByPost(likedPost)
+            );
+            postsResponseDtos.add(postsResponseDto);
+
+        }
+        return new UserPageResponseDto(userDetails.getNickname(), postsResponseDtos);
     }
     }
 
