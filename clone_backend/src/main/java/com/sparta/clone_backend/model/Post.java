@@ -1,15 +1,25 @@
 package com.sparta.clone_backend.model;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import com.sparta.clone_backend.dto.PostRequestDto;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
-@Getter
-@NoArgsConstructor
+
 @Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post extends Timestamped{
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +40,12 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String location;
 
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
-//    private User user;
+    @Column(nullable = false)
+    private String nickname;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private User user;
 
     public Post(PostRequestDto postRequestDto){
         this.postTitle = postRequestDto.getPostTitle();
@@ -42,4 +55,14 @@ public class Post extends Timestamped{
         this.location = postRequestDto.getLocation();
     }
 
+    private Timestamp createDate;
+    private Timestamp updateDate;
+
+
+//    public Post(PostRequestDto requestDto) {
+//        this.postTitle = requestDto.getPostTitle();
+//        this.postContents = requestDto.getPostContents();
+//        this.imageUrl = requestDto.getImageUrl();
+//        this.price = requestDto.
+//    }
 }

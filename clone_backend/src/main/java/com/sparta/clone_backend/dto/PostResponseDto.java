@@ -1,24 +1,27 @@
 package com.sparta.clone_backend.dto;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class PostResponseDto {
-
+    private String username;
     private String postTitle;
+    private String postContents;
     private String imageUrl;
     private int price;
     private String location;
-    private LocalDateTime createdAt;
-    private Long postId;
+    private String nickname;
+    private String modifiedAt;
     private int likeCount;
-
+    private Long postId;
+    private LocalDateTime createdAt;
 
     public PostResponseDto(String postTitle, String imageUrl, int price, String location, LocalDateTime createdAt, Long postId, int likeCount){
         this.postTitle = postTitle;
@@ -30,15 +33,6 @@ public class PostResponseDto {
         this.likeCount = likeCount;
 
     }
-
-    public PostResponseDto(String postTitle,String imageUrl, int price, String location, LocalDateTime createdAt, Long postId){
-        this.postTitle = postTitle;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.location = location;
-        this.createdAt = createdAt;
-        this.postId = postId;
-    }
-
-
 }
+
+
