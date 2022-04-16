@@ -39,7 +39,6 @@ public class UserController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setMessage("회원 등록 성공");
         statusMessage.setData(userService.registerUser(signupRequestDto));
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }

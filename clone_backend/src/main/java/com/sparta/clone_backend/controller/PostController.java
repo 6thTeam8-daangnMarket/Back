@@ -9,7 +9,11 @@ import com.sparta.clone_backend.service.PostService;
 //
 //import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.service.S3Uploader;
+import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -54,14 +59,25 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
-    public List<PostsResponseDto> getPost() {
-        return postService.getPost();
+    public ResponseEntity<StatusMessage> getPost() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StatusMessage statusMessage = new StatusMessage();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.getPost());
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+
     }
 
     //특정게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public PostDetailResponseDto getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return postService.getPostDetail(postId, userDetails);
+    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StatusMessage statusMessage = new StatusMessage();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.getPostDetail(postId, userDetails));
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
     // 게시글 수정
@@ -81,8 +97,13 @@ public class PostController {
 
     //유저정보, 장바구니 조회
     @GetMapping("/user/mypage")
-    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return postService.getUserPage(userDetails);
+    public ResponseEntity<StatusMessage> getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StatusMessage statusMessage = new StatusMessage();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.getUserPage(userDetails));
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
 

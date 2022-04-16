@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 
 import java.util.ArrayList;
@@ -84,8 +85,8 @@ public class PostService {
                     post.getImageUrl(),
                     post.getPrice(),
                     post.getLocation(),
-                    post.getCreatedAt(),
-                    post.getModifiedAt(),
+                    convertLocaldatetimeToTime(post.getCreatedAt()),
+                    convertLocaldatetimeToTime(post.getModifiedAt()),
                     post.getId(),
                     postLikeRepository.countByPost(post));
             postsResponseDtos.add(postsResponseDto);
@@ -103,7 +104,7 @@ public class PostService {
                 post.getImageUrl(),
                 post.getPrice(),
                 post.getLocation(),
-                post.getCreatedAt(),
+                convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
                 userDetails.getNickname()
         );
@@ -124,8 +125,8 @@ public class PostService {
                     likedPost.getImageUrl(),
                     likedPost.getPrice(),
                     likedPost.getLocation(),
-                    likedPost.getCreatedAt(),
-                    likedPost.getModifiedAt(),
+                    convertLocaldatetimeToTime(likedPost.getCreatedAt()),
+                    convertLocaldatetimeToTime(likedPost.getModifiedAt()),
                     likedPost.getId(),
                     postLikeRepository.countByPost(likedPost)
             );
@@ -146,6 +147,42 @@ public class PostService {
         post.update(postId,requestDto.getPostTitle(), requestDto.getPostContents(), requestDto.getPrice());
         responseDto = new PostResponseDto(responseDto.getPostContents());
         return responseDto;
+    }
+
+    public static String convertLocaldatetimeToTime(LocalDateTime localDateTime) {
+        LocalDateTime now = LocalDateTime.now();
+
+        long diffTime = localDateTime.until(now, ChronoUnit.SECONDS); // now보다 이후면 +, 전이면 -
+
+        int SEC = 60;
+        int MIN = 60;
+        int HOUR = 24;
+        int DAY = 30;
+        int MONTH = 12;
+
+        String msg = null;
+        if (diffTime < SEC){
+            return diffTime + "초전";
+        }
+        diffTime = diffTime / SEC;
+        if (diffTime < MIN) {
+            return diffTime + "분 전";
+        }
+        diffTime = diffTime / MIN;
+        if (diffTime < HOUR) {
+            return diffTime + "시간 전";
+        }
+        diffTime = diffTime / HOUR;
+        if (diffTime < DAY) {
+            return diffTime + "일 전";
+        }
+        diffTime = diffTime / DAY;
+        if (diffTime < MONTH) {
+            return diffTime + "개월 전";
+        }
+
+        diffTime = diffTime / MONTH;
+        return diffTime + "년 전";
     }
 }
 
