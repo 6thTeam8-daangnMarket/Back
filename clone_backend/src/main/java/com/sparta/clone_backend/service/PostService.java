@@ -23,13 +23,6 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    // 게시글 저장 test
-    public Post savePost(PostRequestDto postRequestDto){
-
-        Post post = new Post(postRequestDto);
-        return postRepository.save(post);
-    }
-
     // 전체 게시글 조회
     public List<PostResponseDto> getPost() {
         List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
