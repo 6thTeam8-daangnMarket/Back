@@ -79,12 +79,11 @@ public class PostController {
                 .body("삭제 완료!");
     }
 
-
-//    //유저정보, 장바구니 조회
-//    @GetMapping("/user/mypage}")
-//    public mypageResponseDto getPostDetail(@AuthentificationPrincipal UserDetailsImpl userDetails){
-//        return postService.getmypage(userDetails);
-//    }
+    //유저정보, 장바구니 조회
+    @GetMapping("/user/mypage")
+    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return postService.getUserPage(userDetails);
+    }
 
 
 }
