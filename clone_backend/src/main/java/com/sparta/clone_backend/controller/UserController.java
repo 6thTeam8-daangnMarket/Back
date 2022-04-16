@@ -6,7 +6,12 @@ import com.sparta.clone_backend.dto.SignupRequestDto;
 import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.UserService;
+import com.sparta.clone_backend.utils.StatusMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 
 @RestController
@@ -27,8 +33,14 @@ public class UserController {
     }
 
     @PostMapping("/user/signup")
-    public User registerUser(@RequestBody SignupRequestDto signupRequestDto){
-        return userService.registerUser(signupRequestDto);
+    public ResponseEntity<StatusMessage> registerUser(@RequestBody SignupRequestDto signupRequestDto){
+        StatusMessage statusMessage = new StatusMessage();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setMessage("회원 등록 성공");
+        statusMessage.setData(userService.registerUser(signupRequestDto));
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/user/idCheck")
