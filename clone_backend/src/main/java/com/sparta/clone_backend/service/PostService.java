@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -67,7 +68,10 @@ public class PostService {
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
-        System.out.println("PostService 삭제 기능 postId"+post.getId());
+
+        Optional<PostLike> postLike = postLikeRepository.findById(postId);
+
+        postLikeRepository.deleteById(postLike.get().getId());
 
         postRepository.deleteById(post.getId());
 
