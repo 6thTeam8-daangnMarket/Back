@@ -7,8 +7,8 @@ import com.sparta.clone_backend.dto.ResponseDto;
 import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
-
-import com.sparta.clone_backend.service.S3Uploader;
+//
+//import com.sparta.clone_backend.service.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,7 +29,7 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-    private final S3Uploader s3Uploader;
+//    private final S3Uploader s3Uploader;
 
     // 게시글 생성
     @PostMapping("/api/write")
@@ -75,11 +75,11 @@ public class PostController {
 //        return postService.getmypage(userDetails);
 //    }
 
-    // 이미지 업로드
-    @PostMapping("/images")
-    public String upload(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-        s3Uploader.upload(multipartFile, "static");
-        return "test";
-    }
+//    // 이미지 업로드
+//    @PostMapping("/images")
+//    public String upload(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+//        s3Uploader.upload(multipartFile, "static");
+//        return "test";
+//    }
 
 }

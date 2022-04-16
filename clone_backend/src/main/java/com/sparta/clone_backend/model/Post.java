@@ -8,9 +8,12 @@ import com.sparta.clone_backend.dto.PostRequestDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -33,6 +36,8 @@ public class Post extends Timestamped{
 
     @Column(nullable = true)
     private String imageUrl;
+
+//    private List<MultipartFile> imageUrl = new ArrayList<>();
 
     @Column(nullable = false)
     private int price;

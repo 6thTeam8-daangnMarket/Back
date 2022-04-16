@@ -4,20 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66a2977e-3514-4501-a32d-907f8ed9ba7b" name="변경" comment="변경">
-      <change afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/config/AmazonS3Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/S3Uploader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clone_backend/src/main/resources/aws.yml" afterDir="false" />
+    <list default="true" id="66a2977e-3514-4501-a32d-907f8ed9ba7b" name="변경" comment="이미지 업로드 추가">
       <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post$PostBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post$PostBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/security/WebSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/test/com/sparta/clone_backend/CloneBackendApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT-plain.jar" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT-plain.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/reports/tests/test/classes/com.sparta.clone_backend.CloneBackendApplicationTests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/reports/tests/test/css/base-style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/reports/tests/test/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/reports/tests/test/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/reports/tests/test/js/report.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/reports/tests/test/packages/com.sparta.clone_backend.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/resources/main/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/test-results/test/TEST-com.sparta.clone_backend.CloneBackendApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/test-results/test/binary/output.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/test-results/test/binary/results.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/config/AmazonS3Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/config/AmazonS3Config.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/ResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/ResponseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/model/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/S3Uploader.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/S3Uploader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/resources/aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/resources/aws.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/test/java/com/sparta/clone_backend/CloneBackendApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +56,28 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/clone_backend">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="clone_backend" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="clone_backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="clone_backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -196,7 +239,28 @@
       <option name="project" value="LOCAL" />
       <updated>1650073462128</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="이미지 업로드 추가">
+      <created>1650093124846</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1650093124846</updated>
+    </task>
+    <task id="LOCAL-00008" summary="이미지 업로드 추가">
+      <created>1650093179384</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1650093179384</updated>
+    </task>
+    <task id="LOCAL-00009" summary="이미지 업로드 추가">
+      <created>1650093187081</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1650093187081</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +294,7 @@
     <MESSAGE value="test" />
     <MESSAGE value="전체게시글, 특정게시글 조회" />
     <MESSAGE value="변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="변경" />
+    <MESSAGE value="이미지 업로드 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="이미지 업로드 추가" />
   </component>
 </project>
