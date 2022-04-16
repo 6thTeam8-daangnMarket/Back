@@ -65,4 +65,8 @@ public class Post extends Timestamped{
         this.price = price;
     }
 
+    public void update(Long postId, String postContents) {
+        this.id = postId;
+        this.postContents = postContents;
+    }
 }

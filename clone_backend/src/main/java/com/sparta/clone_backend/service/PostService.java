@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +37,7 @@ public class PostService {
 //        this.postRepository = postRepository;
 //    };
 
+    // 게시물 등록
     public PostResponseDto createPost(PostRequestDto postRequestDto, User user) {
 
         Post post = Post.builder()
@@ -62,19 +62,16 @@ public class PostService {
 
     // 게시글 삭제
     @Transactional
-    public void deletePost(Long postId, User user) {
+    public Object deletePost(Long postId, User user) {
 
-        HashMap<String, String> deletePost = new HashMap<>();
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
-
         Optional<PostLike> postLike = postLikeRepository.findById(postId);
-
         postLikeRepository.deleteById(postLike.get().getId());
-
         postRepository.deleteById(post.getId());
 
+        return null;
     }
 
     //전체 게시글 조회
@@ -139,16 +136,16 @@ public class PostService {
         return new UserPageResponseDto(userDetails.getNickname(), postsResponseDtos);
     }
 
-    // 게시글 수정
-    public PostResponseDto editPost(Long postId, PostRequestDto requestDto, UserDetailsImpl userDetails) {
-        PostResponseDto responseDto = null;
+    // 게시글 수정 (아직은 내용만 수정 가능)
+    @Transactional
+    public PostResponseDto editPost(Long postId, PostRequestDto requestDto, User user) {
 
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new IllegalArgumentException("판매하지 않는 상품입니다.")
+        Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
+                () -> new IllegalArgumentException("작성자만 수정 가능합니다.")
         );
+        post.update(postId, requestDto.getPostContents());
 
-        post.update(postId,requestDto.getPostTitle(), requestDto.getPostContents(), requestDto.getPrice());
-        responseDto = new PostResponseDto(responseDto.getPostContents());
+        PostResponseDto responseDto = new PostResponseDto(postId, post.getPostContents());
         return responseDto;
     }
 }

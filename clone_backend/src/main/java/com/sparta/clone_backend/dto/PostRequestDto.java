@@ -2,13 +2,14 @@ package com.sparta.clone_backend.dto;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Data
 public class PostRequestDto {
-
     private String postTitle;
     private String postContents;
     private String imageUrl;
