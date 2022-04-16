@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66a2977e-3514-4501-a32d-907f8ed9ba7b" name="변경" comment="" />
+    <list default="true" id="66a2977e-3514-4501-a32d-907f8ed9ba7b" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/file-system.probe" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,6 +90,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -116,7 +124,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4bdf9d01-7793-4933-92df-065999c42ec0" name="Changes" comment="" />
+      <changelist id="40a951e5-393e-49a8-b2b0-0c50d0cff4d9" name="Changes" comment="" />
       <created>1650011619450</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -125,6 +133,10 @@
       <workItem from="1650014580881" duration="12837000" />
       <workItem from="1650040368654" duration="1152000" />
       <workItem from="1650069673786" duration="9610000" />
+      <workItem from="1650103980835" duration="92000" />
+      <workItem from="1650104091854" duration="181000" />
+      <workItem from="1650104298394" duration="34000" />
+      <workItem from="1650104399033" duration="1155000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -182,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650103915333</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="장바구니 페이지 추가">
+      <created>1650103988273</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1650103988273</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +218,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/write&amp;detail" />
+                        <option value="origin/signup&amp;login" />
                       </list>
                     </value>
                   </entry>
