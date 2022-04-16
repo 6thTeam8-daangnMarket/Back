@@ -22,7 +22,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -32,14 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JWTAuthProvider jwtAuthProvider;
     private final HeaderTokenExtractor headerTokenExtractor;
-    private AuthFailureHandler authFailureHandler;
+
 
     public WebSecurityConfig(
             JWTAuthProvider jwtAuthProvider,
-            HeaderTokenExtractor headerTokenExtractor) {
+            HeaderTokenExtractor headerTokenExtractor
+
+
+    ) {
         this.jwtAuthProvider = jwtAuthProvider;
         this.headerTokenExtractor = headerTokenExtractor;
-
     }
 
     @Bean
@@ -65,13 +66,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.cors();
+
+        //cors 해결
+        http.cors()
+                        .configurationSource(corsConfigurationSource());
 
         // 서버에서 인증은 JWT로 인증하기 때문에 Session의 생성을 막습니다.
         http
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -89,17 +90,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/api/login")
-                .loginProcessingUrl("/api/login")
-                .successHandler(formLoginSuccessHandler())
-                .failureHandler(authFailureHandler())
-                .permitAll()
-                .and()
+
                 // [로그아웃 기능]
                 .logout()
                 // 로그아웃 요청 처리 URL
-                .logoutUrl("/api/logout")
+                .logoutUrl("/user/logout")
                 .permitAll()
                 .and()
                 .exceptionHandling()
@@ -107,29 +102,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/forbidden.html");
     }
 
-    //   CORS 설정   //
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://gaemoim.s3-website.ap-northeast-2.amazonaws.com/"));
-        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT","OPTIONS","DELETE"));
-        corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-        corsConfiguration.setExposedHeaders(Arrays.asList("Authorization"));
-        corsConfiguration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
-    }
-
-    //    CORS 설정   //
-
     @Bean
     public FormLoginFilter formLoginFilter() throws Exception {
         FormLoginFilter formLoginFilter = new FormLoginFilter(authenticationManager());
-        formLoginFilter.setFilterProcessesUrl("/api/login");
+        formLoginFilter.setFilterProcessesUrl("/user/login");
         formLoginFilter.setAuthenticationSuccessHandler(formLoginSuccessHandler());
-        formLoginFilter.setAuthenticationFailureHandler(authFailureHandler());
         formLoginFilter.afterPropertiesSet();
         return formLoginFilter;
     }
@@ -137,11 +114,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public FormLoginSuccessHandler formLoginSuccessHandler() {
         return new FormLoginSuccessHandler();
-    }
-
-    @Bean
-    public AuthFailureHandler authFailureHandler() {
-        return new AuthFailureHandler();
     }
 
     @Bean
@@ -160,19 +132,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("GET,/h2-console/**");
         skipPathList.add("POST,/h2-console/**");
         // 회원 관리 API 허용
-        skipPathList.add("GET,/user/**");
-        skipPathList.add("GET,/api/**");
-        skipPathList.add("POST,/api/register");
-        skipPathList.add("POST,/api/login");
-        skipPathList.add("POST,/api/idCheck");
-        skipPathList.add("POST,/api/post/**");
-        skipPathList.add("GET,/api/post/**");
-        skipPathList.add("PUT,/api/post/**");
-        skipPathList.add("DELETE,/api/post/**");
-        skipPathList.add("POST,/api/comments/**");
-        skipPathList.add("GET,/api/comments/**");
-        skipPathList.add("PUT,/api/comments/**");
-        skipPathList.add("DELETE,/api/comments/**");
+        skipPathList.add("POST,/user/signup");
+        skipPathList.add("POST,/user/idCheck");
+        skipPathList.add("POST,/user/nicknameCheck");
+        skipPathList.add("POST,/user/login");
+//        skipPathList.add("POST,/user/**");
+
+        //게시글 관련 허용
+        skipPathList.add("GET,/api/posts/**");
+        skipPathList.add("POST,/api/posts/**");
+        skipPathList.add("POST,/api/write/**");
+        skipPathList.add("DELETE,/api/posts/**");
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
@@ -197,5 +167,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    //cors 해결
+    public CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("http://localhost:3000"); // local 테스트 시
+        //corsConfiguration.addAllowedOrigin(""); //배포시
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addExposedHeader("Authorization");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
     }
 }

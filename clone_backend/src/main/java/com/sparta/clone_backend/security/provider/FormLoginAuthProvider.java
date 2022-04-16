@@ -28,7 +28,6 @@ public class FormLoginAuthProvider implements AuthenticationProvider {
         String username = token.getName();
         String password = (String) token.getCredentials();
 
-
         // UserDetailsService 를 통해 DB에서 username 으로 사용자 조회
         UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
