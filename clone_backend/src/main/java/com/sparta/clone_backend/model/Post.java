@@ -1,13 +1,19 @@
 package com.sparta.clone_backend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
-@Getter
-@NoArgsConstructor
+
 @Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -29,8 +35,21 @@ public class Post {
     @Column(nullable = false)
     private String location;
 
+    @Column(nullable = false)
+    private String nickname;
+
     @ManyToOne
     @JoinColumn(nullable = false)
     private User user;
 
+    private Timestamp createDate;
+    private Timestamp updateDate;
+
+
+//    public Post(PostRequestDto requestDto) {
+//        this.postTitle = requestDto.getPostTitle();
+//        this.postContents = requestDto.getPostContents();
+//        this.imageUrl = requestDto.getImageUrl();
+//        this.price = requestDto.
+//    }
 }

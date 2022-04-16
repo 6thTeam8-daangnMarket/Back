@@ -1,6 +1,9 @@
 package com.sparta.clone_backend.security;
 
+<<<<<<< HEAD
 import com.sparta.clone_backend.security.UserDetailsImpl;
+=======
+>>>>>>> origin/write&detail
 import com.sparta.clone_backend.security.jwt.JwtTokenUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -16,9 +19,19 @@ public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response,
                                         final Authentication authentication) {
         final UserDetailsImpl userDetails = ((UserDetailsImpl) authentication.getPrincipal());
+<<<<<<< HEAD
         // Token 생성
         final String token = JwtTokenUtils.generateJwtToken(userDetails);
         response.addHeader(AUTH_HEADER, TOKEN_TYPE + " " + token);
+=======
+
+
+        // Token 생성
+        final String token = JwtTokenUtils.generateJwtToken(userDetails);
+
+        response.addHeader(AUTH_HEADER, TOKEN_TYPE + " " + token);
+
+>>>>>>> origin/write&detail
     }
 
 }

@@ -20,4 +20,8 @@ public class JwtPreProcessingToken extends UsernamePasswordAuthenticationToken {
                 token.length()
         );
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/write&detail

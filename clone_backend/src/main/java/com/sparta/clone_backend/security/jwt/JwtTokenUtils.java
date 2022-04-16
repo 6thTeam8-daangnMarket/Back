@@ -20,6 +20,10 @@ public final class JwtTokenUtils {
 
     public static final String CLAIM_EXPIRED_DATE = "EXPIRED_DATE";
     public static final String CLAIM_USER_NAME = "USER_NAME";
+<<<<<<< HEAD
+=======
+    public static final String CLAIM_NICK_NAME = "NICK_NAME";
+>>>>>>> origin/write&detail
     public static final String JWT_SECRET = "jwt_secret_!@#$%";
 
     public static String generateJwtToken(UserDetailsImpl userDetails) {
@@ -28,9 +32,17 @@ public final class JwtTokenUtils {
             token = JWT.create()
                     .withIssuer("sparta")
                     .withClaim(CLAIM_USER_NAME, userDetails.getUsername())
+<<<<<<< HEAD
                     // 토큰 만료 일시 = 현재 시간 + 토큰 유효기간)
                     .withClaim(CLAIM_EXPIRED_DATE, new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
                     .sign(generateAlgorithm());
+=======
+                    .withClaim(CLAIM_NICK_NAME, userDetails.getNickname())
+                    // 토큰 만료 일시 = 현재 시간 + 토큰 유효기간)
+                    .withClaim(CLAIM_EXPIRED_DATE, new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
+                    .sign(generateAlgorithm());
+
+>>>>>>> origin/write&detail
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

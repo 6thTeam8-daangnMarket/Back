@@ -22,6 +22,10 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+import java.util.Arrays;
+>>>>>>> origin/write&detail
 import java.util.List;
 
 @Configuration
@@ -31,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JWTAuthProvider jwtAuthProvider;
     private final HeaderTokenExtractor headerTokenExtractor;
+<<<<<<< HEAD
 
 
     public WebSecurityConfig(
@@ -41,6 +46,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     ) {
         this.jwtAuthProvider = jwtAuthProvider;
         this.headerTokenExtractor = headerTokenExtractor;
+=======
+    private AuthFailureHandler authFailureHandler;
+
+    public WebSecurityConfig(
+            JWTAuthProvider jwtAuthProvider,
+            HeaderTokenExtractor headerTokenExtractor) {
+        this.jwtAuthProvider = jwtAuthProvider;
+        this.headerTokenExtractor = headerTokenExtractor;
+
+>>>>>>> origin/write&detail
     }
 
     @Bean
@@ -66,6 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+<<<<<<< HEAD
 
         //cors 해결
         http.cors()
@@ -73,6 +89,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 서버에서 인증은 JWT로 인증하기 때문에 Session의 생성을 막습니다.
         http
+=======
+        http.cors();
+
+        // 서버에서 인증은 JWT로 인증하기 때문에 Session의 생성을 막습니다.
+        http
+                .authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .and()
+>>>>>>> origin/write&detail
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -90,11 +115,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .permitAll()
                 .and()
+<<<<<<< HEAD
 
                 // [로그아웃 기능]
                 .logout()
                 // 로그아웃 요청 처리 URL
                 .logoutUrl("/user/logout")
+=======
+                .formLogin()
+                .loginPage("/api/login")
+                .loginProcessingUrl("/api/login")
+                .successHandler(formLoginSuccessHandler())
+                .failureHandler(authFailureHandler())
+                .permitAll()
+                .and()
+                // [로그아웃 기능]
+                .logout()
+                // 로그아웃 요청 처리 URL
+                .logoutUrl("/api/logout")
+>>>>>>> origin/write&detail
                 .permitAll()
                 .and()
                 .exceptionHandling()
@@ -102,11 +141,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/forbidden.html");
     }
 
+<<<<<<< HEAD
     @Bean
     public FormLoginFilter formLoginFilter() throws Exception {
         FormLoginFilter formLoginFilter = new FormLoginFilter(authenticationManager());
         formLoginFilter.setFilterProcessesUrl("/user/login");
         formLoginFilter.setAuthenticationSuccessHandler(formLoginSuccessHandler());
+=======
+    //   CORS 설정   //
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://gaemoim.s3-website.ap-northeast-2.amazonaws.com/"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT","OPTIONS","DELETE"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("Authorization"));
+        corsConfiguration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
+    }
+
+    //    CORS 설정   //
+
+    @Bean
+    public FormLoginFilter formLoginFilter() throws Exception {
+        FormLoginFilter formLoginFilter = new FormLoginFilter(authenticationManager());
+        formLoginFilter.setFilterProcessesUrl("/api/login");
+        formLoginFilter.setAuthenticationSuccessHandler(formLoginSuccessHandler());
+        formLoginFilter.setAuthenticationFailureHandler(authFailureHandler());
+>>>>>>> origin/write&detail
         formLoginFilter.afterPropertiesSet();
         return formLoginFilter;
     }
@@ -117,6 +182,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+<<<<<<< HEAD
+=======
+    public AuthFailureHandler authFailureHandler() {
+        return new AuthFailureHandler();
+    }
+
+    @Bean
+>>>>>>> origin/write&detail
     public FormLoginAuthProvider formLoginAuthProvider() {
         return new FormLoginAuthProvider(encodePassword());
     }
@@ -132,6 +205,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("GET,/h2-console/**");
         skipPathList.add("POST,/h2-console/**");
         // 회원 관리 API 허용
+<<<<<<< HEAD
         skipPathList.add("POST,/user/signup");
         skipPathList.add("POST,/user/idCheck");
         skipPathList.add("POST,/user/nicknameCheck");
@@ -143,6 +217,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("POST,/api/posts/**");
         skipPathList.add("POST,/api/write/**");
         skipPathList.add("DELETE,/api/posts/**");
+=======
+        skipPathList.add("GET,/user/**");
+        skipPathList.add("GET,/api/**");
+        skipPathList.add("POST,/api/register");
+        skipPathList.add("POST,/api/login");
+        skipPathList.add("POST,/api/idCheck");
+        skipPathList.add("POST,/api/post/**");
+        skipPathList.add("GET,/api/post/**");
+        skipPathList.add("PUT,/api/post/**");
+        skipPathList.add("DELETE,/api/post/**");
+        skipPathList.add("POST,/api/comments/**");
+        skipPathList.add("GET,/api/comments/**");
+        skipPathList.add("PUT,/api/comments/**");
+        skipPathList.add("DELETE,/api/comments/**");
+>>>>>>> origin/write&detail
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
@@ -168,6 +257,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+<<<<<<< HEAD
 
     //cors 해결
     public CorsConfigurationSource corsConfigurationSource(){
@@ -182,4 +272,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
+=======
+>>>>>>> origin/write&detail
 }

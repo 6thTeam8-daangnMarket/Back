@@ -1,5 +1,6 @@
 package com.sparta.clone_backend.controller;
 
+<<<<<<< HEAD
 
 import com.sparta.clone_backend.dto.DuplicateChkDto;
 import com.sparta.clone_backend.dto.SignupRequestDto;
@@ -8,7 +9,7 @@ import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,10 +45,8 @@ public class UserController {
     }
 
     @GetMapping("/user/islogin")
-    private DuplicateChkDto isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
+    private DuplicateChkDto isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         System.out.println(userDetails.getUsername());
         System.out.println(userDetails.getNickname());
         return userService.isloginChk(userDetails);
     }
-
-}
