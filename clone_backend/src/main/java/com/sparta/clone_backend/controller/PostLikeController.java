@@ -1,7 +1,5 @@
 package com.sparta.clone_backend.controller;
 
-import com.sparta.clone_backend.dto.PostLikeDto;
-import com.sparta.clone_backend.dto.ResponseDto;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostLikeService;
 import lombok.AllArgsConstructor;
@@ -9,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
