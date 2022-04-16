@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
@@ -17,6 +18,21 @@ public class PostResponseDto {
     private int price;
     private String location;
     private String nickname;
-    private String createdAt;
     private String modifiedAt;
+    private int likeCount;
+    private Long postId;
+    private LocalDateTime createdAt;
+
+    public PostResponseDto(String postTitle, String imageUrl, int price, String location, LocalDateTime createdAt, Long postId, int likeCount){
+        this.postTitle = postTitle;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.location = location;
+        this.createdAt = createdAt;
+        this.postId = postId;
+        this.likeCount = likeCount;
+
+    }
 }
+
+
