@@ -20,7 +20,7 @@ public class PostLike {
     @Column(nullable = false)
     private String username;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)
     private Post post;
 

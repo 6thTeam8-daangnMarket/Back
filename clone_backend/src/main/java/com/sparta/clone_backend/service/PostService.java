@@ -1,18 +1,18 @@
 package com.sparta.clone_backend.service;
 
+
 import com.sparta.clone_backend.dto.PostRequestDto;
 import com.sparta.clone_backend.dto.PostResponseDto;
-import com.sparta.clone_backend.dto.ResponseDto;
+
 import com.sparta.clone_backend.model.Post;
-import com.sparta.clone_backend.model.PostLike;
+
 import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
 import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,9 +20,16 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+import com.sparta.clone_backend.dto.PostDetailResponseDto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 @RequiredArgsConstructor
 @Service
 public class PostService {
+
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
     private final UserRepository userRepository;
@@ -68,5 +75,46 @@ public class PostService {
 
     }
 
+    //전체 게시글 조회
+    public List<PostResponseDto> getPost() {
+        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
+        List<PostResponseDto> postResponseDtos = new ArrayList<>();
+        for (Post post : posts) {
+            int likeCount = 3;
+//                    postLikeRepository.countByPost(post);
 
-}
+            PostResponseDto postResponseDto = new PostResponseDto(
+                    post.getPostTitle(),
+                    post.getImageUrl(),
+                    post.getPrice(),
+                    post.getLocation(),
+                    post.getCreatedAt(),
+                    post.getId(),
+                    likeCount
+            );
+            postResponseDtos.add(postResponseDto);
+        }
+        return postResponseDtos;
+    }
+
+    //상세 게시글 조회
+    public PostDetailResponseDto getPostDetail(Long postId, UserDetailsImpl userDetails) {
+        Post post = postRepository.findById(postId).get();
+
+        int likeCount = 3;
+//            String nickname = "도라에몽";
+//                    postLikeRepository.countByPost(post);
+
+        return new PostDetailResponseDto(
+                post.getPostTitle(),
+                post.getPostContents(),
+                post.getImageUrl(),
+                post.getPrice(),
+                post.getLocation(),
+                post.getCreatedAt(),
+                likeCount,
+                userDetails.getNickname()
+        );
+    }
+    }
+
