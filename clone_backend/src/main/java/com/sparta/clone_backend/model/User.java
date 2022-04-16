@@ -23,16 +23,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-<<<<<<< HEAD
     public User(String username, String passwordEncode,String nickname) {
         this.username = username;
         this.nickname = nickname;
         this.password = passwordEncode;
-=======
-    public User(String username, String nickname, String password) {
-        this.username = username;
-        this.nickname = nickname;
-        this.password = password;
->>>>>>> origin/write&detail
     }
 }
