@@ -51,7 +51,6 @@ public class PostService {
                         .nickname(postRequestDto.getNickname())
                         .build();
 
-        System.out.println(post);
         postRepository.save(post);
 
         return PostResponseDto.builder()
