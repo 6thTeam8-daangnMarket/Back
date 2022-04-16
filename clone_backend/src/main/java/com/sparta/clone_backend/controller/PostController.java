@@ -19,32 +19,6 @@ public class PostController {
 
     private final PostService postService;
 
-    // 게시글 작성 - 테스트용
-    @PostMapping("/api/post")
-    public Post upload(
-            @RequestParam("postTitle") String postTitle,
-            @RequestParam("postContents") String postContents,
-            @RequestParam("imageUrl") String imageUrl,
-            @RequestParam("price") int price,
-            @RequestParam("location") String location,
-
-            @RequestParam("nickname") String nickname
-//            ,@AutentificationPrincipal UserDetailsImpl userDetails
-    ) throws IOException
-    {
-        //userDetials.getUser().getNickname()
-
-        PostRequestDto postRequestDto = new PostRequestDto(
-                postTitle,
-                postContents,
-                imageUrl,
-                price,
-                location,
-                nickname);
-        return postService.savePost(postRequestDto
-//      userDetails.getUser()  : postRequestDto 인자 뒤에 붙어야함
-        );
-    }
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
@@ -54,11 +28,15 @@ public class PostController {
 
     //특정게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public PostDetailResponseDto getPostDetail(@PathVariable Long postId
-//    , @AuthentificationPrincipal UserdetailsImpl userdetails
-    ){
-        return postService.getPostDetail(postId);
+    public PostDetailResponseDto getPostDetail(@PathVariable Long postId, @AuthentificationPrincipal UserDetailsImpl userDetails){
+        return postService.getPostDetail(postId, userDetails);
     }
 
+
+//    //유저정보, 장바구니 조회
+//    @GetMapping("/user/mypage}")
+//    public mypageResponseDto getPostDetail(@AuthentificationPrincipal UserDetailsImpl userDetails){
+//        return postService.getmypage(userDetails);
+//    }
 
 }

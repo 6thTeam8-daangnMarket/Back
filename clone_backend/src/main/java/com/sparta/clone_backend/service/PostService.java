@@ -5,6 +5,7 @@ import com.sparta.clone_backend.dto.PostRequestDto;
 import com.sparta.clone_backend.dto.PostResponseDto;
 import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.model.PostLike;
+import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,13 +53,11 @@ public class PostService {
     }
 
     // 상세 게시글 조회
-    public PostDetailResponseDto getPostDetail(Long postId
-//            , User user
-    ) {
+    public PostDetailResponseDto getPostDetail(Long postId, UserDetailsImpl userDetails) {
         Post post = postRepository.findById(postId).get();
 
             int likeCount = 3;
-            String nickname = "도라에몽";
+//            String nickname = "도라에몽";
 //                    postLikeRepository.countByPost(post);
 
         return new PostDetailResponseDto(
@@ -69,8 +68,7 @@ public class PostService {
                     post.getLocation(),
                     post.getCreatedAt(),
                     likeCount,
-                    nickname
-
+                    userDetails.getNickname()
             );
         }
 
