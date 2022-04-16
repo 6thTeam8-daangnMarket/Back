@@ -1,11 +1,11 @@
 package com.sparta.clone_backend.service;
 
 
-import com.sparta.clone_backend.dto.PostRequestDto;
-import com.sparta.clone_backend.dto.PostResponseDto;
+import com.sparta.clone_backend.dto.*;
 
 import com.sparta.clone_backend.model.Post;
 
+import com.sparta.clone_backend.model.PostLike;
 import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
@@ -13,20 +13,15 @@ import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-import com.sparta.clone_backend.dto.PostDetailResponseDto;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -42,12 +37,10 @@ public class PostService {
 //        this.postRepository = postRepository;
 //    };
 
-
-    // 게시글 생성
-    public void createPost(PostRequestDto requestDto, UserDetailsImpl userDetails) {
+    public PostResponseDto createPost(PostRequestDto requestDto, User user) {
 
         Post post = Post.builder()
-                        .user(userDetails.getUser())
+                        .user(user)
                         .postTitle(requestDto.getPostTitle())
                         .postContents(requestDto.getPostContents())
                         .imageUrl(requestDto.getImageUrl())
@@ -59,6 +52,11 @@ public class PostService {
                         .build();
 
         postRepository.save(post);
+
+        return PostResponseDto.builder()
+
+                .username(user.getUsername())
+                .build();
     }
 
     // 게시글 삭제
@@ -76,34 +74,28 @@ public class PostService {
     }
 
     //전체 게시글 조회
-    public List<PostResponseDto> getPost() {
+    public List<PostsResponseDto> getPost() {
         List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
-        List<PostResponseDto> postResponseDtos = new ArrayList<>();
+        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
         for (Post post : posts) {
-            int likeCount = 3;
-//                    postLikeRepository.countByPost(post);
 
-            PostResponseDto postResponseDto = new PostResponseDto(
+            PostsResponseDto postsResponseDto = new PostsResponseDto(
                     post.getPostTitle(),
                     post.getImageUrl(),
                     post.getPrice(),
                     post.getLocation(),
                     post.getCreatedAt(),
+                    post.getModifiedAt(),
                     post.getId(),
-                    likeCount
-            );
-            postResponseDtos.add(postResponseDto);
+                    postLikeRepository.countByPost(post));
+            postsResponseDtos.add(postsResponseDto);
         }
-        return postResponseDtos;
+        return postsResponseDtos;
     }
 
     //상세 게시글 조회
     public PostDetailResponseDto getPostDetail(Long postId, UserDetailsImpl userDetails) {
         Post post = postRepository.findById(postId).get();
-
-        int likeCount = 3;
-//            String nickname = "도라에몽";
-//                    postLikeRepository.countByPost(post);
 
         return new PostDetailResponseDto(
                 post.getPostTitle(),
@@ -112,22 +104,35 @@ public class PostService {
                 post.getPrice(),
                 post.getLocation(),
                 post.getCreatedAt(),
-                likeCount,
+                postLikeRepository.countByPost(post),
                 userDetails.getNickname()
         );
     }
 
-    // 게시글 수정
-    public PostResponseDto editPost(Long postId, PostRequestDto requestDto, UserDetailsImpl userDetails) {
-        PostResponseDto responseDto = null;
+    //유저 페이지,장바구니 조회
+    public UserPageResponseDto getUserPage(UserDetailsImpl userDetails) {
+        String username = userDetails.getUser().getUsername();
 
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new IllegalArgumentException("판매하지 않는 상품입니다.")
-        );
+        List<PostLike> postLikeObjects = postLikeRepository.findAllByUsername(username);
+        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
 
-        post.update(postId,requestDto.getPostTitle(), requestDto.getPostContents(), requestDto.getPrice());
-        responseDto = new PostResponseDto(responseDto.getPostContents());
-     return responseDto;
+        for (PostLike postLikeObject : postLikeObjects) {
+            Post likedPost = postLikeObject.getPost();
+
+            PostsResponseDto postsResponseDto = new PostsResponseDto(
+                    likedPost.getPostTitle(),
+                    likedPost.getImageUrl(),
+                    likedPost.getPrice(),
+                    likedPost.getLocation(),
+                    likedPost.getCreatedAt(),
+                    likedPost.getModifiedAt(),
+                    likedPost.getId(),
+                    postLikeRepository.countByPost(likedPost)
+            );
+            postsResponseDtos.add(postsResponseDto);
+
+        }
+        return new UserPageResponseDto(userDetails.getNickname(), postsResponseDtos);
+    }
     }
 
-}
