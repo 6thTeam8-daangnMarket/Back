@@ -117,5 +117,17 @@ public class PostService {
                 userDetails.getNickname()
         );
     }
-    }
 
+    // 게시글 수정
+    public PostResponseDto editPost(Long postId, PostRequestDto requestDto, UserDetailsImpl userDetails) {
+        PostResponseDto responseDto = null;
+
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new IllegalArgumentException("판매하지 않는 상품입니다.")
+        );
+
+        post.update(postId,requestDto.getPostTitle(), requestDto.getPostContents(), requestDto.getPrice());
+        responseDto = new PostResponseDto(responseDto.getPostContents());
+     return responseDto;
+    }
+}

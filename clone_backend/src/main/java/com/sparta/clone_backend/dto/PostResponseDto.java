@@ -23,6 +23,7 @@ public class PostResponseDto {
     private Long postId;
     private LocalDateTime createdAt;
 
+    // 게시글 생성
     public PostResponseDto(String postTitle, String imageUrl, int price, String location, LocalDateTime createdAt, Long postId, int likeCount){
         this.postTitle = postTitle;
         this.imageUrl = imageUrl;
@@ -31,7 +32,11 @@ public class PostResponseDto {
         this.createdAt = createdAt;
         this.postId = postId;
         this.likeCount = likeCount;
+    }
 
+    // 게시글 수정
+    public PostResponseDto(String postContents) {
+        this.postContents = postContents;
     }
 }
 

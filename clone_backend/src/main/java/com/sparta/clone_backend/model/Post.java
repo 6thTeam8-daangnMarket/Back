@@ -58,6 +58,13 @@ public class Post extends Timestamped{
     private Timestamp createDate;
     private Timestamp updateDate;
 
+    public void update(Long postId, String postTitle, String postContents, int price) {
+        this.id= postId;
+        this.postTitle = postTitle;
+        this.postContents  = postContents;
+        this.price = price;
+    }
+
 
 //    public Post(PostRequestDto requestDto) {
 //        this.postTitle = requestDto.getPostTitle();

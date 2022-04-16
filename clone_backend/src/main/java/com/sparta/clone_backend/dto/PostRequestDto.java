@@ -1,13 +1,8 @@
 package com.sparta.clone_backend.dto;
 
-import lombok.Getter;
-
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
-
 
 @Getter
 @Setter
@@ -19,7 +14,6 @@ public class PostRequestDto {
     private String imageUrl;
     private int price;
     private String location;
-
     private String createdAt;
     private String nickname;
 
