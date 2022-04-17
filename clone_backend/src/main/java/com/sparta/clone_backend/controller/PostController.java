@@ -13,13 +13,12 @@ import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.NotFound;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -40,6 +39,17 @@ public class PostController {
 //        return ResponseEntity.ok()
 //                .body("작성 완료!");
 //    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<StatusMessage> nullex(Exception e) {
+        System.err.println(e.getClass());
+        StatusMessage statusMessage = new StatusMessage();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
+        statusMessage.setData(null);
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
+    }
 
 //     게시글 작성
     @PostMapping("/api/write")
@@ -63,10 +73,6 @@ public class PostController {
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(null);
         postService.createPost(postRequestDto, userDetails.getUser());
-        if (HttpHeaders.EMPTY.isEmpty()) {
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
-        }
-
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
