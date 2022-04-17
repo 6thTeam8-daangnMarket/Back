@@ -62,10 +62,10 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(null);
+        postService.createPost(postRequestDto, userDetails.getUser());
         if (HttpHeaders.EMPTY.isEmpty()) {
             return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
         }
-        postService.createPost(postRequestDto, userDetails.getUser());
 
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
