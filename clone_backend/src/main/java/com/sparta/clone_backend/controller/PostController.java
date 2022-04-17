@@ -1,24 +1,22 @@
 package com.sparta.clone_backend.controller;
 
 
-import ch.qos.logback.core.status.Status;
-import com.sparta.clone_backend.dto.*;
-
-import com.sparta.clone_backend.model.User;
+import com.sparta.clone_backend.dto.PostDetailResponseDto;
+import com.sparta.clone_backend.dto.PostRequestDto;
+import com.sparta.clone_backend.dto.PostsResponseDto;
+import com.sparta.clone_backend.dto.UserPageResponseDto;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
-//
-//import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.NotFound;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
