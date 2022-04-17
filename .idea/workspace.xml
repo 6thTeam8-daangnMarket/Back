@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="변수명 변경 및 TEST 완료">
+    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="게시물 등록 시 시간 중복 저장 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" afterDir="false" />
@@ -12,21 +12,10 @@
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/dto/PostDetailResponseDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/dto/PostDetailResponseDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/dto/PostsResponseDto$PostsResponseDtoBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/dto/PostsResponseDto$PostsResponseDtoBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/dto/PostsResponseDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/dto/PostsResponseDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post$PostBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post$PostBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/model/Post.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostDetailResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostDetailResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostsResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/PostsResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/model/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +114,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Spring05" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -174,7 +163,7 @@
       <workItem from="1650104298394" duration="34000" />
       <workItem from="1650104399033" duration="1155000" />
       <workItem from="1650152137670" duration="2184000" />
-      <workItem from="1650154351974" duration="4279000" />
+      <workItem from="1650154351974" duration="7733000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -316,7 +305,28 @@
       <option name="project" value="LOCAL" />
       <updated>1650157315877</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="게시물 등록 시 시간 중복 저장 수정">
+      <created>1650158681397</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1650158681397</updated>
+    </task>
+    <task id="LOCAL-00022" summary="게시물 등록 시 시간 중복 저장 수정">
+      <created>1650158688981</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1650158688981</updated>
+    </task>
+    <task id="LOCAL-00023" summary="게시물 등록 시 시간 중복 저장 수정">
+      <created>1650158811042</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1650158811042</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,6 +365,7 @@
     <MESSAGE value="관심 상품 등록 취소 수정" />
     <MESSAGE value="Return값 ResponseEntity로 변경 및 게시글 수정 기능 추가" />
     <MESSAGE value="변수명 변경 및 TEST 완료" />
-    <option name="LAST_COMMIT_MESSAGE" value="변수명 변경 및 TEST 완료" />
+    <MESSAGE value="게시물 등록 시 시간 중복 저장 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="게시물 등록 시 시간 중복 저장 수정" />
   </component>
 </project>

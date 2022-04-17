@@ -12,6 +12,7 @@ import com.sparta.clone_backend.service.PostService;
 import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.NotFound;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -60,8 +61,10 @@ public class PostController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-//        statusMessage.setMessage("회원 등록 성공");
         statusMessage.setData(null);
+        if (HttpHeaders.EMPTY.isEmpty()) {
+            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
+        }
         postService.createPost(postRequestDto, userDetails.getUser());
 
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
@@ -87,7 +90,10 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
-        return new ResponseEntity<>(statusMessage,HttpStatus.OK);
+        if (HttpHeaders.EMPTY.isEmpty()) {
+            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
 //        return postService.editPost(postId,requestDto, userDetails);
     }
 
@@ -100,8 +106,10 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.deletePost(postId, userDetails.getUser()));
-
-        return new ResponseEntity<>(statusMessage,httpHeaders, HttpStatus.OK);
+        if (HttpHeaders.EMPTY.isEmpty()) {
+            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
 //        return ResponseEntity.ok()
 //                .body("삭제 완료!");
     }
