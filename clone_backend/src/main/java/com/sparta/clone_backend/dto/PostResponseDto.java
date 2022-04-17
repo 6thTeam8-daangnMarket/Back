@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class PostResponseDto {
-    private String username;
+    private String userName;
     private String postTitle;
     private String postContents;
     private String imageUrl;
     private int price;
     private String location;
-    private String nickname;
+    private String nickName;
     private int likeCount;
     private Long postId;
     private LocalDateTime createdAt;

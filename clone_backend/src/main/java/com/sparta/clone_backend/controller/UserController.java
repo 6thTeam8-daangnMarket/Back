@@ -46,20 +46,20 @@ public class UserController {
 
     @PostMapping("/user/idCheck")
     private HashMap<String, String> userDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
-        System.out.println("아이디 중복 확인"+duplicateChkDto.getUsername());
-        return userService.idDuplichk(duplicateChkDto.getUsername());
+        System.out.println("아이디 중복 확인"+duplicateChkDto.getUserName());
+        return userService.idDuplichk(duplicateChkDto.getUserName());
     }
 
-    @PostMapping("/user/nicknameCheck")
-    private HashMap<String, String> nicknameDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
-        System.out.println("닉네임 중복 확인" + duplicateChkDto.getNickname());
-        return userService.nicknameDuplichk(duplicateChkDto.getNickname());
+    @PostMapping("/user/nickNameCheck")
+    private HashMap<String, String> nickNameDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
+        System.out.println("닉네임 중복 확인" + duplicateChkDto.getNickName());
+        return userService.nickNameDuplichk(duplicateChkDto.getNickName());
     }
 
     @GetMapping("/user/islogin")
     private DuplicateChkDto isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
         System.out.println(userDetails.getUsername());
-        System.out.println(userDetails.getNickname());
+        System.out.println(userDetails.getNickName());
         return userService.isloginChk(userDetails);
     }
 

@@ -45,17 +45,16 @@ public class PostController {
     public ResponseEntity<StatusMessage> upload(
             @RequestParam("postTitle") String postTitle,
             @RequestParam("postContents") String postContents,
-            @RequestParam("imageUrl") MultipartFile multipartFile,
+            @RequestParam(value = "imageUrl") MultipartFile multipartFile,
             @RequestParam("price") int price,
             @RequestParam("location") String location,
-            @RequestParam("nickname") String nickname,
+            @RequestParam("nickName") String nickName,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws IOException
     {
         String imageUrl = S3Uploader.upload(multipartFile, "static");
 
-        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickname);
-//        postService.createPost(postRequestDto, userDetails.getUser());
+        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickName);
 
         StatusMessage statusMessage = new StatusMessage();
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -102,13 +101,12 @@ public class PostController {
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.deletePost(postId, userDetails.getUser()));
 
-//        postService.deletePost(postId, userDetails.getUser());
         return new ResponseEntity<>(statusMessage,httpHeaders, HttpStatus.OK);
 //        return ResponseEntity.ok()
 //                .body("삭제 완료!");
     }
 
-    //유저정보, 장바구니 조회
+    // 유저정보, 장바구니 조회
     @GetMapping("/user/mypage")
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.getUserPage(userDetails);

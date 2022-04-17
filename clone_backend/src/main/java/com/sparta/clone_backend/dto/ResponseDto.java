@@ -8,8 +8,8 @@ import lombok.Setter;
 public class ResponseDto {
     private boolean result;
     private String errormessage;
-    private String username;
-    private String nickname;
+    private String userName;
+    private String nickName;
 
     public ResponseDto(boolean result) {
         this.result = result;

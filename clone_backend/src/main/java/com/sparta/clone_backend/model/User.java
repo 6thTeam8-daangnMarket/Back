@@ -15,17 +15,17 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String userName;
 
     @Column(nullable = false)
-    private String nickname;
+    private String nickName;
 
     @Column(nullable = false)
-    private String password;
+    private String passWord;
 
-    public User(String username, String passwordEncode,String nickname) {
-        this.username = username;
-        this.nickname = nickname;
-        this.password = passwordEncode;
+    public User(String userName, String nickName, String passWordEncode) {
+        this.userName = userName;
+        this.nickName = nickName;
+        this.passWord = passWordEncode;
     }
 }

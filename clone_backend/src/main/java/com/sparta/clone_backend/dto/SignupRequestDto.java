@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class SignupRequestDto {
-    private String username;
-    private String nickname;
-    private String password;
-    private String passwordCheck;
+    private String userName;
+    private String nickName;
+    private String passWord;
+    private String passWordCheck;
 
 }

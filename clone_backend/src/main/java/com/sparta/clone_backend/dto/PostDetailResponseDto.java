@@ -17,7 +17,7 @@ public class PostDetailResponseDto {
     private String location;
     private LocalDateTime createdAt;
     private int likeCount;
-    private String nickname;
+    private String nickName;
 
 
 
@@ -29,7 +29,7 @@ public class PostDetailResponseDto {
             String location,
             LocalDateTime createdAt,
             int likeCount,
-            String nickname) {
+            String nickName) {
 
         this.postTitle = postTitle;
         this.postContents = postContents;
@@ -38,7 +38,7 @@ public class PostDetailResponseDto {
         this.location = location;
         this.createdAt = createdAt;
         this.likeCount = likeCount;
-        this.nickname = nickname;
+        this.nickName = nickName;
     }
 
 

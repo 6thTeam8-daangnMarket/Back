@@ -16,15 +16,15 @@ public class PostRequestDto {
     private int price;
     private String location;
     private String createdAt;
-    private String nickname;
+    private String nickName;
 
-    public PostRequestDto(String postTitle, String postContents, String imageUrl, int price, String location, String nickname) {
+    public PostRequestDto(String postTitle, String postContents, String imageUrl, int price, String location, String nickName) {
         this.postTitle = postTitle;
         this.postContents = postContents;
         this.imageUrl = imageUrl;
         this.price = price;
         this.location = location;
-        this.nickname = nickname;
+        this.nickName = nickName;
     }
 }
 

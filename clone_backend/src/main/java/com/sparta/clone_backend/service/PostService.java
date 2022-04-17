@@ -49,14 +49,14 @@ public class PostService {
                         .location(postRequestDto.getLocation())
                         .createDate(Timestamp.valueOf(LocalDateTime.now()))
                         .updateDate(Timestamp.valueOf(LocalDateTime.now()))
-                        .nickname(postRequestDto.getNickname())
+                        .nickName(postRequestDto.getNickName())
                         .build();
 
         postRepository.save(post);
 
         return PostResponseDto.builder()
 
-                .username(user.getUsername())
+                .userName(user.getUserName())
                 .build();
     }
 
@@ -106,15 +106,15 @@ public class PostService {
                 post.getLocation(),
                 post.getCreatedAt(),
                 postLikeRepository.countByPost(post),
-                userDetails.getNickname()
+                userDetails.getNickName()
         );
     }
 
     //유저 페이지,장바구니 조회
     public UserPageResponseDto getUserPage(UserDetailsImpl userDetails) {
-        String username = userDetails.getUser().getUsername();
+        String userName = userDetails.getUser().getUserName();
 
-        List<PostLike> postLikeObjects = postLikeRepository.findAllByUsername(username);
+        List<PostLike> postLikeObjects = postLikeRepository.findAllByUserName(userName);
         List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
 
         for (PostLike postLikeObject : postLikeObjects) {
@@ -133,7 +133,7 @@ public class PostService {
             postsResponseDtos.add(postsResponseDto);
 
         }
-        return new UserPageResponseDto(userDetails.getNickname(), postsResponseDtos);
+        return new UserPageResponseDto(userDetails.getNickName(), postsResponseDtos);
     }
 
     // 게시글 수정 (아직은 내용만 수정 가능)
@@ -143,7 +143,9 @@ public class PostService {
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 수정 가능합니다.")
         );
+        System.out.println(post.getPostContents());
         post.update(postId, requestDto.getPostContents());
+        System.out.println(post.getPostContents());
 
         PostResponseDto responseDto = new PostResponseDto(postId, post.getPostContents());
         return responseDto;

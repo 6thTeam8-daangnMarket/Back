@@ -41,7 +41,7 @@ public class Post extends Timestamped{
     private String location;
 
     @Column(nullable = false)
-    private String nickname;
+    private String nickName;
 
     @ManyToOne
     @JoinColumn(nullable = false)
