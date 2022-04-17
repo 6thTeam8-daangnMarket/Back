@@ -5,11 +5,15 @@ import com.sparta.clone_backend.dto.PostDetailResponseDto;
 import com.sparta.clone_backend.dto.PostRequestDto;
 import com.sparta.clone_backend.dto.PostsResponseDto;
 import com.sparta.clone_backend.dto.UserPageResponseDto;
+import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
 import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -77,8 +81,16 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
-    public List<PostsResponseDto> getPost() {
-        return postService.getPost();
+    public Page<Post> getPost(@PageableDefault(size = 10) Pageable pageable
+//        @RequestParam("page") int page,
+//        @RequestParam("size") int size,
+//        @RequestParam("sortBy") String sortBy,
+//        @RequestParam("isAsc") boolean isAsc,
+//        @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+//        Long userId = userDetails.getUser().getId();
+//        page = page - 1;
+        return postService.getPost(pageable);
     }
 
     //특정게시글 조회

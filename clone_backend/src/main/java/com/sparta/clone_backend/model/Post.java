@@ -1,16 +1,13 @@
 package com.sparta.clone_backend.model;
 
 
+import com.sparta.clone_backend.dto.PostRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import com.sparta.clone_backend.dto.PostRequestDto;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 

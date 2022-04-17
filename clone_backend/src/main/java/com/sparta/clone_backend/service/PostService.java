@@ -13,10 +13,11 @@ import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
@@ -74,24 +75,25 @@ public class PostService {
         return null;
     }
 
-    //전체 게시글 조회
-    public List<PostsResponseDto> getPost() {
-        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
-        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
-        for (Post post : posts) {
-
-            PostsResponseDto postsResponseDto = new PostsResponseDto(
-                    post.getPostTitle(),
-                    post.getImageUrl(),
-                    post.getPrice(),
-                    post.getLocation(),
-                    post.getCreatedAt(),
-                    post.getModifiedAt(),
-                    post.getId(),
-                    postLikeRepository.countByPost(post));
-            postsResponseDtos.add(postsResponseDto);
-        }
-        return postsResponseDtos;
+    //전체 게시글 조회, 페이징 처리
+    public Page<Post> getPost(Pageable pageable) {
+//        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
+//        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
+//        for (Post post : posts) {
+//
+//            PostsResponseDto postsResponseDto = new PostsResponseDto(
+//                    post.getPostTitle(),
+//                    post.getImageUrl(),
+//                    post.getPrice(),
+//                    post.getLocation(),
+//                    post.getCreatedAt(),
+//                    post.getModifiedAt(),
+//                    post.getId(),
+//                    postLikeRepository.countByPost(post));
+//            postsResponseDtos.add(postsResponseDto);
+//        }
+//        return postsResponseDtos;
+        return postRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     //상세 게시글 조회
@@ -150,5 +152,6 @@ public class PostService {
         PostResponseDto responseDto = new PostResponseDto(postId, post.getPostContents());
         return responseDto;
     }
+
 }
 
