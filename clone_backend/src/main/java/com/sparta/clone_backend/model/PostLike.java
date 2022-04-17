@@ -15,15 +15,15 @@ public class PostLike {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String userName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Post post;
 
 
-    public PostLike(String username, Post post) {
-        this.username = username;
+    public PostLike(String userName, Post post) {
+        this.userName = userName;
         this.post = post;
     }
 }

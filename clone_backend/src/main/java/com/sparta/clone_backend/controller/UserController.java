@@ -39,27 +39,28 @@ public class UserController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setMessage("회원 등록 성공");
-        statusMessage.setData(userService.registerUser(signupRequestDto));
+//        statusMessage.setMessage("회원 등록 성공");
+        statusMessage.setData(null);
+        userService.registerUser(signupRequestDto);
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/user/idCheck")
     private HashMap<String, String> userDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
-        System.out.println("아이디 중복 확인"+duplicateChkDto.getUsername());
-        return userService.idDuplichk(duplicateChkDto.getUsername());
+        System.out.println("아이디 중복 확인"+duplicateChkDto.getUserName());
+        return userService.idDuplichk(duplicateChkDto.getUserName());
     }
 
-    @PostMapping("/user/nicknameCheck")
-    private HashMap<String, String> nicknameDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
-        System.out.println("닉네임 중복 확인" + duplicateChkDto.getNickname());
-        return userService.nicknameDuplichk(duplicateChkDto.getNickname());
+    @PostMapping("/user/nickNameCheck")
+    private HashMap<String, String> nickNameDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
+        System.out.println("닉네임 중복 확인" + duplicateChkDto.getNickName());
+        return userService.nickNameDuplichk(duplicateChkDto.getNickName());
     }
 
     @GetMapping("/user/islogin")
     private DuplicateChkDto isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
         System.out.println(userDetails.getUsername());
-        System.out.println(userDetails.getNickname());
+        System.out.println(userDetails.getNickName());
         return userService.isloginChk(userDetails);
     }
 

@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DuplicateChkDto {
-    private String username;
-    private String nickname;
+    private String userName;
+    private String nickName;
 
-    public DuplicateChkDto (String username, String nickname){
-        this.username = username;
-        this.nickname = nickname;
+    public DuplicateChkDto (String userName, String nickName){
+        this.userName = userName;
+        this.nickName = nickName;
     }
 }

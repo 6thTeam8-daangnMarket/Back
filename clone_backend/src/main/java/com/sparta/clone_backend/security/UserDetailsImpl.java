@@ -22,15 +22,15 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getPassWord();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getUserName();
     }
-    public String getNickname(){
-        return user.getNickname();
+    public String getNickName(){
+        return user.getNickName();
     }
 
     @Override

@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class PostLikeDto {
     private Long postId;
-    private String username;
+    private String userName;
 
-    public PostLikeDto(Long postId, String username) {
+    public PostLikeDto(Long postId, String userName) {
         this.postId = postId;
-        this.username = username;
+        this.userName = userName;
     }
 }
