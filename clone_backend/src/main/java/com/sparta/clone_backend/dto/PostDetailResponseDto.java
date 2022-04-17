@@ -21,7 +21,6 @@ public class PostDetailResponseDto {
     private String nickName;
 
 
-
     public PostDetailResponseDto(
             String postTitle,
             String postContents,
