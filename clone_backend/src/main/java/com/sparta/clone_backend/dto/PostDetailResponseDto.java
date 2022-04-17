@@ -20,7 +20,6 @@ public class PostDetailResponseDto {
     private int likeCount;
     private String nickName;
 
-
     public PostDetailResponseDto(
             String postTitle,
             String postContents,
@@ -40,7 +39,5 @@ public class PostDetailResponseDto {
         this.likeCount = likeCount;
         this.nickName = nickName;
     }
-
-
 
 }
