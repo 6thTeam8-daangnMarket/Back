@@ -47,8 +47,8 @@ public class PostService {
                         .imageUrl(postRequestDto.getImageUrl())
                         .price(postRequestDto.getPrice())
                         .location(postRequestDto.getLocation())
-                        .createDate(Timestamp.valueOf(LocalDateTime.now()))
-                        .updateDate(Timestamp.valueOf(LocalDateTime.now()))
+                        .createdAt(LocalDateTime.now())
+                        .modifiedAt(LocalDateTime.now())
                         .nickName(postRequestDto.getNickName())
                         .build();
 

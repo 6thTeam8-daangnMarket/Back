@@ -61,7 +61,8 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
 //        statusMessage.setMessage("회원 등록 성공");
-        statusMessage.setData(postService.createPost(postRequestDto, userDetails.getUser()));
+        statusMessage.setData(null);
+        postService.createPost(postRequestDto, userDetails.getUser());
 
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
@@ -86,7 +87,6 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
-
         return new ResponseEntity<>(statusMessage,HttpStatus.OK);
 //        return postService.editPost(postId,requestDto, userDetails);
     }
