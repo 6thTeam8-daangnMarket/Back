@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="요청 실패 시 BAD REQUEST">
+    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="exception hanlder 추가">
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostLikeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostLikeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +114,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Spring05" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Spring04" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -160,7 +163,7 @@
       <workItem from="1650104298394" duration="34000" />
       <workItem from="1650104399033" duration="1155000" />
       <workItem from="1650152137670" duration="2184000" />
-      <workItem from="1650154351974" duration="8088000" />
+      <workItem from="1650154351974" duration="14432000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -330,7 +333,21 @@
       <option name="project" value="LOCAL" />
       <updated>1650170987979</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="게시글 등록 오류 수정">
+      <created>1650171336222</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1650171336222</updated>
+    </task>
+    <task id="LOCAL-00026" summary="exception hanlder 추가">
+      <created>1650180605119</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1650180605119</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,6 +388,8 @@
     <MESSAGE value="변수명 변경 및 TEST 완료" />
     <MESSAGE value="게시물 등록 시 시간 중복 저장 수정" />
     <MESSAGE value="요청 실패 시 BAD REQUEST" />
-    <option name="LAST_COMMIT_MESSAGE" value="요청 실패 시 BAD REQUEST" />
+    <MESSAGE value="게시글 등록 오류 수정" />
+    <MESSAGE value="exception hanlder 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="exception hanlder 추가" />
   </component>
 </project>

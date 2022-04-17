@@ -1,30 +1,28 @@
 package com.sparta.clone_backend.controller;
 
 
-import ch.qos.logback.core.status.Status;
-import com.sparta.clone_backend.dto.*;
-
-import com.sparta.clone_backend.model.User;
+import com.sparta.clone_backend.dto.PostDetailResponseDto;
+import com.sparta.clone_backend.dto.PostRequestDto;
+import com.sparta.clone_backend.dto.PostsResponseDto;
+import com.sparta.clone_backend.dto.UserPageResponseDto;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
-//
-//import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.NotFound;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,6 +38,17 @@ public class PostController {
 //        return ResponseEntity.ok()
 //                .body("작성 완료!");
 //    }
+
+    @ExceptionHandler({MissingServletRequestParameterException.class, NoSuchElementException.class})
+    public ResponseEntity<StatusMessage> nullex(Exception e) {
+        System.err.println(e.getClass());
+        StatusMessage statusMessage = new StatusMessage();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
+        statusMessage.setData(null);
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
+    }
 
 //     게시글 작성
     @PostMapping("/api/write")
@@ -63,10 +72,6 @@ public class PostController {
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(null);
         postService.createPost(postRequestDto, userDetails.getUser());
-        if (HttpHeaders.EMPTY.isEmpty()) {
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
-        }
-
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
@@ -90,11 +95,7 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
-        if (HttpHeaders.EMPTY.isEmpty()) {
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
-//        return postService.editPost(postId,requestDto, userDetails);
     }
 
 
@@ -106,12 +107,7 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.deletePost(postId, userDetails.getUser()));
-        if (HttpHeaders.EMPTY.isEmpty()) {
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
-//        return ResponseEntity.ok()
-//                .body("삭제 완료!");
     }
 
     // 유저정보, 장바구니 조회
