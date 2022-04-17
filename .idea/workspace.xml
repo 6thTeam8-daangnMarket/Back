@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="병합 후 수정 중" />
+    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="exception hanlder 추가">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +20,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/clone_backend">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -53,7 +58,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -99,7 +104,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Spring04" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -127,13 +132,14 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.CloneBackendApplication" />
+        <item itemvalue="Spring Boot.CloneBackendApplication" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="40a951e5-393e-49a8-b2b0-0c50d0cff4d9" name="Changes" comment="" />
+      <changelist id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="Return값 ResponseEntity로 변경 및 게시글 수정 기능 추가" />
       <created>1650011619450</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -146,6 +152,9 @@
       <workItem from="1650104091854" duration="181000" />
       <workItem from="1650104298394" duration="34000" />
       <workItem from="1650104399033" duration="1155000" />
+      <workItem from="1650152137670" duration="2184000" />
+      <workItem from="1650154351974" duration="16460000" />
+      <workItem from="1650206902911" duration="2418000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -217,21 +226,161 @@
       <option name="project" value="LOCAL" />
       <updated>1650117467333</updated>
     </task>
-    <task id="LOCAL-00011" summary="createdAt 형식변경">
-      <created>1650128108400</created>
+    <task id="LOCAL-00011" summary="1차 기능 구현 완료">
+      <created>1650123137232</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1650128108400</updated>
+      <updated>1650123137232</updated>
     </task>
-    <task id="LOCAL-00012" summary="createdAt 형식변경">
-      <created>1650128162024</created>
+    <task id="LOCAL-00012" summary="1차 기능 구현 완료">
+      <created>1650123259986</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1650128162024</updated>
+      <updated>1650123259986</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="관심 상품 등록 취소 수정">
+      <created>1650124155419</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1650124155419</updated>
+    </task>
+    <task id="LOCAL-00014" summary="관심 상품 등록 취소 수정">
+      <created>1650129271387</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1650129271387</updated>
+    </task>
+    <task id="LOCAL-00015" summary="관심 상품 등록 취소 수정">
+      <created>1650129688796</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1650129688796</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Return값 ResponseEntity로 변경 및 게시글 수정 기능 추가">
+      <created>1650139776772</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1650139776772</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Return값 ResponseEntity로 변경 및 게시글 수정 기능 추가">
+      <created>1650139797469</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1650139797469</updated>
+    </task>
+    <task id="LOCAL-00018" summary="변수명 변경 및 TEST 완료">
+      <created>1650157230638</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1650157230638</updated>
+    </task>
+    <task id="LOCAL-00019" summary="변수명 변경 및 TEST 완료">
+      <created>1650157300171</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1650157300171</updated>
+    </task>
+    <task id="LOCAL-00020" summary="변수명 변경 및 TEST 완료">
+      <created>1650157315877</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1650157315877</updated>
+    </task>
+    <task id="LOCAL-00021" summary="게시물 등록 시 시간 중복 저장 수정">
+      <created>1650158681397</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1650158681397</updated>
+    </task>
+    <task id="LOCAL-00022" summary="게시물 등록 시 시간 중복 저장 수정">
+      <created>1650158688981</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1650158688981</updated>
+    </task>
+    <task id="LOCAL-00023" summary="게시물 등록 시 시간 중복 저장 수정">
+      <created>1650158811042</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1650158811042</updated>
+    </task>
+    <task id="LOCAL-00024" summary="요청 실패 시 BAD REQUEST">
+      <created>1650170987979</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1650170987979</updated>
+    </task>
+    <task id="LOCAL-00025" summary="게시글 등록 오류 수정">
+      <created>1650171336222</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1650171336222</updated>
+    </task>
+    <task id="LOCAL-00026" summary="exception hanlder 추가">
+      <created>1650180605119</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1650180605119</updated>
+    </task>
+    <task id="LOCAL-00027" summary="exception hanlder 추가">
+      <created>1650181190095</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1650181190095</updated>
+    </task>
+    <task id="LOCAL-00028" summary="exception hanlder 추가">
+      <created>1650181194146</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1650181194146</updated>
+    </task>
+    <task id="LOCAL-00029" summary="exception hanlder 추가">
+      <created>1650181203576</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1650181203576</updated>
+    </task>
+    <task id="LOCAL-00030" summary="exception hanlder 추가">
+      <created>1650181303489</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1650181303489</updated>
+    </task>
+    <task id="LOCAL-00031" summary="exception hanlder 추가">
+      <created>1650181380568</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1650181380568</updated>
+    </task>
+    <task id="LOCAL-00032" summary="exception hanlder 추가">
+      <created>1650208914081</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1650208914081</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,17 +415,14 @@
     <MESSAGE value="전체게시글, 특정게시글 조회" />
     <MESSAGE value="장바구니 페이지 추가" />
     <MESSAGE value="병합 후 수정 중" />
-    <MESSAGE value="createdAt 형식변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="createdAt 형식변경" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="1차 기능 구현 완료" />
+    <MESSAGE value="관심 상품 등록 취소 수정" />
+    <MESSAGE value="Return값 ResponseEntity로 변경 및 게시글 수정 기능 추가" />
+    <MESSAGE value="변수명 변경 및 TEST 완료" />
+    <MESSAGE value="게시물 등록 시 시간 중복 저장 수정" />
+    <MESSAGE value="요청 실패 시 BAD REQUEST" />
+    <MESSAGE value="게시글 등록 오류 수정" />
+    <MESSAGE value="exception hanlder 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="exception hanlder 추가" />
   </component>
 </project>

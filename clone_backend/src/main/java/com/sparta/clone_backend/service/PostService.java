@@ -21,8 +21,10 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -38,6 +40,7 @@ public class PostService {
 //        this.postRepository = postRepository;
 //    };
 
+    // 게시물 등록
     public PostResponseDto createPost(PostRequestDto postRequestDto, User user) {
 
         Post post = Post.builder()
@@ -47,31 +50,31 @@ public class PostService {
                         .imageUrl(postRequestDto.getImageUrl())
                         .price(postRequestDto.getPrice())
                         .location(postRequestDto.getLocation())
-                        .createDate(Timestamp.valueOf(LocalDateTime.now()))
-                        .updateDate(Timestamp.valueOf(LocalDateTime.now()))
-                        .nickname(postRequestDto.getNickname())
+                        .createdAt(LocalDateTime.now())
+                        .modifiedAt(LocalDateTime.now())
+                        .nickName(postRequestDto.getNickName())
                         .build();
 
         postRepository.save(post);
 
         return PostResponseDto.builder()
 
-                .username(user.getUsername())
+                .userName(user.getUserName())
                 .build();
     }
 
     // 게시글 삭제
     @Transactional
-    public void deletePost(Long postId, User user) {
+    public Object deletePost(Long postId, User user) {
 
-        HashMap<String, String> deletePost = new HashMap<>();
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
-        System.out.println("PostService 삭제 기능 postId"+post.getId());
-
+        Optional<PostLike> postLike = postLikeRepository.findById(postId);
+        postLikeRepository.deleteById(postLike.get().getId());
         postRepository.deleteById(post.getId());
 
+        return null;
     }
 
     //전체 게시글 조회
@@ -106,15 +109,15 @@ public class PostService {
                 post.getLocation(),
                 convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
-                userDetails.getNickname()
+                userDetails.getNickName()
         );
     }
 
     //유저 페이지,장바구니 조회
     public UserPageResponseDto getUserPage(UserDetailsImpl userDetails) {
-        String username = userDetails.getUser().getUsername();
+        String userName = userDetails.getUser().getUserName();
 
-        List<PostLike> postLikeObjects = postLikeRepository.findAllByUsername(username);
+        List<PostLike> postLikeObjects = postLikeRepository.findAllByUserName(userName);
         List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
 
         for (PostLike postLikeObject : postLikeObjects) {
@@ -133,19 +136,21 @@ public class PostService {
             postsResponseDtos.add(postsResponseDto);
 
         }
-        return new UserPageResponseDto(userDetails.getNickname(), postsResponseDtos);
+        return new UserPageResponseDto(userDetails.getNickName(), postsResponseDtos);
     }
 
-    // 게시글 수정
-    public PostResponseDto editPost(Long postId, PostRequestDto requestDto, UserDetailsImpl userDetails) {
-        PostResponseDto responseDto = null;
+    // 게시글 수정 (아직은 내용만 수정 가능)
+    @Transactional
+    public PostResponseDto editPost(Long postId, PostRequestDto requestDto, User user) {
 
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new IllegalArgumentException("판매하지 않는 상품입니다.")
+        Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
+                () -> new IllegalArgumentException("작성자만 수정 가능합니다.")
         );
+        System.out.println(post.getPostContents());
+        post.update(postId, requestDto.getPostContents());
+        System.out.println(post.getPostContents());
 
-        post.update(postId,requestDto.getPostTitle(), requestDto.getPostContents(), requestDto.getPrice());
-        responseDto = new PostResponseDto(responseDto.getPostContents());
+        PostResponseDto responseDto = new PostResponseDto(postId, post.getPostContents());
         return responseDto;
     }
 

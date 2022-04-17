@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -41,14 +42,14 @@ public class Post extends Timestamped{
     private String location;
 
     @Column(nullable = false)
-    private String nickname;
+    private String nickName;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private User user;
 
-    private Timestamp createDate;
-    private Timestamp updateDate;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 //
     public Post(PostRequestDto postRequestDto){
         this.postTitle = postRequestDto.getPostTitle();
@@ -65,4 +66,9 @@ public class Post extends Timestamped{
         this.price = price;
     }
 
+    // 게시글 내용 수정
+    public void update(Long postId, String postContents) {
+        this.id = postId;
+        this.postContents = postContents;
+    }
 }

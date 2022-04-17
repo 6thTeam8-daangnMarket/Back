@@ -1,13 +1,12 @@
 package com.sparta.clone_backend.controller;
 
 
-import com.sparta.clone_backend.dto.*;
-
-import com.sparta.clone_backend.model.User;
+import com.sparta.clone_backend.dto.PostDetailResponseDto;
+import com.sparta.clone_backend.dto.PostRequestDto;
+import com.sparta.clone_backend.dto.PostsResponseDto;
+import com.sparta.clone_backend.dto.UserPageResponseDto;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
-//
-//import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +15,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,22 +39,40 @@ public class PostController {
 //                .body("작성 완료!");
 //    }
 
+    @ExceptionHandler({MissingServletRequestParameterException.class, NoSuchElementException.class})
+    public ResponseEntity<StatusMessage> nullex(Exception e) {
+        System.err.println(e.getClass());
+        StatusMessage statusMessage = new StatusMessage();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
+        statusMessage.setData(null);
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
+    }
+
 //     게시글 작성
     @PostMapping("/api/write")
-    public void upload(
+    public ResponseEntity<StatusMessage> upload(
             @RequestParam("postTitle") String postTitle,
             @RequestParam("postContents") String postContents,
-            @RequestParam("imageUrl") MultipartFile multipartFile,
+            @RequestParam(value = "imageUrl") MultipartFile multipartFile,
             @RequestParam("price") int price,
             @RequestParam("location") String location,
-            @RequestParam("nickname") String nickname,
+            @RequestParam("nickName") String nickName,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws IOException
     {
         String imageUrl = S3Uploader.upload(multipartFile, "static");
 
-        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickname);
+        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickName);
+
+        StatusMessage statusMessage = new StatusMessage();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(null);
         postService.createPost(postRequestDto, userDetails.getUser());
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
     // 전체 게시글 조회
@@ -82,20 +100,28 @@ public class PostController {
 
     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
-    public PostResponseDto editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return postService.editPost(postId,requestDto, userDetails);
+    public ResponseEntity<StatusMessage> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        StatusMessage statusMessage = new StatusMessage();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
 
     // 게시글 삭제
     @DeleteMapping("api/posts/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        postService.deletePost(postId, userDetails.getUser());
-        return ResponseEntity.ok()
-                .body("삭제 완료!");
+    public ResponseEntity<StatusMessage> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        StatusMessage statusMessage = new StatusMessage();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.deletePost(postId, userDetails.getUser()));
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
-    //유저정보, 장바구니 조회
+    // 유저정보, 장바구니 조회
     @GetMapping("/user/mypage")
     public ResponseEntity<StatusMessage> getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
         HttpHeaders httpHeaders = new HttpHeaders();

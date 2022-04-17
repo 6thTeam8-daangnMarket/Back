@@ -25,7 +25,7 @@ public class PostLikeService {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("판매되지 않는 상품입니다.")
         );
-        Optional<PostLike> postLike = postLikeRepository.findByUsernameAndPost(userDetails.getUsername(), post);
+        Optional<PostLike> postLike = postLikeRepository.findByUserNameAndPost(userDetails.getUsername(), post);
 
         if (!postLike.isPresent()) {
             PostLike postLikesave = new PostLike(userDetails.getUsername(), post);
