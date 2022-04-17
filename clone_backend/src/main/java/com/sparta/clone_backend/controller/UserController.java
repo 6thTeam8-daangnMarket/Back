@@ -31,7 +31,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ExceptionHandler(PropertyValueException.class)
+    @ExceptionHandler({PropertyValueException.class, IllegalArgumentException.class })
     public ResponseEntity<StatusMessage> nullex(Exception e) {
         System.err.println(e.getClass());
         StatusMessage statusMessage = new StatusMessage();

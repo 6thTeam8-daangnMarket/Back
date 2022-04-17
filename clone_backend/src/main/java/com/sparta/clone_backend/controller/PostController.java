@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,7 +41,7 @@ public class PostController {
 //                .body("작성 완료!");
 //    }
 
-    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ExceptionHandler({MissingServletRequestParameterException.class, NoSuchElementException.class})
     public ResponseEntity<StatusMessage> nullex(Exception e) {
         System.err.println(e.getClass());
         StatusMessage statusMessage = new StatusMessage();

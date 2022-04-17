@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.Charset;
+import java.util.NoSuchElementException;
 
 @AllArgsConstructor
 @RestController
