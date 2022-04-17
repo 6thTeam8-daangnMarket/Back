@@ -95,11 +95,7 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
-        if (HttpHeaders.EMPTY.isEmpty()) {
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
-//        return postService.editPost(postId,requestDto, userDetails);
     }
 
 
@@ -111,12 +107,7 @@ public class PostController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
         statusMessage.setData(postService.deletePost(postId, userDetails.getUser()));
-        if (HttpHeaders.EMPTY.isEmpty()) {
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
-//        return ResponseEntity.ok()
-//                .body("삭제 완료!");
     }
 
     // 유저정보, 장바구니 조회
