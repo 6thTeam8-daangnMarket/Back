@@ -39,7 +39,6 @@ public class PostLikeController {
     public ResponseEntity<StatusMessage> likePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 //        if (userDetails == null) {
 //            return ResponseEntity.badRequest("로그인 해주세요오오오옹");
-//
 //        }
         StatusMessage statusMessage = new StatusMessage();
         HttpHeaders httpHeaders = new HttpHeaders();
