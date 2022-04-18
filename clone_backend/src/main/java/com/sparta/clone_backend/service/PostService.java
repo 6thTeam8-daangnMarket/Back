@@ -93,7 +93,6 @@ public class PostService {
         String temp = post.getImageUrl();
         Image image = imageRepository.findByImageUrl(temp);
         String fileName = image.getFilename();
-        String imageUrl = image.getImageUrl();
         s3Uploader.deleteImage(fileName);
 
         postLikeRepository.deleteAllByPostId(postId);
