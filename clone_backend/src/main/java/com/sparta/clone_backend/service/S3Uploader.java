@@ -1,5 +1,6 @@
 package com.sparta.clone_backend.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
@@ -31,6 +32,12 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
 
+    @Value("${cloud.aws.credentials.access-key}")
+    private String accessKey;
+
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String secretKey;
+
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
                 .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
@@ -42,6 +49,7 @@ public class S3Uploader {
     private String upload(File uploadFile, String dirName) {
         String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
+
         removeNewFile(uploadFile);
 
         Image image = new Image(fileName, uploadImageUrl);
@@ -76,5 +84,16 @@ public class S3Uploader {
         }
 
         return Optional.empty();
+    }
+
+    public void deleteImage(String fileName){
+//        try {
+//            fileNmae.dele
+//        } catch (AmazonServiceException e){
+//            System.out.println(e.getErrorMessage());
+//        }
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
+//        DeleteObjectRequest request = new DeleteObjectRequest(bucket, imageUrl);
+//        amazonS3Client.deleteObject(request);
     }
 }
