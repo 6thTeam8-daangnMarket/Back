@@ -87,13 +87,6 @@ public class S3Uploader {
     }
 
     public void deleteImage(String fileName){
-//        try {
-//            fileNmae.dele
-//        } catch (AmazonServiceException e){
-//            System.out.println(e.getErrorMessage());
-//        }
         amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
-//        DeleteObjectRequest request = new DeleteObjectRequest(bucket, imageUrl);
-//        amazonS3Client.deleteObject(request);
     }
 }
