@@ -39,6 +39,9 @@ public class Post extends Timestamped{
     private int price;
 
     @Column(nullable = false)
+    private String location;
+
+    @Column(nullable = false)
     private String nickName;
 
     @ManyToOne

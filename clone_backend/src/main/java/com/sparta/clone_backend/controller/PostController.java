@@ -57,13 +57,12 @@ public class PostController {
             @RequestParam("postContents") String postContents,
             @RequestParam(value = "imageUrl") MultipartFile multipartFile,
             @RequestParam("price") int price,
-            @RequestParam("location") String location,
             @RequestParam("nickName") String nickName,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws IOException
     {
         String imageUrl = S3Uploader.upload(multipartFile, "static");
-
+        String location = userDetails.getUser().getLocation();
         PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickName);
 
         StatusMessage statusMessage = new StatusMessage();
@@ -77,12 +76,12 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
-    public ResponseEntity<StatusMessage> getPost(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<StatusMessage> getPost() {
         HttpHeaders httpHeaders = new HttpHeaders();
         StatusMessage statusMessage = new StatusMessage();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.getPost(userDetails));
+        statusMessage.setData(postService.getPost());
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
 
     }
@@ -132,7 +131,7 @@ public class PostController {
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
-    @RequestParam(value = "page")
+//    @RequestParam(value = "page")
 
 
 }
