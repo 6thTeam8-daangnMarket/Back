@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.sparta.clone_backend.dto.*;
 
+import com.sparta.clone_backend.model.Image;
 import com.sparta.clone_backend.model.Post;
 
 import com.sparta.clone_backend.model.PostLike;
@@ -56,8 +57,8 @@ public class PostService {
                         .imageUrl(postRequestDto.getImageUrl())
                         .price(postRequestDto.getPrice())
                         .location(user.getLocation())
-                        .category(postRequestDto.getCategory())
                         .nickName(user.getNickName())
+                        .category(postRequestDto.getCategory())
                         .createdAt(LocalDateTime.now())
                         .modifiedAt(LocalDateTime.now())
                         .build();
@@ -82,9 +83,9 @@ public class PostService {
         );
 
         // S3 이미지 삭제
-//        String fileName =
         String temp = post.getImageUrl();
-//
+        Image image = imageRepository.findByImageUrl(temp);
+        String fileName = image.getFilename();
         DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
         amazonS3Client.deleteObject(request);
 
