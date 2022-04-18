@@ -57,13 +57,12 @@ public class PostController {
             @RequestParam("postContents") String postContents,
             @RequestParam(value = "imageUrl") MultipartFile multipartFile,
             @RequestParam("price") int price,
-            @RequestParam("location") String location,
             @RequestParam("nickName") String nickName,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws IOException
     {
         String imageUrl = S3Uploader.upload(multipartFile, "static");
-
+        String location = userDetails.getUser().getLocation();
         PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickName);
 
         StatusMessage statusMessage = new StatusMessage();
@@ -77,14 +76,25 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
-    public List<PostsResponseDto> getPost() {
-        return postService.getPost();
+    public ResponseEntity<StatusMessage> getPost() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StatusMessage statusMessage = new StatusMessage();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.getPost());
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+
     }
 
     //특정게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public PostDetailResponseDto getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return postService.getPostDetail(postId, userDetails);
+    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StatusMessage statusMessage = new StatusMessage();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.getPostDetail(postId, userDetails));
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
     // 게시글 수정
@@ -112,9 +122,16 @@ public class PostController {
 
     // 유저정보, 장바구니 조회
     @GetMapping("/user/mypage")
-    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return postService.getUserPage(userDetails);
+    public ResponseEntity<StatusMessage> getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StatusMessage statusMessage = new StatusMessage();
+        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+        statusMessage.setData(postService.getUserPage(userDetails));
+        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
+
+//    @RequestParam(value = "page")
 
 
 }

@@ -56,7 +56,6 @@ public class Post extends Timestamped{
         this.postContents = postRequestDto.getPostContents();
         this.imageUrl = postRequestDto.getImageUrl();
         this.price = postRequestDto.getPrice();
-        this.location = postRequestDto.getLocation();
     }
 
     public void update(Long postId, String postTitle, String postContents, int price) {

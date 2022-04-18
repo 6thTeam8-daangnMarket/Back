@@ -18,12 +18,12 @@ public class PostsResponseDto {
     private String imageUrl;
     private int price;
     private String location;
-    private LocalDateTime modifiedAt;
+    private String createdAt;
     private int likeCount;
     private Long postId;
-    private LocalDateTime createdAt;
+    private String modifiedAt;
 
-    public PostsResponseDto(String postTitle, String imageUrl, int price, String location, LocalDateTime createdAt, LocalDateTime modifiedAt, Long postId, int likeCount){
+    public PostsResponseDto(String postTitle, String imageUrl, int price, String location, String createdAt, String modifiedAt, Long postId, int likeCount){
         this.postTitle = postTitle;
         this.imageUrl = imageUrl;
         this.price = price;
