@@ -4,8 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="exception hanlder 추가">
+    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="요청 실패 시 BAD REQUEST">
+      <change afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/IsLoginDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostLikeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/PostLikeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/validator/UserInfoValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/validator/UserInfoValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/DuplicateChkDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/DuplicateChkDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/SignupRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/dto/SignupRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/validator/UserInfoValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/validator/UserInfoValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +127,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Spring04" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="모듈" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -153,10 +174,7 @@
       <workItem from="1650104298394" duration="34000" />
       <workItem from="1650104399033" duration="1155000" />
       <workItem from="1650152137670" duration="2184000" />
-      <workItem from="1650154351974" duration="16460000" />
-      <workItem from="1650206902911" duration="2418000" />
-      <workItem from="1650212859088" duration="215000" />
-      <workItem from="1650213077609" duration="3081000" />
+      <workItem from="1650154351974" duration="14432000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -340,56 +358,7 @@
       <option name="project" value="LOCAL" />
       <updated>1650180605119</updated>
     </task>
-    <task id="LOCAL-00027" summary="exception hanlder 추가">
-      <created>1650181190095</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181190095</updated>
-    </task>
-    <task id="LOCAL-00028" summary="exception hanlder 추가">
-      <created>1650181194146</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181194146</updated>
-    </task>
-    <task id="LOCAL-00029" summary="exception hanlder 추가">
-      <created>1650181203576</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181203576</updated>
-    </task>
-    <task id="LOCAL-00030" summary="exception hanlder 추가">
-      <created>1650181303489</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181303489</updated>
-    </task>
-    <task id="LOCAL-00031" summary="exception hanlder 추가">
-      <created>1650181380568</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181380568</updated>
-    </task>
-    <task id="LOCAL-00032" summary="exception hanlder 추가">
-      <created>1650208914081</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1650208914081</updated>
-    </task>
-    <task id="LOCAL-00033" summary="변수명 변경 병합본">
-      <created>1650212896189</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1650212896189</updated>
-    </task>
-    <option name="localTasksCounter" value="34" />
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +401,6 @@
     <MESSAGE value="요청 실패 시 BAD REQUEST" />
     <MESSAGE value="게시글 등록 오류 수정" />
     <MESSAGE value="exception hanlder 추가" />
-    <MESSAGE value="변수명 변경 병합본" />
-    <option name="LAST_COMMIT_MESSAGE" value="변수명 변경 병합본" />
+    <option name="LAST_COMMIT_MESSAGE" value="exception hanlder 추가" />
   </component>
 </project>

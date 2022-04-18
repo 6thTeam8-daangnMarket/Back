@@ -8,5 +8,6 @@ public class SignupRequestDto {
     private String nickName;
     private String passWord;
     private String passWordCheck;
+    private String location;
 
 }

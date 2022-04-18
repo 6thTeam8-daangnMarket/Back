@@ -10,8 +10,4 @@ public class DuplicateChkDto {
     private String userName;
     private String nickName;
 
-    public DuplicateChkDto (String userName, String nickName){
-        this.userName = userName;
-        this.nickName = nickName;
-    }
 }

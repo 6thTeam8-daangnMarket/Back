@@ -1,5 +1,6 @@
 package com.sparta.clone_backend.model;
 
+import com.sparta.clone_backend.dto.SignupRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,9 +24,13 @@ public class User {
     @Column(nullable = false)
     private String passWord;
 
-    public User(String userName, String nickName, String passWordEncode) {
+    @Column(nullable = false)
+    private String location;
+
+    public User(String userName, SignupRequestDto signupRequestDto, String passWordEncode) {
         this.userName = userName;
-        this.nickName = nickName;
+        this.nickName = signupRequestDto.getNickName();
         this.passWord = passWordEncode;
+        this.location = signupRequestDto.getLocation();
     }
 }
