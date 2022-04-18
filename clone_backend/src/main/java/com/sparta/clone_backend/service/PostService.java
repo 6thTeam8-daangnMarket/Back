@@ -47,6 +47,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
     private final AmazonS3Client amazonS3Client;
+    private final S3Uploader s3Uploader;
 
 //    @Autowired
 //    public PostService(PostRepository postRepository) {
@@ -92,8 +93,8 @@ public class PostService {
         String temp = post.getImageUrl();
         Image image = imageRepository.findByImageUrl(temp);
         String fileName = image.getFilename();
-        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
-        amazonS3Client.deleteObject(request);
+        String imageUrl = image.getImageUrl();
+        s3Uploader.deleteImage(fileName);
 
         postLikeRepository.deleteAllByPostId(postId);
         postRepository.deleteById(post.getId());

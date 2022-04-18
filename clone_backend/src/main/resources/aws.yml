@@ -1,11 +1,11 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIA6I6YGK7FIVXCDIKE
-      secretKey: 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
+      accessKey: AKIASP764BG4EIU3QLPO
+      secretKey: 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
       instanceProfile : true
     s3:
-      bucket: clonedangunmarket
+      bucket: cloneproject
     region:
       static: ap-northeast-2
     stack:
