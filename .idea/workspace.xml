@@ -176,6 +176,7 @@
       <workItem from="1650152137670" duration="2184000" />
       <workItem from="1650154351974" duration="14432000" />
       <workItem from="1650242945402" duration="1072000" />
+      <workItem from="1650244037144" duration="2771000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -366,7 +367,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650243983644</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="상세페이지 token 요청 삭제">
+      <created>1650244327174</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1650244327174</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,6 +418,7 @@
     <MESSAGE value="게시글 등록 오류 수정" />
     <MESSAGE value="exception hanlder 추가" />
     <MESSAGE value="user에 location 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="user에 location 추가" />
+    <MESSAGE value="상세페이지 token 요청 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="상세페이지 token 요청 삭제" />
   </component>
 </project>
