@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="요청 실패 시 BAD REQUEST">
+    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="게시글 등록 오류 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" afterDir="false" />
@@ -12,10 +12,11 @@
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/ImageRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/ImageRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/resources/main/aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/resources/main/aws.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/resources/aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/resources/aws.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -377,12 +378,12 @@
       <option name="project" value="LOCAL" />
       <updated>1650263498493</updated>
     </task>
-    <task id="LOCAL-00028" summary="조회 시 category 추가+image 삭제작업 중간">
-      <created>1650264997122</created>
+    <task id="LOCAL-00028" summary="게시글 등록 오류 수정">
+      <created>1650266442894</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
       <option name="project" value="LOCAL" />
-      <updated>1650264997122</updated>
+      <updated>1650266442894</updated>
     </task>
     <option name="localTasksCounter" value="29" />
     <servers />
@@ -425,10 +426,9 @@
     <MESSAGE value="변수명 변경 및 TEST 완료" />
     <MESSAGE value="게시물 등록 시 시간 중복 저장 수정" />
     <MESSAGE value="요청 실패 시 BAD REQUEST" />
-    <MESSAGE value="게시글 등록 오류 수정" />
     <MESSAGE value="exception hanlder 추가" />
     <MESSAGE value="조회 시 category 추가" />
-    <MESSAGE value="조회 시 category 추가+image 삭제작업 중간" />
-    <option name="LAST_COMMIT_MESSAGE" value="조회 시 category 추가+image 삭제작업 중간" />
+    <MESSAGE value="게시글 등록 오류 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="게시글 등록 오류 수정" />
   </component>
 </project>
