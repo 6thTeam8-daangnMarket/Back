@@ -1,18 +1,14 @@
 package com.sparta.clone_backend.model;
 
 
+import com.sparta.clone_backend.dto.PostRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import com.sparta.clone_backend.dto.PostRequestDto;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
 
 @Entity
 @Getter
@@ -39,6 +35,9 @@ public class Post extends Timestamped{
     private int price;
 
     @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
     private String location;
 
     @Column(nullable = false)
@@ -56,6 +55,7 @@ public class Post extends Timestamped{
         this.postContents = postRequestDto.getPostContents();
         this.imageUrl = postRequestDto.getImageUrl();
         this.price = postRequestDto.getPrice();
+        this.category = postRequestDto.getCategory();
     }
 
     public void update(Long postId, String postTitle, String postContents, int price) {

@@ -1,6 +1,8 @@
 package com.sparta.clone_backend.service;
 
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.sparta.clone_backend.dto.*;
 
 import com.sparta.clone_backend.model.Post;
@@ -13,6 +15,7 @@ import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,6 +37,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
     private final UserRepository userRepository;
+    private final AmazonS3Client amazonS3Client;
 
 //    @Autowired
 //    public PostService(PostRepository postRepository) {
@@ -49,10 +53,9 @@ public class PostService {
                         .postContents(postRequestDto.getPostContents())
                         .imageUrl(postRequestDto.getImageUrl())
                         .price(postRequestDto.getPrice())
-                        .location(postRequestDto.getLocation())
+                        .category(postRequestDto.getCategory())
                         .createdAt(LocalDateTime.now())
                         .modifiedAt(LocalDateTime.now())
-                        .nickName(postRequestDto.getNickName())
                         .build();
 
         postRepository.save(post);
@@ -63,6 +66,9 @@ public class PostService {
                 .build();
     }
 
+    @Value("${cloud.aws.s3.bucket}")
+    public String bucket;  // S3 버킷 이름
+
     // 게시글 삭제
     @Transactional
     public Object deletePost(Long postId, User user) {
@@ -70,8 +76,13 @@ public class PostService {
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
-        Optional<PostLike> postLike = postLikeRepository.findById(postId);
-        postLikeRepository.deleteById(postLike.get().getId());
+
+        // S3 이미지 삭제
+        String fileName = post.getImageUrl();
+        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
+        amazonS3Client.deleteObject(request);
+
+        postLikeRepository.deleteAllByPostId(postId);
         postRepository.deleteById(post.getId());
 
         return null;
