@@ -33,7 +33,7 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
 
-    public static String upload(MultipartFile multipartFile, String dirName) throws IOException {
+    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
                 .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
 
@@ -42,7 +42,7 @@ public class S3Uploader {
 
     // S3로 파일 업로드하기
     private String upload(File uploadFile, String dirName) {
-        String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
+        String fileName = UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
         removeNewFile(uploadFile);
 
@@ -80,14 +80,14 @@ public class S3Uploader {
         return Optional.empty();
     }
 
-    //S3 삭제
-    public void deleteFile(Long postId){
-//        String fileName = imageRepository.findById(imageId).orElseThrow(IllegalArgumentException::new).getFileName();
-
-        String temp = post.getImageUrl();
-        Image image = imageRepository.findByImageUrl(temp);
-        String fileName = image.getFilename();
-        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
-        amazonS3Client.deleteObject(request);
-    }
+//    //S3 삭제
+//    public void deleteFile(String fileName){
+////        String fileName = imageRepository.findById(imageId).orElseThrow(IllegalArgumentException::new).getFileName();
+//
+//        String temp = "string";
+//        Image image = imageRepository.findByImageUrl(temp);
+//        String fileName = image.getFilename();
+//        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
+//        amazonS3Client.deleteObject(request);
+//    }
 }

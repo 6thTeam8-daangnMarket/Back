@@ -385,7 +385,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650266442894</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="게시글 삭제중.">
+      <created>1650271860716</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1650271860716</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,7 +409,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/write&amp;detail" />
+                        <option value="origin/home" />
                       </list>
                     </value>
                   </entry>
@@ -429,6 +436,17 @@
     <MESSAGE value="exception hanlder 추가" />
     <MESSAGE value="조회 시 category 추가" />
     <MESSAGE value="게시글 등록 오류 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="게시글 등록 오류 수정" />
+    <MESSAGE value="게시글 삭제중." />
+    <option name="LAST_COMMIT_MESSAGE" value="게시글 삭제중." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.amazonaws.services.s3.model.AmazonS3Exception" package="com.amazonaws.services.s3.model" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

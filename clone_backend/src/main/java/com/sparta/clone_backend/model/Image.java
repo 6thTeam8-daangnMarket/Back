@@ -20,6 +20,7 @@ public class Image {
     @Column(nullable = false)
     private String imageUrl;
 
+
     public Image(String filename, String imageUrl) {
         this.filename = filename;
         this.imageUrl = imageUrl;

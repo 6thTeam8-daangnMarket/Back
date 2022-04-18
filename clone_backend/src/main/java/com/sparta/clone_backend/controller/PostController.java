@@ -21,12 +21,13 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.NoSuchElementException;
 
+
 @RequiredArgsConstructor
 @RestController
 public class PostController {
 
     private final PostService postService;
-
+    private final S3Uploader S3Uploader;
 //    // 게시글 생성
 //    @PostMapping("/api/write")
 //    public ResponseEntity<String> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
