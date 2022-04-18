@@ -88,12 +88,12 @@ public class PostController {
 
     //특정게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId){
         HttpHeaders httpHeaders = new HttpHeaders();
         StatusMessage statusMessage = new StatusMessage();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.getPostDetail(postId, userDetails));
+        statusMessage.setData(postService.getPostDetail(postId));
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 

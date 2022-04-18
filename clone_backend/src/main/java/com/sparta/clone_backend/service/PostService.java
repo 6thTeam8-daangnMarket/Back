@@ -98,7 +98,7 @@ public class PostService {
     }
 
     //상세 게시글 조회
-    public PostDetailResponseDto getPostDetail(Long postId, UserDetailsImpl userDetails) {
+    public PostDetailResponseDto getPostDetail(Long postId) {
         Post post = postRepository.findById(postId).get();
 
         return new PostDetailResponseDto(
@@ -109,7 +109,7 @@ public class PostService {
                 post.getUser().getLocation(),
                 convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
-                userDetails.getNickName()
+                post.getNickName()
         );
     }
 
