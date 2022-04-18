@@ -1,11 +1,11 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIA5EQM35EJGSBEMWF2
-      secretKey: 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
+      accessKey: AKIASP764BG4EIU3QLPO
+      secretKey: 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
       instanceProfile : true
     s3:
-      bucket: miniprojectspring7
+      bucket: cloneproject
     region:
       static: ap-northeast-2
     stack:

@@ -1,11 +1,11 @@
 package com.sparta.clone_backend.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.sparta.clone_backend.model.Image;
-import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.repository.ImageRepository;
 import com.sparta.clone_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,6 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-@Service
 public class S3Uploader {
     private final ImageRepository imageRepository;
 
@@ -32,6 +31,12 @@ public class S3Uploader {
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
+
+    @Value("${cloud.aws.credentials.access-key}")
+    private String accessKey;
+
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String secretKey;
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
@@ -42,8 +47,9 @@ public class S3Uploader {
 
     // S3로 파일 업로드하기
     private String upload(File uploadFile, String dirName) {
-        String fileName = UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
+        String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
+
         removeNewFile(uploadFile);
 
         Image image = new Image(fileName, uploadImageUrl);
@@ -80,14 +86,14 @@ public class S3Uploader {
         return Optional.empty();
     }
 
-//    //S3 삭제
-//    public void deleteFile(String fileName){
-////        String fileName = imageRepository.findById(imageId).orElseThrow(IllegalArgumentException::new).getFileName();
-//
-//        String temp = "string";
-//        Image image = imageRepository.findByImageUrl(temp);
-//        String fileName = image.getFilename();
-//        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
+    public void deleteImage(String fileName){
+//        try {
+//            fileNmae.dele
+//        } catch (AmazonServiceException e){
+//            System.out.println(e.getErrorMessage());
+//        }
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
+//        DeleteObjectRequest request = new DeleteObjectRequest(bucket, imageUrl);
 //        amazonS3Client.deleteObject(request);
-//    }
+    }
 }

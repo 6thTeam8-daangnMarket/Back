@@ -27,7 +27,6 @@ public class UserService {
    @Transactional
     public String  registerUser(SignupRequestDto signupRequestDto){
         String message = userInfoValidator.getValidMessage(signupRequestDto);
-       System.out.println(message);
         if(message.equals("회원가입 성공")){
             String userName = signupRequestDto.getUserName();
             //비밀번호 암호화
@@ -86,7 +85,5 @@ public class UserService {
                .build();
        return isLoginDto;
     }
-
-
 
 }

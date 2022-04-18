@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -43,6 +44,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
     private final AmazonS3Client amazonS3Client;
+    private final S3Uploader s3Uploader;
 
 //    @Autowired
 //    public PostService(PostRepository postRepository) {
@@ -83,29 +85,18 @@ public class PostService {
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
-        postLikeRepository.deleteAllByPostId(postId);
-        postRepository.deleteById(post.getId());
-        System.out.println("여기까진 됨");
+
         // S3 이미지 삭제
         String temp = post.getImageUrl();
-        System.out.println("여기까진 됨2");
         Image image = imageRepository.findByImageUrl(temp);
-        System.out.println("여기까진 됨3");
         String fileName = image.getFilename();
+        String imageUrl = image.getImageUrl();
+        s3Uploader.deleteImage(fileName);
 
-
-
-        deleteFile(fileName);
+        postLikeRepository.deleteAllByPostId(postId);
+        postRepository.deleteById(post.getId());
 
         return null;
-    }
-
-    //S3 삭제
-    public void deleteFile(String fileName){
-//        String fileName = imageRepository.findById(imageId).orElseThrow(IllegalArgumentException::new).getFileName();
-        System.out.println(fileName);
-        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
-        amazonS3Client.deleteObject(request);
     }
 
     //전체 게시글 조회
