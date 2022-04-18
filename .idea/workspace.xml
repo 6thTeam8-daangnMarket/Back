@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="전체 조회 페이징 처리 완료">
+    <list default="true" id="4e096716-dffc-4744-8619-9a9628d09666" name="Changes" comment="요청 실패 시 BAD REQUEST">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,9 +104,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Spring_Websocket" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Spring04" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="모듈" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -153,8 +153,7 @@
       <workItem from="1650104298394" duration="34000" />
       <workItem from="1650104399033" duration="1155000" />
       <workItem from="1650152137670" duration="2184000" />
-      <workItem from="1650154351974" duration="16460000" />
-      <workItem from="1650206902911" duration="9016000" />
+      <workItem from="1650154351974" duration="14432000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1650014617035</created>
@@ -338,70 +337,7 @@
       <option name="project" value="LOCAL" />
       <updated>1650180605119</updated>
     </task>
-    <task id="LOCAL-00027" summary="exception hanlder 추가">
-      <created>1650181190095</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181190095</updated>
-    </task>
-    <task id="LOCAL-00028" summary="exception hanlder 추가">
-      <created>1650181194146</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181194146</updated>
-    </task>
-    <task id="LOCAL-00029" summary="exception hanlder 추가">
-      <created>1650181203576</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181203576</updated>
-    </task>
-    <task id="LOCAL-00030" summary="exception hanlder 추가">
-      <created>1650181303489</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181303489</updated>
-    </task>
-    <task id="LOCAL-00031" summary="exception hanlder 추가">
-      <created>1650181380568</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1650181380568</updated>
-    </task>
-    <task id="LOCAL-00032" summary="exception hanlder 추가">
-      <created>1650208914081</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1650208914081</updated>
-    </task>
-    <task id="LOCAL-00033" summary="exception handler 추가">
-      <created>1650209561853</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1650209561853</updated>
-    </task>
-    <task id="LOCAL-00034" summary="전체 조회 페이징 처리 완료">
-      <created>1650212509352</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1650212509352</updated>
-    </task>
-    <task id="LOCAL-00035" summary="전체 조회 페이징 처리 완료">
-      <created>1650213457954</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1650213457954</updated>
-    </task>
-    <option name="localTasksCounter" value="36" />
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,8 +380,6 @@
     <MESSAGE value="요청 실패 시 BAD REQUEST" />
     <MESSAGE value="게시글 등록 오류 수정" />
     <MESSAGE value="exception hanlder 추가" />
-    <MESSAGE value="exception handler 추가" />
-    <MESSAGE value="전체 조회 페이징 처리 완료" />
-    <option name="LAST_COMMIT_MESSAGE" value="전체 조회 페이징 처리 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="exception hanlder 추가" />
   </component>
 </project>

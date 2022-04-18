@@ -16,7 +16,7 @@ public class PostDetailResponseDto {
     private String imageUrl;
     private int price;
     private String location;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private int likeCount;
     private String nickName;
 
@@ -26,7 +26,7 @@ public class PostDetailResponseDto {
             String imageUrl,
             int price,
             String location,
-            LocalDateTime createdAt,
+            String createdAt,
             int likeCount,
             String nickName) {
 

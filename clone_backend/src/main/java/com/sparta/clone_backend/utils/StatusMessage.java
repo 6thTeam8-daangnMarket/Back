@@ -6,12 +6,10 @@ import lombok.Data;
 public class StatusMessage {
 
     private StatusEnum status;
-    private String message;
     private Object data;
     public StatusMessage(){
         this.status = StatusEnum.BAD_REQUEST;
         this.data = null;
-        this.message = null;
     }
 
     public enum StatusEnum{
