@@ -9,6 +9,7 @@ import com.sparta.clone_backend.model.Post;
 
 import com.sparta.clone_backend.model.PostLike;
 import com.sparta.clone_backend.model.User;
+import com.sparta.clone_backend.repository.ImageRepository;
 import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
 import com.sparta.clone_backend.repository.UserRepository;
@@ -37,6 +38,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
     private final AmazonS3Client amazonS3Client;
 
 //    @Autowired
@@ -78,7 +80,9 @@ public class PostService {
         );
 
         // S3 이미지 삭제
-        String fileName = post.getImageUrl();
+//        String fileName =
+        String temp = post.getImageUrl();
+//
         DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
         amazonS3Client.deleteObject(request);
 
