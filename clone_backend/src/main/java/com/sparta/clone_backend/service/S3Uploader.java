@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.sparta.clone_backend.model.Image;
+import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.repository.ImageRepository;
 import com.sparta.clone_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Component
+@Service
 public class S3Uploader {
     private final ImageRepository imageRepository;
 
@@ -76,5 +78,16 @@ public class S3Uploader {
         }
 
         return Optional.empty();
+    }
+
+    //S3 삭제
+    public void deleteFile(Long postId){
+//        String fileName = imageRepository.findById(imageId).orElseThrow(IllegalArgumentException::new).getFileName();
+
+        String temp = post.getImageUrl();
+        Image image = imageRepository.findByImageUrl(temp);
+        String fileName = image.getFilename();
+        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
+        amazonS3Client.deleteObject(request);
     }
 }

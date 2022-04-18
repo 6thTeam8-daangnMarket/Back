@@ -1,10 +1,13 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIA6I6YGK7FIVXCDIKE
-      secretKey: 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
+#      accessKey: AKIA6I6YGK7FIVXCDIKE
+#      secretKey: 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
+
+      accessKey: AKIA5EQM35EJGSBEMWF2
+      secretKey: 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
     s3:
-      bucket: clonedangunmarket
+      bucket: miniprojectspring7
     region:
       static: ap-northeast-2
     stack:
