@@ -22,7 +22,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.Document;
 import javax.transaction.Transactional;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -85,7 +88,7 @@ public class PostService {
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
 
-        // S3 이미지 삭제
+//         S3 이미지 삭제
         String temp = post.getImageUrl();
         Image image = imageRepository.findByImageUrl(temp);
         String fileName = image.getFilename();

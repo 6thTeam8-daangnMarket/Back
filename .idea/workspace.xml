@@ -13,10 +13,14 @@
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/build/resources/main/aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/resources/main/aws.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/S3Uploader.class" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/classes/java/main/com/sparta/clone_backend/service/S3Uploader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT-plain.jar" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT-plain.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/libs/clone_backend-0.0.1-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/resources/aws.yml" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/resources/aws.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/S3Uploader.java" beforeDir="false" afterPath="$PROJECT_DIR$/clone_backend/src/main/java/com/sparta/clone_backend/service/S3Uploader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -385,7 +389,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650266442894</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="게시글 등록 오류 수정">
+      <created>1650268227644</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1650268227644</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

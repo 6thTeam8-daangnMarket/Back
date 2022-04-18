@@ -1,5 +1,6 @@
 package com.sparta.clone_backend.service;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
@@ -24,6 +25,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Component
 public class S3Uploader {
+
+    private AmazonS3 s3Client;
     private final ImageRepository imageRepository;
 
     private final AmazonS3Client amazonS3Client;
@@ -54,6 +57,11 @@ public class S3Uploader {
     private String putS3(File uploadFile, String fileName) {
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
+    }
+
+    // S3 이미지 삭제
+    private void deleteS3(String source) {
+        s3Client.deleteObject(bucket, source);
     }
 
     // 로컬에 저장된 이미지 지우기

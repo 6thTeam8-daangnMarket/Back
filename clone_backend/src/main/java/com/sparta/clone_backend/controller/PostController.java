@@ -91,6 +91,7 @@ public class PostController {
 //        return postService.getPostDetail(postId, userDetails);
 //    }
 
+    // 게시글 전체 조회
     @GetMapping("/api/posts")
     public ResponseEntity<StatusMessage> getPost() {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -140,6 +141,5 @@ public class PostController {
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.getUserPage(userDetails);
     }
-
 
 }
