@@ -102,7 +102,8 @@ public class PostService {
                     convertLocaldatetimeToTime(post.getCreatedAt()),
                     convertLocaldatetimeToTime(post.getModifiedAt()),
                     post.getId(),
-                    postLikeRepository.countByPost(post));
+                    postLikeRepository.countByPost(post),
+                    post.getCategory());
             postsResponseDtos.add(postsResponseDto);
         }
         return postsResponseDtos;
@@ -120,7 +121,8 @@ public class PostService {
                 post.getUser().getLocation(),
                 convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
-                post.getNickName()
+                post.getNickName(),
+                post.getCategory()
         );
     }
 
@@ -142,7 +144,8 @@ public class PostService {
                     convertLocaldatetimeToTime(likedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(likedPost.getModifiedAt()),
                     likedPost.getId(),
-                    postLikeRepository.countByPost(likedPost)
+                    postLikeRepository.countByPost(likedPost),
+                    likedPost.getCategory()
             );
             postsResponseDtos.add(postsResponseDto);
 
