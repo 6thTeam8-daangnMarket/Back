@@ -53,7 +53,9 @@ public class PostService {
                         .postContents(postRequestDto.getPostContents())
                         .imageUrl(postRequestDto.getImageUrl())
                         .price(postRequestDto.getPrice())
+                        .location(user.getLocation())
                         .category(postRequestDto.getCategory())
+                        .nickName(user.getNickName())
                         .createdAt(LocalDateTime.now())
                         .modifiedAt(LocalDateTime.now())
                         .build();
