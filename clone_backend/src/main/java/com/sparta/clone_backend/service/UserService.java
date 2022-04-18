@@ -1,7 +1,6 @@
 package com.sparta.clone_backend.service;
 
 
-import com.sparta.clone_backend.dto.DuplicateChkDto;
 import com.sparta.clone_backend.dto.IsLoginDto;
 import com.sparta.clone_backend.dto.SignupRequestDto;
 import com.sparta.clone_backend.model.User;

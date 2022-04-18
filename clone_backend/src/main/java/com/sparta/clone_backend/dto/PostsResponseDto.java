@@ -22,8 +22,9 @@ public class PostsResponseDto {
     private int likeCount;
     private Long postId;
     private String modifiedAt;
+    private String category;
 
-    public PostsResponseDto(String postTitle, String imageUrl, int price, String location, String createdAt, String modifiedAt, Long postId, int likeCount){
+    public PostsResponseDto(String postTitle, String imageUrl, int price, String location, String createdAt, String modifiedAt, Long postId, int likeCount, String category){
         this.postTitle = postTitle;
         this.imageUrl = imageUrl;
         this.price = price;
@@ -32,6 +33,7 @@ public class PostsResponseDto {
         this.modifiedAt = modifiedAt;
         this.postId = postId;
         this.likeCount = likeCount;
+        this.category = category;
 
     }
 }

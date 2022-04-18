@@ -5,17 +5,21 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.sparta.clone_backend.dto.*;
 
+import com.sparta.clone_backend.model.Image;
 import com.sparta.clone_backend.model.Post;
 
 import com.sparta.clone_backend.model.PostLike;
 import com.sparta.clone_backend.model.User;
+import com.sparta.clone_backend.repository.ImageRepository;
 import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
 import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,7 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
+@Component
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -37,6 +42,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
     private final AmazonS3Client amazonS3Client;
 
 //    @Autowired
@@ -53,6 +59,8 @@ public class PostService {
                         .postContents(postRequestDto.getPostContents())
                         .imageUrl(postRequestDto.getImageUrl())
                         .price(postRequestDto.getPrice())
+                        .location(user.getLocation())
+                        .nickName(user.getNickName())
                         .category(postRequestDto.getCategory())
                         .createdAt(LocalDateTime.now())
                         .modifiedAt(LocalDateTime.now())
@@ -78,7 +86,9 @@ public class PostService {
         );
 
         // S3 이미지 삭제
-        String fileName = post.getImageUrl();
+        String temp = post.getImageUrl();
+        Image image = imageRepository.findByImageUrl(temp);
+        String fileName = image.getFilename();
         DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
         amazonS3Client.deleteObject(request);
 
@@ -102,7 +112,8 @@ public class PostService {
                     convertLocaldatetimeToTime(post.getCreatedAt()),
                     convertLocaldatetimeToTime(post.getModifiedAt()),
                     post.getId(),
-                    postLikeRepository.countByPost(post));
+                    postLikeRepository.countByPost(post),
+                    post.getCategory());
             postsResponseDtos.add(postsResponseDto);
         }
         return postsResponseDtos;
@@ -120,7 +131,8 @@ public class PostService {
                 post.getUser().getLocation(),
                 convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
-                post.getNickName()
+                post.getNickName(),
+                post.getCategory()
         );
     }
 
@@ -142,7 +154,8 @@ public class PostService {
                     convertLocaldatetimeToTime(likedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(likedPost.getModifiedAt()),
                     likedPost.getId(),
-                    postLikeRepository.countByPost(likedPost)
+                    postLikeRepository.countByPost(likedPost),
+                    likedPost.getCategory()
             );
             postsResponseDtos.add(postsResponseDto);
 
