@@ -91,12 +91,10 @@ public class UserController {
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
-<<<<<<< HEAD
+
     //로그인 확인
-    @GetMapping("/user/islogin")
-=======
+
     @GetMapping("/user/isLogIn")
->>>>>>> d0b179d1262902e96899d51c56f117a27126609b
     private IsLoginDto isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return userService.isloginChk(userDetails);
     }

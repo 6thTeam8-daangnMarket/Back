@@ -43,7 +43,7 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String nickName;
 
-    @ManyToOne
+    @ManyToOne(f)
     @JoinColumn(nullable = false)
     private User user;
 
