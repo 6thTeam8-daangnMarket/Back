@@ -1,9 +1,7 @@
 package com.sparta.clone_backend.controller;
 
 
-import com.sparta.clone_backend.dto.PostDetailResponseDto;
 import com.sparta.clone_backend.dto.PostRequestDto;
-import com.sparta.clone_backend.dto.PostsResponseDto;
 import com.sparta.clone_backend.dto.UserPageResponseDto;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
@@ -21,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -39,7 +36,7 @@ public class PostController {
 //                .body("작성 완료!");
 //    }
 
-    @ExceptionHandler({MissingServletRequestParameterException.class, NoSuchElementException.class})
+    @ExceptionHandler({MissingServletRequestParameterException.class, NoSuchElementException.class, IllegalArgumentException.class})
     public ResponseEntity<StatusMessage> nullex(Exception e) {
         System.err.println(e.getClass());
         StatusMessage statusMessage = new StatusMessage();
@@ -57,13 +54,13 @@ public class PostController {
             @RequestParam("postContents") String postContents,
             @RequestParam(value = "imageUrl") MultipartFile multipartFile,
             @RequestParam("price") int price,
-            @RequestParam("nickName") String nickName,
+            @RequestParam("category") String category,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws IOException
     {
         String imageUrl = S3Uploader.upload(multipartFile, "static");
-        String location = userDetails.getUser().getLocation();
-        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, location, nickName);
+
+        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, category);
 
         StatusMessage statusMessage = new StatusMessage();
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -73,8 +70,27 @@ public class PostController {
         postService.createPost(postRequestDto, userDetails.getUser());
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
+//
+//    // 전체 게시글 조회
+//    @GetMapping("/api/posts")
+//    public Page<Post> getPost(@PageableDefault(size = 10) Pageable pageable
+////        @RequestParam("page") int page,
+////        @RequestParam("size") int size,
+////        @RequestParam("sortBy") String sortBy,
+////        @RequestParam("isAsc") boolean isAsc,
+////        @AuthenticationPrincipal UserDetailsImpl userDetails
+//    ) {
+////        Long userId = userDetails.getUser().getId();
+////        page = page - 1;
+//        return postService.getPost(pageable);
+//    }
+//
+//    //특정게시글 조회
+//    @GetMapping("/api/posts/{postId}")
+//    public PostDetailResponseDto getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+//        return postService.getPostDetail(postId, userDetails);
+//    }
 
-    // 전체 게시글 조회
     @GetMapping("/api/posts")
     public ResponseEntity<StatusMessage> getPost() {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -96,7 +112,6 @@ public class PostController {
         statusMessage.setData(postService.getPostDetail(postId));
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
-
     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
     public ResponseEntity<StatusMessage> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -122,16 +137,9 @@ public class PostController {
 
     // 유저정보, 장바구니 조회
     @GetMapping("/user/mypage")
-    public ResponseEntity<StatusMessage> getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        StatusMessage statusMessage = new StatusMessage();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.getUserPage(userDetails));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return postService.getUserPage(userDetails);
     }
-
-//    @RequestParam(value = "page")
 
 
 }

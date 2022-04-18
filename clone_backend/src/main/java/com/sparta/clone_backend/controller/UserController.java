@@ -46,7 +46,7 @@ public class UserController {
     }
 
     // 회원가입
-    @PostMapping("/user/signup")
+    @PostMapping("/user/signUp")
     public ResponseEntity<StatusMessage> registerUser(@RequestBody SignupRequestDto signupRequestDto) {
         System.out.println(signupRequestDto);
         StatusMessage statusMessage = new StatusMessage();
@@ -73,8 +73,8 @@ public class UserController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
 //        statusMessage.setMessage("회원 등록 성공");
-        statusMessage.setData(null);
-        userService.idDuplichk(duplicateChkDto.getUserName());
+        statusMessage.setData( userService.idDuplichk(duplicateChkDto.getUserName()));
+
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
@@ -85,12 +85,11 @@ public class UserController {
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
 //        statusMessage.setMessage("회원 등록 성공");
-        statusMessage.setData(null);
-        userService.nickNameDuplichk(duplicateChkDto.getNickName());
+        statusMessage.setData(userService.nickNameDuplichk(duplicateChkDto.getNickName()));
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
-    @GetMapping("/user/islogin")
+    @GetMapping("/user/isLogIn")
     private IsLoginDto isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return userService.isloginChk(userDetails);
     }
