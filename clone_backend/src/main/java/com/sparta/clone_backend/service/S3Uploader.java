@@ -4,10 +4,14 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.sparta.clone_backend.model.Image;
+import com.sparta.clone_backend.repository.ImageRepository;
+import com.sparta.clone_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,6 +24,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Component
 public class S3Uploader {
+    private final ImageRepository imageRepository;
 
     private final AmazonS3Client amazonS3Client;
 
@@ -38,6 +43,10 @@ public class S3Uploader {
         String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
         removeNewFile(uploadFile);
+
+        Image image = new Image(fileName, uploadImageUrl);
+        imageRepository.save(image);
+
         return uploadImageUrl;
     }
 
