@@ -78,7 +78,7 @@ public class PostService {
     }
 
     //전체 게시글 조회
-    public List<PostsResponseDto> getPost() {
+    public List<PostsResponseDto> getPost(UserDetailsImpl userDetails) {
         List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
         List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
         for (Post post : posts) {
@@ -87,7 +87,7 @@ public class PostService {
                     post.getPostTitle(),
                     post.getImageUrl(),
                     post.getPrice(),
-                    post.getLocation(),
+                    userDetails.getLocation(),
                     convertLocaldatetimeToTime(post.getCreatedAt()),
                     convertLocaldatetimeToTime(post.getModifiedAt()),
                     post.getId(),
@@ -106,7 +106,7 @@ public class PostService {
                 post.getPostContents(),
                 post.getImageUrl(),
                 post.getPrice(),
-                post.getLocation(),
+                userDetails.getLocation(),
                 convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
                 userDetails.getNickName()
@@ -127,7 +127,7 @@ public class PostService {
                     likedPost.getPostTitle(),
                     likedPost.getImageUrl(),
                     likedPost.getPrice(),
-                    likedPost.getLocation(),
+                    userDetails.getLocation(),
                     convertLocaldatetimeToTime(likedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(likedPost.getModifiedAt()),
                     likedPost.getId(),

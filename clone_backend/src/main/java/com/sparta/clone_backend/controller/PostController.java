@@ -77,12 +77,12 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/api/posts")
-    public ResponseEntity<StatusMessage> getPost() {
+    public ResponseEntity<StatusMessage> getPost(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         HttpHeaders httpHeaders = new HttpHeaders();
         StatusMessage statusMessage = new StatusMessage();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.getPost());
+        statusMessage.setData(postService.getPost(userDetails));
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
 
     }
@@ -131,6 +131,8 @@ public class PostController {
         statusMessage.setData(postService.getUserPage(userDetails));
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
+
+    @RequestParam(value = "page")
 
 
 }

@@ -39,9 +39,6 @@ public class Post extends Timestamped{
     private int price;
 
     @Column(nullable = false)
-    private String location;
-
-    @Column(nullable = false)
     private String nickName;
 
     @ManyToOne
@@ -56,7 +53,6 @@ public class Post extends Timestamped{
         this.postContents = postRequestDto.getPostContents();
         this.imageUrl = postRequestDto.getImageUrl();
         this.price = postRequestDto.getPrice();
-        this.location = postRequestDto.getLocation();
     }
 
     public void update(Long postId, String postTitle, String postContents, int price) {
