@@ -2,16 +2,19 @@ package com.sparta.clone_backend.service;
 
 
 import com.sparta.clone_backend.dto.DuplicateChkDto;
+import com.sparta.clone_backend.dto.IsLoginDto;
 import com.sparta.clone_backend.dto.SignupRequestDto;
 import com.sparta.clone_backend.model.User;
 import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
+import com.sparta.clone_backend.validator.UserInfoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,18 +22,26 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passWordEncoder;
+    private final UserInfoValidator userInfoValidator;
 
     //회원가입
    @Transactional
-    public User registerUser(SignupRequestDto signupRequestDto){
-        String userName = signupRequestDto.getUserName();
-        //비밀번호 암호화
-        String passWordEncode = passWordEncoder.encode(signupRequestDto.getPassWord());
+    public String  registerUser(SignupRequestDto signupRequestDto){
+        String message = userInfoValidator.getValidMessage(signupRequestDto);
+       System.out.println(message);
+        if(message.equals("회원가입 성공")){
+            String userName = signupRequestDto.getUserName();
+            //비밀번호 암호화
+            String passWordEncode = passWordEncoder.encode(signupRequestDto.getPassWord());
 
-        //저장할 유저 객체 생성
-        User user = new User(userName, signupRequestDto.getNickName(), passWordEncode);
-        //회원정보 저장
-        return userRepository.save(user);
+            //저장할 유저 객체 생성
+            User user = new User(userName, signupRequestDto, passWordEncode);
+            //회원정보 저장
+             userRepository.save(user);
+             return "회원가입 성공";
+        }else{
+            return "회원가입 실패";
+        }
     }
 
     //아이디 중복체크
@@ -64,11 +75,17 @@ public class UserService {
 
 
     //로그인 확인
-    public DuplicateChkDto isloginChk(UserDetailsImpl userDetails){
+    public IsLoginDto isloginChk(UserDetailsImpl userDetails){
        String userName = userDetails.getUsername();
        String nickName = userDetails.getNickName();
-       DuplicateChkDto duplicateChkDto = new DuplicateChkDto(userName, nickName);
-       return duplicateChkDto;
+       Optional<User> user = userRepository.findByUserName(userName);
+       IsLoginDto isLoginDto = IsLoginDto.builder()
+               .userId(user.get().getId())
+               .userName(userName)
+               .nickName(nickName)
+               .location(user.get().getLocation())
+               .build();
+       return isLoginDto;
     }
 
 
