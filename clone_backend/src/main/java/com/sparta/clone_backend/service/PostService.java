@@ -56,9 +56,9 @@ public class PostService {
                         .postContents(postRequestDto.getPostContents())
                         .imageUrl(postRequestDto.getImageUrl())
                         .price(postRequestDto.getPrice())
-                        .category(postRequestDto.getCategory())
                         .location(user.getLocation())
                         .nickName(user.getNickName())
+                        .category(postRequestDto.getCategory())
                         .createdAt(LocalDateTime.now())
                         .modifiedAt(LocalDateTime.now())
                         .build();
@@ -82,20 +82,18 @@ public class PostService {
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
 
-//        // S3 이미지 삭제
-////        String fileName =
-//        String temp = post.getImageUrl();
-//        Image image = imageRepository.findByImageUrl(temp);
-//        String fileName = image.getFilename();
-//        S3Uploader.deleteFile(fileName);
-//        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
-//        amazonS3Client.deleteObject(request);
-//
-//        postLikeRepository.deleteAllByPostId(postId);
-//        postRepository.deleteById(post.getId());
-//
-//        return null;
-//    }
+        // S3 이미지 삭제
+        String temp = post.getImageUrl();
+        Image image = imageRepository.findByImageUrl(temp);
+        String fileName = image.getFilename();
+        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
+        amazonS3Client.deleteObject(request);
+
+        postLikeRepository.deleteAllByPostId(postId);
+        postRepository.deleteById(post.getId());
+
+        return null;
+    }
 
     //전체 게시글 조회
     public List<PostsResponseDto> getPost() {
