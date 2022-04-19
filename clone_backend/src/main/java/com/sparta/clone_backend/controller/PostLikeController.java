@@ -30,7 +30,7 @@ public class PostLikeController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
-        statusMessage.setData(null);
+
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
     }
 
@@ -44,7 +44,7 @@ public class PostLikeController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postLikeService.likePost(postId, userDetails));
+        postLikeService.likePost(postId, userDetails);
 //        return ResponseEntity.ok()
 //                .body("좋아요 완료!");
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);

@@ -43,7 +43,6 @@ public class PostController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
-        statusMessage.setData(null);
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
     }
 
@@ -66,7 +65,6 @@ public class PostController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(null);
         postService.createPost(postRequestDto, userDetails.getUser());
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
@@ -97,7 +95,7 @@ public class PostController {
         StatusMessage statusMessage = new StatusMessage();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.getPost());
+        postService.getPost();
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
 
     }
@@ -109,7 +107,7 @@ public class PostController {
         StatusMessage statusMessage = new StatusMessage();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.getPostDetail(postId));
+        postService.getPostDetail(postId);
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
     // 게시글 수정
@@ -119,7 +117,7 @@ public class PostController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
+        postService.editPost(postId,requestDto, userDetails.getUser());
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
@@ -131,7 +129,7 @@ public class PostController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.deletePost(postId, userDetails.getUser()));
+        postService.deletePost(postId, userDetails.getUser());
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
