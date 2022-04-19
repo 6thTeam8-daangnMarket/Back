@@ -1,8 +1,8 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIASP764BG4EIU3QLPO
-      secretKey: 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
+      accessKey:
+      secretKey: 
       instanceProfile : true
     s3:
       bucket: cloneproject

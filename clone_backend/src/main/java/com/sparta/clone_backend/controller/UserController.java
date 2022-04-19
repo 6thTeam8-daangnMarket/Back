@@ -4,6 +4,7 @@ package com.sparta.clone_backend.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sparta.clone_backend.dto.DuplicateChkDto;
 import com.sparta.clone_backend.dto.IsLoginDto;
+import com.sparta.clone_backend.dto.KakaoTokenDto;
 import com.sparta.clone_backend.dto.SignupRequestDto;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.KakaoUserService;
@@ -89,16 +90,16 @@ public class UserController {
     //로그인 확인
 
     @GetMapping("/user/isLogIn")
-    private ResponseEntity<String> isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
+    private ResponseEntity<IsLoginDto> isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
        userService.isloginChk(userDetails);
-       return new ResponseEntity<>(HttpStatus.OK);
+       return new ResponseEntity<>(userService.isloginChk(userDetails),HttpStatus.OK);
     }
 
 
     //카카오 로그인
-    @GetMapping("/user/kakao/callback")
-    public void kakaoLogin(@RequestParam String code)throws JsonProcessingException{
-        kakaoUserService.kakaoLogin(code);
+    @PostMapping("/user/kakao/callback")
+    public void kakaoLogin(@RequestBody KakaoTokenDto kakaoTokenDto)throws JsonProcessingException{
+        kakaoUserService.kakaoLogin(kakaoTokenDto.getCode());
 
     }
 }
