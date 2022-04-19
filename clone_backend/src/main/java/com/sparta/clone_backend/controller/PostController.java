@@ -92,7 +92,7 @@ public class PostController {
         postService.createPost(postRequestDto, userDetails.getUser());
         return ResponseEntity.status(201)
                 .header("status","201")
-                .body("게시물 등록 완료");
+                .body("200");
 }
 
 //
