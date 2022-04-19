@@ -92,7 +92,7 @@ public class PostController {
         postService.createPost(postRequestDto, userDetails.getUser());
         return ResponseEntity.status(201)
                 .header("status","201")
-                .body("200");
+                .body("201");
 }
 
 //
