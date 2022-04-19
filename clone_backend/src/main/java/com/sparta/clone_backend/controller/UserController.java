@@ -52,8 +52,6 @@ public class UserController {
         StatusMessage statusMessage = new StatusMessage();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-
-//        statusMessage.setMessage("회원 등록 성공");
         statusMessage.setData(null);
         String message = userService.registerUser(signupRequestDto);
         System.out.println(message);
