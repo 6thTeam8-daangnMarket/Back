@@ -140,6 +140,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //게시글 관련 허용
         skipPathList.add("GET,/api/posts");
         skipPathList.add("GET,/api/posts/**");
+        skipPathList.add("GET,/api/posted/**");
+
 //        skipPathList.add("POST,/api/write/**");
 //        skipPathList.add("DELETE,/api/posts/**");
 
