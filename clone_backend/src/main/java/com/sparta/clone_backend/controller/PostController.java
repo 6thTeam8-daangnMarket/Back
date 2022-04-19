@@ -1,10 +1,7 @@
 package com.sparta.clone_backend.controller;
 
 
-import com.sparta.clone_backend.dto.PostRequestDto;
-import com.sparta.clone_backend.dto.PostListDto;
-import com.sparta.clone_backend.dto.PostsResponseDto;
-import com.sparta.clone_backend.dto.UserPageResponseDto;
+import com.sparta.clone_backend.dto.*;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
 import com.sparta.clone_backend.service.S3Uploader;
@@ -158,10 +155,15 @@ public class PostController {
 //    }
 
     // 전체 게시글 조회, 페이징 처리 완료, 시간 변경 필요, 토큰 없이 조회 불가,,, 수정 필요
-    @GetMapping("/api/post/{pageno}")
+    @GetMapping("/api/posted/{pageno}")
     public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
         return new PostsResponseDto(postService.showAllPost(pageno-1));
     }
+
+//    @GetMapping("/api/posted/{pageno}")
+//    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
+//        return new PostsResponseDto(postService.showAllPost(pageno-1));
+//    }
 
 //    특정게시글 조회
     @GetMapping("/api/posts/{postId}")
@@ -176,13 +178,13 @@ public class PostController {
 
     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
-    public ResponseEntity<StatusMessage> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        StatusMessage statusMessage = new StatusMessage();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusEnum.OK);
-        statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+    public ResponseEntity<PostResponseDto> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        StatusMessage statusMessage = new StatusMessage();
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//        statusMessage.setStatus(StatusEnum.OK);
+//        statusMessage.setData();
+        return new ResponseEntity<PostResponseDto>(postService.editPost(postId,requestDto, userDetails.getUser()), HttpStatus.OK);
     }
 
 

@@ -89,9 +89,8 @@ public class UserController {
     //로그인 확인
 
     @GetMapping("/user/isLogIn")
-    private ResponseEntity<String> isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
-       userService.isloginChk(userDetails);
-       return new ResponseEntity<>(HttpStatus.OK);
+    private ResponseEntity<IsLoginDto> isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
+       return new ResponseEntity<>(userService.isloginChk(userDetails), HttpStatus.OK);
     }
 
 
