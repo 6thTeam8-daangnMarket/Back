@@ -1,5 +1,6 @@
 package com.sparta.clone_backend.controller;
 
+import com.sparta.clone_backend.dto.ResponseDto;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostLikeService;
 import com.sparta.clone_backend.utils.StatusMessage;
@@ -30,23 +31,14 @@ public class PostLikeController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
-        statusMessage.setData(null);
+
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
     }
 
     // 관심 상품 등록
     @PostMapping("/api/posts/{postId}/like")
-    public ResponseEntity<StatusMessage> likePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        if (userDetails == null) {
-//            return ResponseEntity.badRequest("로그인 해주세요오오오옹");
-//        }
-        StatusMessage statusMessage = new StatusMessage();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postLikeService.likePost(postId, userDetails));
-//        return ResponseEntity.ok()
-//                .body("좋아요 완료!");
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+    public ResponseEntity<ResponseDto> likePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        return new ResponseEntity<>(postLikeService.likePost(postId, userDetails), HttpStatus.OK);
     }
 }

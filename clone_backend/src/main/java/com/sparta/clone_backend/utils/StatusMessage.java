@@ -9,7 +9,6 @@ public class StatusMessage {
     private Object data;
     public StatusMessage(){
         this.status = StatusEnum.BAD_REQUEST;
-        this.data = null;
     }
 
     public enum StatusEnum{

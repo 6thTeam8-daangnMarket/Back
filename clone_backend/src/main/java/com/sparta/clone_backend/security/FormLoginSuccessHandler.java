@@ -1,6 +1,5 @@
 package com.sparta.clone_backend.security;
 
-import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.security.jwt.JwtTokenUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;

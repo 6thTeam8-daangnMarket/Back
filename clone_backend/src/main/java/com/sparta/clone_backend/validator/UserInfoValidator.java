@@ -52,6 +52,7 @@ public class UserInfoValidator {
         return validatorResult;
     }
 
+    // 페이징 처리
     public Page<PostListDto> overPages(List<PostListDto> postList, int start, int end, Pageable pageable, int page) {
         Page<PostListDto> pages = new PageImpl<>(postList.subList(start, end), pageable, postList.size());
         if(page > pages.getTotalPages()){

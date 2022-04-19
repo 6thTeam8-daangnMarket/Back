@@ -1,10 +1,7 @@
 package com.sparta.clone_backend.controller;
 
 
-import com.sparta.clone_backend.dto.PostRequestDto;
-import com.sparta.clone_backend.dto.PostListDto;
-import com.sparta.clone_backend.dto.PostsResponseDto;
-import com.sparta.clone_backend.dto.UserPageResponseDto;
+import com.sparta.clone_backend.dto.*;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
 import com.sparta.clone_backend.service.S3Uploader;
@@ -95,7 +92,7 @@ public class PostController {
         postService.createPost(postRequestDto, userDetails.getUser());
         return ResponseEntity.status(201)
                 .header("status","201")
-                .body("게시물 등록 완료");
+                .body("201");
 }
 
 //
@@ -158,31 +155,34 @@ public class PostController {
 //    }
 
     // 전체 게시글 조회, 페이징 처리 완료, 시간 변경 필요, 토큰 없이 조회 불가,,, 수정 필요
-    @GetMapping("/api/posted/{pageno}")
-    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
-        return new PostsResponseDto(postService.showAllPost(pageno-1));
+    @GetMapping("/api/posted/{pageNo}")
+    public PostsResponseDto showAllPost(@PathVariable("pageNo") int pageNo) {
+        return new PostsResponseDto(postService.showAllPost(pageNo-1));
     }
+
+//    @GetMapping("/api/posted/{pageno}")
+//    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
+//        return new PostsResponseDto(postService.showAllPost(pageno-1));
+//    }
 
 //    특정게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        StatusMessage statusMessage = new StatusMessage();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusEnum.OK);
-        statusMessage.setData(postService.getPostDetail(postId));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+    public ResponseEntity<PostDetailResponseDto> getPostDetail(@PathVariable Long postId){
+
+        return ResponseEntity.status(201)
+                .header("status","201")
+                .body(postService.getPostDetail(postId));
     }
 
     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
-    public ResponseEntity<StatusMessage> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        StatusMessage statusMessage = new StatusMessage();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusEnum.OK);
-        statusMessage.setData(postService.editPost(postId,requestDto, userDetails.getUser()));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+    public ResponseEntity<PostResponseDto> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        StatusMessage statusMessage = new StatusMessage();
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//        statusMessage.setStatus(StatusEnum.OK);
+//        statusMessage.setData();
+        return new ResponseEntity<PostResponseDto>(postService.editPost(postId,requestDto, userDetails.getUser()), HttpStatus.OK);
     }
 
 
@@ -202,5 +202,10 @@ public class PostController {
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.getUserPage(userDetails);
     }
+
+//    @GetMapping("/user/mypage/{pageNo}")
+//    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageNo") int pageNo){
+//        return new UserPageResponseDto(postService.getUserPage(userDetails, pageNo-1));
+//    }
 
 }

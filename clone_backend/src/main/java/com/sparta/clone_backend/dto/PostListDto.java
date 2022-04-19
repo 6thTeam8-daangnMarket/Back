@@ -2,7 +2,6 @@ package com.sparta.clone_backend.dto;
 
 import lombok.*;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -19,7 +18,7 @@ public class PostListDto {
     private int likeCount;
     private String category;
 
-
+    // 전체 게시글 조회 - 페이징 처리
     public PostListDto(Long id, String postTitle, String imageUrl, int price, String location, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int like, String category) {
         this.postId = id;
         this.postTitle = postTitle;

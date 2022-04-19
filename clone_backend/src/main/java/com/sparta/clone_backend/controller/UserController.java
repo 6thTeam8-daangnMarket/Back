@@ -19,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
 
 @RestController
 public class UserController {
@@ -41,71 +42,64 @@ public class UserController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
-        statusMessage.setData(null);
+
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
     }
 
     // 회원가입
     @PostMapping("/user/signUp")
-    public ResponseEntity<StatusMessage> registerUser(@RequestBody SignupRequestDto signupRequestDto) {
-        System.out.println(signupRequestDto);
-        StatusMessage statusMessage = new StatusMessage();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setData(null);
+    public ResponseEntity<String> registerUser(@RequestBody SignupRequestDto signupRequestDto) {
         String message = userService.registerUser(signupRequestDto);
-        System.out.println(message);
         if (message.equals("회원가입 성공")) {
-            statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
-            return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     //아이디 중복 체크
     @PostMapping("/user/idCheck")
-    private ResponseEntity<StatusMessage> userDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
+    private ResponseEntity<StatusMessage> userDupliChk(@RequestBody DuplicateChkDto duplicateChkDto) {
         StatusMessage statusMessage = new StatusMessage();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-//        statusMessage.setMessage("회원 등록 성공");
-        statusMessage.setData( userService.idDuplichk(duplicateChkDto.getUserName()));
-
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+        HashMap<String, String> hashMap = userService.idDuplichk(duplicateChkDto.getUserName());
+        if (hashMap.get("status").equals("OK")) {
+            statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+            return new ResponseEntity<>(statusMessage, HttpStatus.OK);
+        } else {
+            statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
+            return new ResponseEntity<>(statusMessage, HttpStatus.BAD_REQUEST);
+        }
     }
 
     //닉네임 중복 체크
     @PostMapping("/user/nickNameCheck")
     private ResponseEntity<StatusMessage> nickNameDupliChk(@RequestBody DuplicateChkDto duplicateChkDto){
         StatusMessage statusMessage = new StatusMessage();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-//        statusMessage.setMessage("회원 등록 성공");
-        statusMessage.setData(userService.nickNameDuplichk(duplicateChkDto.getNickName()));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+        HashMap<String, String> hashMap = userService.nickNameDuplichk(duplicateChkDto.getNickName());
+        if(hashMap.get("status").equals("OK")){
+            statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+            return new ResponseEntity<>(statusMessage, HttpStatus.OK);
+        }else{
+            statusMessage.setStatus(StatusMessage.StatusEnum.BAD_REQUEST);
+            return new ResponseEntity<>(statusMessage, HttpStatus.BAD_REQUEST);
+        }
     }
-
 
     //로그인 확인
 
     @GetMapping("/user/isLogIn")
-    private IsLoginDto isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return userService.isloginChk(userDetails);
+    private ResponseEntity<IsLoginDto> isloginChk(@AuthenticationPrincipal UserDetailsImpl userDetails){
+
+        return ResponseEntity.status(201)
+                .header("status","201")
+                .body(userService.isloginChk(userDetails));
     }
 
 
     //카카오 로그인
     @GetMapping("/user/kakao/callback")
-    public String kakaoLogin(@RequestParam String code){
-        try {
-            kakaoUserService.kakaoLogin(code);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "redirect:/";
+    public void kakaoLogin(@RequestParam String code)throws JsonProcessingException{
+        kakaoUserService.kakaoLogin(code);
+
     }
 }
