@@ -31,7 +31,6 @@ public class UserService {
             String userName = signupRequestDto.getUserName();
             //비밀번호 암호화
             String passWordEncode = passWordEncoder.encode(signupRequestDto.getPassWord());
-
             //저장할 유저 객체 생성
             User user = new User(userName, signupRequestDto, passWordEncode);
             //회원정보 저장
@@ -46,11 +45,11 @@ public class UserService {
     public HashMap<String, String> idDuplichk(String userName){
        HashMap<String, String> hashMap = new HashMap<>();
        if(userRepository.findByUserName(userName).isPresent()){
-           hashMap.put("result", "true");
+           hashMap.put("status", "400");
 //           hashMap.put("msg", "중복된 아이디입니다");
            return hashMap;
        }else{
-           hashMap.put("result", "false");
+           hashMap.put("status", "OK");
 //           hashMap.put("msg", "사용가능한 아이디입니다");
            return hashMap;
        }
@@ -61,11 +60,11 @@ public class UserService {
     public HashMap<String, String> nickNameDuplichk(String nickName){
        HashMap<String, String> hashMap = new HashMap<>();
        if(userRepository.findByNickName(nickName).isPresent()){
-           hashMap.put("result", "true");
+           hashMap.put("status", "400");
 //           hashMap.put("msg", "중복된 닉네임입니다");
            return hashMap;
        }else{
-           hashMap.put("result", "false");
+           hashMap.put("status", "OK");
 //           hashMap.put("msg", "사용가능한 닉네임입니다");
            return hashMap;
        }
