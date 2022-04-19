@@ -18,7 +18,6 @@ import java.util.Optional;
 public class PostLikeService {
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
-    private final UserRepository userRepository;
 
     @Transactional
     public ResponseDto likePost(Long postId, UserDetailsImpl userDetails) {
