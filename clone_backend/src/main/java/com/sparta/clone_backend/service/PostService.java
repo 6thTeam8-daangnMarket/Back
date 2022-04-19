@@ -77,6 +77,21 @@ public class PostService {
                 .build();
     }
 
+    // 전체 게시글 조회 - 페이징 처리 완료, 시간 변경 실패(몇 초 전, 몇 분 전 변경 필요)
+    public Page<PostListDto> showAllPost(int paegNo) {
+        List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
+        Pageable pageable = getPageable(paegNo);
+        List<PostListDto> postListDto = new ArrayList<>();
+        forpostList(postList, postListDto);
+
+        int start = paegNo * 10;
+        System.out.println("전체 게시글 조회 시작" + start);
+        int end = Math.min((start + 10), postList.size());
+        System.out.println("전체 게시글 조회 끝" + end);
+
+        return validator.overPages(postListDto, start, end, pageable, paegNo);
+    }
+
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
 
@@ -124,7 +139,7 @@ public class PostService {
 //       return postspage;
 //    }
 
-    //상세 게시글 조회
+    // 상세 게시글 조회
     public PostDetailResponseDto getPostDetail(Long postId) {
         Post post = postRepository.findById(postId).get();
 
@@ -170,6 +185,39 @@ public class PostService {
         }
         return new UserPageResponseDto(userDetails.getNickName(), postsResponseDtos);
     }
+
+    // 마이 페이지 관심 상품 조회 - 페이징 처리 실험 중
+//    public Page<PostListDto> getUserPage(UserDetailsImpl userDetails, int pageNo) {
+//        String userName = userDetails.getUser().getUserName();
+//
+//        List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
+//        Pageable pageable = getPageable(pageNo);
+//
+//        List<PostListDto> userList = new ArrayList<>();
+//
+//        List<PostLike> postLikeObjects = postLikeRepository.findAllByUserName(userName);
+//
+//        for (PostLike postLike : postLikeObjects) {
+//            Long userPost = postLike.getPost().getId();
+//
+//            Post post = postRepository.findById(userPost).orElseThrow(
+//                    () -> new IllegalArgumentException("판매가 중지된 상품입니다.")
+//            );
+//
+//            int like = postLikeRepository.countAllByPostId(userPost);
+//
+//            PostListDto postListDto1 = new PostListDto(post.getId(), post.getPostTitle(), post.getImageUrl(), post.getPrice(), post.getLocation(),
+//                    convertLocaldatetimeToTime(post.getCreatedAt()), convertLocaldatetimeToTime(post.getModifiedAt()), like,post.getCategory());
+//            userList.add(postListDto1);
+//        }
+//
+//        int start = pageNo * 10;
+//        System.out.println("시작" + start);
+//        int end = Math.min((start + 10), postList.size());
+//        System.out.println("끝" + end);
+//
+//        return validator.overPages(userList, start, end, pageable, pageNo);
+//    }
 
     // 게시글 수정 (아직은 내용만 수정 가능)
     @Transactional
@@ -220,18 +268,6 @@ public class PostService {
         return diffTime + "년 전";
     }
 
-    // 전체 게시글 조회 - 페이징 처리 완료, 시간 변경 실패(몇 초 전, 몇 분 전 변경 필요)
-    public Page<PostListDto> showAllPost(int pageno) {
-        List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
-        Pageable pageable = getPageable(pageno);
-        List<PostListDto> postListDto = new ArrayList<>();
-        forpostList(postList, postListDto);
-
-        int start = pageno * 10;
-        int end = Math.min((start + 10), postList.size());
-
-        return validator.overPages(postListDto, start, end, pageable, pageno);
-    }
 
     private Pageable getPageable(int page) {
         Sort.Direction direction = Sort.Direction.DESC;
