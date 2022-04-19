@@ -78,11 +78,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         /*
          * 1.
-         * UsernamePasswordAuthenticationFilter 이전에 FormLoginFilter, JwtFilter 를 등록합니다.
+         * UsernamePasswordAuthenticationFilter 이전`에 FormLoginFilter, JwtFilter 를 등록합니다.
          * FormLoginFilter : 로그인 인증을 실시합니다.
          * JwtFilter       : 서버에 접근시 JWT 확인 후 인증을 실시합니다.
          */
         http
+
                 .addFilterBefore(formLoginFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
@@ -126,12 +127,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Static 정보 접근 허용
         skipPathList.add("GET,/images/**");
         skipPathList.add("GET,/css/**");
-        skipPathList.add("POST, /auth/**");
+        skipPathList.add("POST,/auth/**");
+        skipPathList.add("GET,/auth/**");
+
         // h2-console 허용
         skipPathList.add("GET,/h2-console/**");
         skipPathList.add("POST,/h2-console/**");
         // 회원 관리 API 허용'
-        skipPathList.add("POST, /user/kakao/**");
+        skipPathList.add("POST,/user/kakao/**");
         skipPathList.add("POST,/user/signUp");
         skipPathList.add("POST,/user/idCheck");
         skipPathList.add("POST,/user/nickNameCheck");

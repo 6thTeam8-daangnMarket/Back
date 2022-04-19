@@ -26,19 +26,24 @@ public class UserInfoValidator {
         this.userRepository = userRepository;
     }
 
-    public String getValidMessage(SignupRequestDto signupRequestDto){
+    public String getValidMessage(SignupRequestDto signupRequestDto) {
 //        String pattern = "^[a-zA-Z0-9]*$";
 
 //        else if (requestDto.getPassword().length() < 6) {
 //            return "비밀번호를 6자 이상 입력하세요";
 //        }
 
-        if(!signupRequestDto.getPassWord().equals(signupRequestDto.getPassWordCheck())) {
+        if (!signupRequestDto.getPassWord().equals(signupRequestDto.getPassWordCheck())) {
             return "비밀번호가 일치하지 않습니다";
-        } else if(signupRequestDto.getUserName().contains(signupRequestDto.getPassWord())) {
+        } else if (signupRequestDto.getUserName().contains(signupRequestDto.getPassWord())) {
             return "비밀번호는 아이디를 포함할 수 없습니다.";
-        } else
+        } else if (userRepository.findByUserName(signupRequestDto.getUserName()).isPresent()) {
+            return "중복된 아이디 입니다.";
+        } else if (userRepository.findByNickName(signupRequestDto.getNickName()).isPresent()) {
+            return "중복된 닉네임 입니다.";
+        } else {
             return "회원가입 성공";
+        }
     }
 
     // 회원가입 시, 유효성 체크

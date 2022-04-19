@@ -25,9 +25,13 @@ public class FormLoginFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         UsernamePasswordAuthenticationToken authRequest;
         try {
+//            System.out.println(request.getInputStream().toString());
             JsonNode requestBody = objectMapper.readTree(request.getInputStream());
+//            System.out.println(requestBody);
             String userName = requestBody.get("userName").asText();
             String passWord = requestBody.get("passWord").asText();
+//            System.out.println("formLogin : "+userName);
+//            System.out.println("formLogin : "+passWord);
             authRequest = new UsernamePasswordAuthenticationToken(userName, passWord);
         } catch (Exception e) {
             throw new RuntimeException("username, password 입력이 필요합니다. (JSON)");

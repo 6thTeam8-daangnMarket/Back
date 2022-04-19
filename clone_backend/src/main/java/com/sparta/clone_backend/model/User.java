@@ -31,14 +31,15 @@ public class User {
 
     @Column(unique = true)
     private Long kakaoId;
+
     public User(String userName, SignupRequestDto signupRequestDto, String passWordEncode) {
         this.userName = userName;
         this.nickName = signupRequestDto.getNickName();
         this.passWord = passWordEncode;
         this.location = signupRequestDto.getLocation();
     }
-    public User(String nickName, String passWordEncode, Long kakaoId) {
-        this.userName = nickName;
+    public User(String userName, String nickName, String passWordEncode, Long kakaoId) {
+        this.userName = userName;
         this.nickName = nickName;
         this.passWord = passWordEncode;
         this.kakaoId = kakaoId;
