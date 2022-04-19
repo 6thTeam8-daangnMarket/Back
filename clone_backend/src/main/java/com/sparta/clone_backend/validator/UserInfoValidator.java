@@ -1,13 +1,18 @@
 package com.sparta.clone_backend.validator;
 
+import com.sparta.clone_backend.dto.PostListDto;
 import com.sparta.clone_backend.dto.SignupRequestDto;
 import com.sparta.clone_backend.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -45,6 +50,14 @@ public class UserInfoValidator {
             validatorResult.put(validKeyName, error.getDefaultMessage());
         }
         return validatorResult;
+    }
+
+    public Page<PostListDto> overPages(List<PostListDto> postList, int start, int end, Pageable pageable, int page) {
+        Page<PostListDto> pages = new PageImpl<>(postList.subList(start, end), pageable, postList.size());
+        if(page > pages.getTotalPages()){
+            throw new IllegalArgumentException("요청할 수 없는 페이지 입니다.");
+        }
+        return pages;
     }
 
 

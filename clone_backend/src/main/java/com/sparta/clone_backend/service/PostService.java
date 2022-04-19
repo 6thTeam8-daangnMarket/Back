@@ -2,7 +2,6 @@ package com.sparta.clone_backend.service;
 
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.sparta.clone_backend.dto.*;
 
 import com.sparta.clone_backend.model.Image;
@@ -15,26 +14,25 @@ import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
 import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
+import com.sparta.clone_backend.validator.UserInfoValidator;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.Document;
 import javax.transaction.Transactional;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -48,6 +46,7 @@ public class PostService {
     private final ImageRepository imageRepository;
     private final AmazonS3Client amazonS3Client;
     private final S3Uploader s3Uploader;
+    private final UserInfoValidator validator;
 
 //    @Autowired
 //    public PostService(PostRepository postRepository) {
@@ -101,26 +100,29 @@ public class PostService {
         return null;
     }
 
-    //전체 게시글 조회
-    public List<PostsResponseDto> getPost() {
-        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
-        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
-        for (Post post : posts) {
-
-            PostsResponseDto postsResponseDto = new PostsResponseDto(
-                    post.getPostTitle(),
-                    post.getImageUrl(),
-                    post.getPrice(),
-                    post.getLocation(),
-                    convertLocaldatetimeToTime(post.getCreatedAt()),
-                    convertLocaldatetimeToTime(post.getModifiedAt()),
-                    post.getId(),
-                    postLikeRepository.countByPost(post),
-                    post.getCategory());
-            postsResponseDtos.add(postsResponseDto);
-        }
-        return postsResponseDtos;
-    }
+//    //전체 게시글 조회
+//    public Page<PostListDto> getPost(Pageable pageable) {
+//
+//        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
+//        List<PostListDto> postsResponseDtos = new ArrayList<>();
+//
+//        for (Post post : posts) {
+//
+//            PostListDto postsResponseDto = new PostListDto(
+//                    post.getPostTitle(),
+//                    post.getImageUrl(),
+//                    post.getPrice(),
+//                    post.getLocation(),
+//                    convertLocaldatetimeToTime(post.getCreatedAt()),
+//                    convertLocaldatetimeToTime(post.getModifiedAt()),
+//                    post.getId(),
+//                    postLikeRepository.countByPost(post),
+//                    post.getCategory());
+//            postsResponseDtos.add(postsResponseDto);
+//        }
+//        Page<PostListDto> postspage = postRepository.findAllByOrderByModifiedAtDesc(pageable);
+//       return postspage;
+//    }
 
     //상세 게시글 조회
     public PostDetailResponseDto getPostDetail(Long postId) {
@@ -139,24 +141,27 @@ public class PostService {
         );
     }
 
-    //유저 페이지,장바구니 조회
+    // 유저 페이지,장바구니 조회
     public UserPageResponseDto getUserPage(UserDetailsImpl userDetails) {
         String userName = userDetails.getUser().getUserName();
 
         List<PostLike> postLikeObjects = postLikeRepository.findAllByUserName(userName);
-        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
+
+        List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
+
+        List<PostListDto> postsResponseDtos = new ArrayList<>();
 
         for (PostLike postLikeObject : postLikeObjects) {
             Post likedPost = postLikeObject.getPost();
 
-            PostsResponseDto postsResponseDto = new PostsResponseDto(
+            PostListDto postsResponseDto = new PostListDto(
+                    likedPost.getId(),
                     likedPost.getPostTitle(),
                     likedPost.getImageUrl(),
                     likedPost.getPrice(),
                     likedPost.getLocation(),
                     convertLocaldatetimeToTime(likedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(likedPost.getModifiedAt()),
-                    likedPost.getId(),
                     postLikeRepository.countByPost(likedPost),
                     likedPost.getCategory()
             );
@@ -173,9 +178,7 @@ public class PostService {
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 수정 가능합니다.")
         );
-        System.out.println(post.getPostContents());
         post.update(postId, requestDto.getPostContents());
-        System.out.println(post.getPostContents());
 
         PostResponseDto responseDto = new PostResponseDto(postId, post.getPostContents());
         return responseDto;
@@ -215,6 +218,36 @@ public class PostService {
 
         diffTime = diffTime / MONTH;
         return diffTime + "년 전";
+    }
+
+    // 전체 게시글 조회 - 페이징 처리 완료, 시간 변경 실패(몇 초 전, 몇 분 전 변경 필요)
+    public Page<PostListDto> showAllPost(int pageno) {
+        List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
+        Pageable pageable = getPageable(pageno);
+        List<PostListDto> postListDto = new ArrayList<>();
+        forpostList(postList, postListDto);
+
+        int start = pageno * 10;
+        int end = Math.min((start + 10), postList.size());
+
+        return validator.overPages(postListDto, start, end, pageable, pageno);
+    }
+
+    private Pageable getPageable(int page) {
+        Sort.Direction direction = Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, "id");
+        return PageRequest.of(page, 10, sort);
+    }
+
+    private void forpostList(List<Post> postList, List<PostListDto> postListDto) {
+        for (Post post : postList) {
+            int like = postLikeRepository.countAllByPostId(post.getId());
+
+            PostListDto postDto = new PostListDto(post.getId(), post.getPostTitle(), post.getImageUrl(),
+                    post.getPrice(), post.getLocation(), convertLocaldatetimeToTime(post.getCreatedAt()), convertLocaldatetimeToTime(post.getModifiedAt()), like, post.getCategory());
+
+            postListDto.add(postDto);
+        }
     }
 }
 

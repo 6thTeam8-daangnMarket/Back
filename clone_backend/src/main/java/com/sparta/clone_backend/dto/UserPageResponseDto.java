@@ -12,9 +12,9 @@ import java.util.List;
 public class UserPageResponseDto {
 
     private String nickName;
-    private List<PostsResponseDto> likeposts;
+    private List<PostListDto> likeposts;
 
-    public UserPageResponseDto(String nickName, List<PostsResponseDto> likeposts){
+    public UserPageResponseDto(String nickName, List<PostListDto> likeposts){
         this.nickName = nickName;
         this.likeposts = likeposts;
     }
