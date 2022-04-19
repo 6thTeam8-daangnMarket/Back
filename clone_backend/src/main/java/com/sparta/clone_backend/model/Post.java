@@ -44,7 +44,7 @@ public class Post extends Timestamped{
     private String nickName;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private User user;
 
     private LocalDateTime createdAt;

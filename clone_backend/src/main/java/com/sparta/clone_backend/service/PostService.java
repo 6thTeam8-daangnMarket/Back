@@ -55,17 +55,17 @@ public class PostService {
     public PostResponseDto createPost(PostRequestDto postRequestDto, User user) {
 
         Post post = Post.builder()
-                        .user(user)
-                        .postTitle(postRequestDto.getPostTitle())
-                        .postContents(postRequestDto.getPostContents())
-                        .imageUrl(postRequestDto.getImageUrl())
-                        .price(postRequestDto.getPrice())
-                        .location(user.getLocation())
-                        .nickName(user.getNickName())
-                        .category(postRequestDto.getCategory())
-                        .createdAt(LocalDateTime.now())
-                        .modifiedAt(LocalDateTime.now())
-                        .build();
+                .user(user)
+                .postTitle(postRequestDto.getPostTitle())
+                .postContents(postRequestDto.getPostContents())
+                .imageUrl(postRequestDto.getImageUrl())
+                .price(postRequestDto.getPrice())
+                .location(user.getLocation())
+                .nickName(user.getNickName())
+                .category(postRequestDto.getCategory())
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .build();
 
         postRepository.save(post);
 
@@ -82,7 +82,7 @@ public class PostService {
     @Transactional
     public Object deletePost(Long postId, User user) {
 
-        Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
+        Post post = postRepository.findByIdAndUserId(postId, user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
 
@@ -168,7 +168,7 @@ public class PostService {
     @Transactional
     public PostResponseDto editPost(Long postId, PostRequestDto requestDto, User user) {
 
-        Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
+        Post post = postRepository.findByIdAndUserId(postId, user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 수정 가능합니다.")
         );
         System.out.println(post.getPostContents());
@@ -191,7 +191,7 @@ public class PostService {
         int MONTH = 12;
 
         String msg = null;
-        if (diffTime < SEC){
+        if (diffTime < SEC) {
             return diffTime + "초전";
         }
         diffTime = diffTime / SEC;
@@ -213,6 +213,46 @@ public class PostService {
 
         diffTime = diffTime / MONTH;
         return diffTime + "년 전";
+    }
+
+    //15번 검색한 내용에 대한 정보 (구현 완료)
+    @Transactional
+    public List<PostsResponseDto> getSearchPost(String filtertype, String searchtitle, String mapdata, String category) {
+        List<Post> searchedPosts = new ArrayList<>();
+
+        switch (filtertype) {
+            case "price":
+                searchedPosts = postRepository.findByAndMapAndSearchByPrice(mapdata, searchtitle, category);
+                break;
+
+//            case "quality":
+//                boardList = boardRepository.findByAndMapAndSearchByQuality(mapdata, searchtitle, limitcount);
+//                break;
+//
+//            default:
+//                boardList = boardRepository.findByAndMapAndSearchByCreatedAt(mapdata, searchtitle, limitcount);
+
+        }
+
+        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
+
+        for (Post searchedPost : searchedPosts) {
+
+            PostsResponseDto postsResponseDto = new PostsResponseDto(
+                    searchedPost.getPostTitle(),
+                    searchedPost.getImageUrl(),
+                    searchedPost.getPrice(),
+                    searchedPost.getLocation(),
+                    convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
+                    convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
+                    searchedPost.getId(),
+                    postLikeRepository.countByPost(searchedPost),
+                    searchedPost.getCategory()
+            );
+            postsResponseDtos.add(postsResponseDto);
+
+        }
+        return postsResponseDtos;
     }
 }
 

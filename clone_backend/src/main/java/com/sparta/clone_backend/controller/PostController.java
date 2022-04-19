@@ -1,13 +1,19 @@
 package com.sparta.clone_backend.controller;
 
 
+import com.sparta.clone_backend.dto.PostDetailResponseDto;
 import com.sparta.clone_backend.dto.PostRequestDto;
+import com.sparta.clone_backend.dto.PostsResponseDto;
 import com.sparta.clone_backend.dto.UserPageResponseDto;
+import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import com.sparta.clone_backend.service.PostService;
 import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
+import com.sparta.clone_backend.validator.SearchValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -28,6 +36,8 @@ public class PostController {
 
     private final PostService postService;
     private final S3Uploader S3Uploader;
+    private final SearchValidator searchValidator;
+
 //    // 게시글 생성
 //    @PostMapping("/api/write")
 //    public ResponseEntity<String> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -70,26 +80,26 @@ public class PostController {
         postService.createPost(postRequestDto, userDetails.getUser());
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
-//
+
 //    // 전체 게시글 조회
 //    @GetMapping("/api/posts")
 //    public Page<Post> getPost(@PageableDefault(size = 10) Pageable pageable
-////        @RequestParam("page") int page,
-////        @RequestParam("size") int size,
-////        @RequestParam("sortBy") String sortBy,
-////        @RequestParam("isAsc") boolean isAsc,
-////        @AuthenticationPrincipal UserDetailsImpl userDetails
+//        @RequestParam("page") int page,
+//        @RequestParam("size") int size,
+//        @RequestParam("sortBy") String sortBy,
+//        @RequestParam("isAsc") boolean isAsc,
+//        @AuthenticationPrincipal UserDetailsImpl userDetails
 //    ) {
-////        Long userId = userDetails.getUser().getId();
-////        page = page - 1;
+//        Long userId = userDetails.getUser().getId();
+//        page = page - 1;
 //        return postService.getPost(pageable);
 //    }
-//
-//    //특정게시글 조회
-//    @GetMapping("/api/posts/{postId}")
-//    public PostDetailResponseDto getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-//        return postService.getPostDetail(postId, userDetails);
-//    }
+
+    //특정게시글 조회
+    @GetMapping("/api/posts/{postId}")
+    public PostDetailResponseDto getPostDetail(@PathVariable Long postId){
+        return postService.getPostDetail(postId);
+    }
 
     @GetMapping("/api/posts")
     public ResponseEntity<StatusMessage> getPost() {
@@ -103,16 +113,18 @@ public class PostController {
     }
 
     //특정게시글 조회
-    @GetMapping("/api/posts/{postId}")
-    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        StatusMessage statusMessage = new StatusMessage();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
-        statusMessage.setData(postService.getPostDetail(postId));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
-    }
-    // 게시글 수정
+//    @GetMapping("/api/posts/{postId}")
+//    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId){
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        StatusMessage statusMessage = new StatusMessage();
+//        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//        statusMessage.setStatus(StatusMessage.StatusEnum.OK);
+//        statusMessage.setData(postService.getPostDetail(postId));
+//        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+//    }
+
+
+     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
     public ResponseEntity<StatusMessage> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         StatusMessage statusMessage = new StatusMessage();
@@ -140,6 +152,24 @@ public class PostController {
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.getUserPage(userDetails);
     }
+
+    //직접 사용자 검색 기능
+    @GetMapping("/search")
+    public List<PostsResponseDto> getSearchBoardList(
+            @RequestParam(value = "category", required = false) Optional<String> category,
+            @RequestParam(value = "filtertype", required = false) Optional<String> filtertype,
+            @RequestParam(value = "searchtitle", required = false) Optional<String> searchtitle,
+            @RequestParam(value = "mapdata", required = false) Optional<String> mapdata) {
+        // 각각의 변수에 대한 default값 설정
+        String validmapdata = SearchValidator.DefaultMapData(mapdata);
+        String validFilterData = SearchValidator.DefaultFilterData(filtertype);
+        String validSearchData = SearchValidator.DefaultSearchData(searchtitle);
+        String validCategory = SearchValidator.DefaultCategoryData(category);
+        System.out.println(validmapdata + validFilterData + validSearchData);
+
+        return postService.getSearchPost(validFilterData, validSearchData, validmapdata, validCategory);
+    }
+
 
 
 }
