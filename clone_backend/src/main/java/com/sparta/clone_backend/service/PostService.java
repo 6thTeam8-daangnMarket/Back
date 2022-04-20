@@ -169,14 +169,14 @@ public class PostService {
     }
 
 
-    // 게시글 수정 (아직은 내용만 수정 가능)
+    // 게시글 수정
     @Transactional
     public PostResponseDto editPost(Long postId, PostRequestDto requestDto, User user) {
 
         Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 수정 가능합니다.")
         );
-        post.update(postId, requestDto.getPostContents());
+        post.update(postId, requestDto.getPostTitle(), requestDto.getPostContents(), requestDto.getImageUrl(),requestDto.getPrice(), requestDto.getCategory());
 
         PostResponseDto responseDto = new PostResponseDto(postId, post.getPostContents());
         return responseDto;
@@ -218,7 +218,6 @@ public class PostService {
         diffTime = diffTime / MONTH;
         return diffTime + "년 전";
     }
-
 
     // 페이징 처리
     private Pageable getPageable(int page) {

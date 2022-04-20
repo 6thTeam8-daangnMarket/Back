@@ -89,12 +89,22 @@ public class PostController {
 
     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
-    public ResponseEntity<PostResponseDto> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return new ResponseEntity<PostResponseDto>(postService.editPost(postId,requestDto, userDetails.getUser()), HttpStatus.OK);
+    public ResponseEntity<PostResponseDto> editPost(@PathVariable Long postId,
+                                                    @RequestParam("postTitle") String postTitle,
+                                                    @RequestParam("postContents") String postContents,
+                                                    @RequestParam(value = "imageUrl") MultipartFile multipartFile,
+                                                    @RequestParam("price") int price,
+                                                    @RequestParam("category") String category,
+                                                    @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        String imageUrl = S3Uploader.upload(multipartFile, "static");
+        PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, category);
+        return ResponseEntity.status(201)
+                .header("status", "201")
+                .body(postService.editPost(postId, postRequestDto, userDetails.getUser()));
     }
 
     // 게시글 삭제
-    @DeleteMapping("api/posts/{postId}")
+    @DeleteMapping("/api/posts/{postId}")
     public ResponseEntity<StatusMessage> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         StatusMessage statusMessage = new StatusMessage();
         HttpHeaders httpHeaders = new HttpHeaders();

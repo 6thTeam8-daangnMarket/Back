@@ -48,16 +48,14 @@ public class Post extends Timestamped{
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public void update(Long postId, String postTitle, String postContents, int price) {
+    // 게시글 내용 수정
+    public void update(Long postId, String postTitle, String postContents, String imageUrl, int price, String category) {
         this.id= postId;
         this.postTitle = postTitle;
         this.postContents  = postContents;
+        this.imageUrl = imageUrl;
         this.price = price;
+        this.category = category;
     }
 
-    // 게시글 내용 수정
-    public void update(Long postId, String postContents) {
-        this.id = postId;
-        this.postContents = postContents;
-    }
 }
