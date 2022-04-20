@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -204,16 +205,17 @@ public class PostController {
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.getUserPage(userDetails);
     }
+    //검색 기능
     @GetMapping("/api/search/{keyword}")
     public List<PostListDto> getSearchPostList(
-            @PathVariable(value = "keyword", required = false) String keyword){
+            @PathVariable(value = "keyword", required = false) String keyword) throws UnsupportedEncodingException {
         return postService.getSearchPost(keyword);
     }
 
     //카테고리별 조회
     @GetMapping("/api/category/{category}")
     public List<PostListDto> getCategoryPostList(
-            @PathVariable String category){
+            @PathVariable String category) throws UnsupportedEncodingException {
 
         return postService.getCategoryPost(category);
     }

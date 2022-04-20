@@ -27,6 +27,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -250,12 +252,16 @@ public class PostService {
         }
     }
 
+
+
     //검색한 내용에 대한 정보
     @Transactional
-    public List<PostListDto> getSearchPost(String keyword) {
+    public List<PostListDto> getSearchPost(String keyword) throws UnsupportedEncodingException {
         List<Post> searchedPosts = new ArrayList<>();
 
-        searchedPosts = postRepository.searchByKeyword(keyword);
+        String decodeVal = URLDecoder.decode(keyword, "utf-8");
+
+        searchedPosts = postRepository.searchByKeyword(decodeVal);
         List<PostListDto> postListDtos = new ArrayList<>();
         for (Post searchedPost : searchedPosts) {
 
@@ -274,13 +280,14 @@ public class PostService {
         }
         return postListDtos;
     }
-
     //카테고리별 내용에 대한 정보
     @Transactional
-    public List<PostListDto> getCategoryPost(String category) {
+    public List<PostListDto> getCategoryPost(String category) throws UnsupportedEncodingException {
         List<Post> searchedPosts = new ArrayList<>();
 
-        searchedPosts = postRepository.searchByCategory(category);
+        String decodeVal = URLDecoder.decode(category, "utf-8");
+        searchedPosts = postRepository.searchByCategory(decodeVal);
+
 
         List<PostListDto> postListDtos = new ArrayList<>();
         for (Post searchedPost : searchedPosts) {
