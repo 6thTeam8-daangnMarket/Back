@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_2022-04-21_오전_5_36_[Changes]" date="1650487008006" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오전_5_36_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 2022-04-21 오전 5:36 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오전_5_36_[Changes]/fileHashes.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오전_5_36_[Changes]/fileHashes.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오전_5_36_[Changes]/executionHistory.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오전_5_36_[Changes]/buildOutputCleanup.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오전_5_36_[Changes]/executionHistory.lock" />
+  </binary>
+</changelist>
