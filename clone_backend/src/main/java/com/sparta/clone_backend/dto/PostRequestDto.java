@@ -15,6 +15,7 @@ public class PostRequestDto {
     private String imageUrl;
     private int price;
     private String category;
+    private boolean like;
     private String createdAt;
 
     public PostRequestDto(String postTitle, String postContents, String imageUrl, int price, String category) {

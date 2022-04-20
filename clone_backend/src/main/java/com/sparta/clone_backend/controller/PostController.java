@@ -75,8 +75,8 @@ public class PostController {
 
     // 전체 게시글 조회, 페이징 처리 완료
     @GetMapping("/api/posted/{pageno}")
-    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
-        return new PostsResponseDto(postService.showAllPost(pageno - 1));
+    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new PostsResponseDto(postService.showAllPost(pageno - 1, userDetails));
     }
 
 //    특정게시글 조회

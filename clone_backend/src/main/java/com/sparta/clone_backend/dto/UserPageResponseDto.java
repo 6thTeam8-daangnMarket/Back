@@ -1,7 +1,6 @@
 package com.sparta.clone_backend.dto;
 
 import com.sparta.clone_backend.security.UserDetailsImpl;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Getter
 @Setter
-//@Builder
 public class UserPageResponseDto {
 
     private String nickName;

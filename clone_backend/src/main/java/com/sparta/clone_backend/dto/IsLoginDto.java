@@ -13,7 +13,4 @@ public class IsLoginDto {
     private String nickName;
     private String location;
 
-//    public IsLoginDto(int userId, String userName, String nickName, String location){
-//        this.userId =
-//    }
 }

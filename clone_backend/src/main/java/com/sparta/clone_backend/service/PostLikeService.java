@@ -22,7 +22,7 @@ public class PostLikeService {
     @Transactional
     public ResponseDto likePost(Long postId, UserDetailsImpl userDetails) {
         Post post = postRepository.findById(postId).orElseThrow(
-                () -> new IllegalArgumentException("판매되지 않는 상품입니다.")
+                () -> new IllegalArgumentException("해당 상품이 존재하지 않습니다.")
         );
         Optional<PostLike> postLike = postLikeRepository.findByUserNameAndPost(userDetails.getUsername(), post);
 

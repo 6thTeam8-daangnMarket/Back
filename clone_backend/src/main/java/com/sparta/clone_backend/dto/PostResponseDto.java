@@ -20,17 +20,6 @@ public class PostResponseDto {
     private int likeCount;
     private LocalDateTime createdAt;
 
-    // 게시글 생성
-    public PostResponseDto(Long postId, String postTitle, String imageUrl, int price, String location, LocalDateTime createdAt, int likeCount){
-        this.postId = postId;
-        this.postTitle = postTitle;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.location = location;
-        this.createdAt = createdAt;
-        this.likeCount = likeCount;
-    }
-
     // 게시글 수정
     public PostResponseDto(Long postId, String postContents) {
         this.postId = postId;

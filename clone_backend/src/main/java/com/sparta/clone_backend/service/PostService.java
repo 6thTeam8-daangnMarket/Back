@@ -77,6 +77,24 @@ public class PostService {
                 .build();
     }
 
+
+    // 전체 게시글 조회 - 페이징 처리 완료
+    public Page<PostListDto> showAllPost(int pageno, UserDetailsImpl userDetails) {
+        String username = userDetails.getUser().getUserName();
+
+        List<Post> post = postRepository.findAllByOrderByCreatedAtDesc();
+
+        Pageable pageable = getPageable(pageno);
+        List<PostListDto> postListDto = new ArrayList<>();
+        forpostList(post,username, postListDto);
+
+        int start = pageno * 10;
+        int end = Math.min((start + 10), post.size());
+
+        return validator.overPages(postListDto, start, end, pageable, pageno);
+    }
+
+
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
 
@@ -88,7 +106,7 @@ public class PostService {
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
 
-//         S3 이미지 삭제
+    //  S3 이미지 삭제
         String temp = post.getImageUrl();
         Image image = imageRepository.findByImageUrl(temp);
         String fileName = image.getFilename();
@@ -100,33 +118,11 @@ public class PostService {
         return null;
     }
 
-//    //전체 게시글 조회
-//    public Page<PostListDto> getPost(Pageable pageable) {
-//
-//        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
-//        List<PostListDto> postsResponseDtos = new ArrayList<>();
-//
-//        for (Post post : posts) {
-//
-//            PostListDto postsResponseDto = new PostListDto(
-//                    post.getPostTitle(),
-//                    post.getImageUrl(),
-//                    post.getPrice(),
-//                    post.getLocation(),
-//                    convertLocaldatetimeToTime(post.getCreatedAt()),
-//                    convertLocaldatetimeToTime(post.getModifiedAt()),
-//                    post.getId(),
-//                    postLikeRepository.countByPost(post),
-//                    post.getCategory());
-//            postsResponseDtos.add(postsResponseDto);
-//        }
-//        Page<PostListDto> postspage = postRepository.findAllByOrderByModifiedAtDesc(pageable);
-//       return postspage;
-//    }
-
-    //상세 게시글 조회
+    // 상세 게시글 조회
     public PostDetailResponseDto getPostDetail(Long postId) {
-        Post post = postRepository.findById(postId).get();
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new IllegalArgumentException("해당 상품이 존재하지 않습니다.")
+        );
 
         return new PostDetailResponseDto(
                 post.getPostTitle(),
@@ -141,37 +137,8 @@ public class PostService {
         );
     }
 
-    // 유저 페이지,장바구니 조회
-//    public UserPageResponseDto getUserPage(UserDetailsImpl userDetails, int pageno) {
-//        String userName = userDetails.getUser().getUserName();
-//
-//        List<PostLike> postLikeObjects = postLikeRepository.findAllByUserName(userName);
-//
-//        List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
-//
-//        List<PostListDto> postsResponseDtos = new ArrayList<>();
-//
-//        for (PostLike postLikeObject : postLikeObjects) {
-//            Post likedPost = postLikeObject.getPost();
-//
-//            PostListDto postsResponseDto = new PostListDto(
-//                    likedPost.getId(),
-//                    likedPost.getPostTitle(),
-//                    likedPost.getImageUrl(),
-//                    likedPost.getPrice(),
-//                    likedPost.getLocation(),
-//                    convertLocaldatetimeToTime(likedPost.getCreatedAt()),
-//                    convertLocaldatetimeToTime(likedPost.getModifiedAt()),
-//                    postLikeRepository.countByPost(likedPost),
-//                    likedPost.getCategory()
-//            );
-//            postsResponseDtos.add(postsResponseDto);
-//
-//        }
-//        return new UserPageResponseDto(userDetails.getNickName(), postsResponseDtos);
-//    }
 
-    // 마이 페이지 유저 정보 조회
+    // 유저 페이지,장바구니 조회
     public Page<PostListDto> getUserPage(UserDetailsImpl userDetails, int pageno) {
         String userName = userDetails.getUser().getUserName();
 
@@ -185,15 +152,10 @@ public class PostService {
             Post likedPost = postLikeObject.getPost();
 
             PostListDto postsResponseDto = new PostListDto(
-                    likedPost.getId(),
-                    likedPost.getPostTitle(),
-                    likedPost.getImageUrl(),
-                    likedPost.getPrice(),
-                    likedPost.getLocation(),
+                    likedPost,
                     convertLocaldatetimeToTime(likedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(likedPost.getModifiedAt()),
-                    postLikeRepository.countByPost(likedPost),
-                    likedPost.getCategory()
+                    postLikeRepository.countByPost(likedPost)
             );
             userLikeList.add(postsResponseDto);
 
@@ -218,6 +180,7 @@ public class PostService {
         return responseDto;
     }
 
+    // 시간 변환 함수
     public static String convertLocaldatetimeToTime(LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
 
@@ -254,18 +217,6 @@ public class PostService {
         return diffTime + "년 전";
     }
 
-    // 전체 게시글 조회 - 페이징 처리 완료, 시간 변경 실패(몇 초 전, 몇 분 전 변경 필요)
-    public Page<PostListDto> showAllPost(int pageno) {
-        List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
-        Pageable pageable = getPageable(pageno);
-        List<PostListDto> postListDto = new ArrayList<>();
-        forpostList(postList, postListDto);
-
-        int start = pageno * 10;
-        int end = Math.min((start + 10), postList.size());
-
-        return validator.overPages(postListDto, start, end, pageable, pageno);
-    }
 
     // 페이징 처리
     private Pageable getPageable(int page) {
@@ -274,12 +225,12 @@ public class PostService {
         return PageRequest.of(page, 10, sort);
     }
 
-    private void forpostList(List<Post> postList, List<PostListDto> postListDto) {
+    private void forpostList(List<Post> postList, String username, List<PostListDto> postListDto) {
         for (Post post : postList) {
-            int like = postLikeRepository.countAllByPostId(post.getId());
+            int likeCount = postLikeRepository.countAllByPostId(post.getId());
 
-            PostListDto postDto = new PostListDto(post.getId(), post.getPostTitle(), post.getImageUrl(),
-                    post.getPrice(), post.getLocation(), convertLocaldatetimeToTime(post.getCreatedAt()), convertLocaldatetimeToTime(post.getModifiedAt()), like, post.getCategory());
+            PostListDto postDto = new PostListDto(post, convertLocaldatetimeToTime(post.getCreatedAt()), convertLocaldatetimeToTime(post.getModifiedAt()), likeCount,
+                    postLikeRepository.findByUserNameAndPost(username,post).isPresent());
 
             postListDto.add(postDto);
         }
