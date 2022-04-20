@@ -2,6 +2,7 @@ package com.sparta.clone_backend.repository;
 
 import com.sparta.clone_backend.dto.PostListDto;
 import com.sparta.clone_backend.model.Post;
+import com.sparta.clone_backend.model.PostLike;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByOrderByModifiedAtDesc();
 
     List<Post> findAllByOrderByCreatedAtDesc();
+
 }

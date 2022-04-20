@@ -3,6 +3,7 @@ package com.sparta.clone_backend.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -13,10 +14,13 @@ public class UserPageResponseDto {
 
     private String nickName;
     private List<PostListDto> likeposts;
+    private int totalpage;
 
-    public UserPageResponseDto(String nickName, List<PostListDto> likeposts){
-        this.nickName = nickName;
-        this.likeposts = likeposts;
+
+    public UserPageResponseDto(Page<PostListDto> userPage) {
+        this.nickName = getNickName();
+        this.likeposts = userPage.getContent();
+        this.totalpage = userPage.getTotalPages();
     }
 }
 
