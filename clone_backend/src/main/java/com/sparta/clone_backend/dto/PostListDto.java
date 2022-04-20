@@ -1,12 +1,11 @@
 package com.sparta.clone_backend.dto;
 
-import lombok.*;
+import com.sparta.clone_backend.model.Post;
+import lombok.Getter;
+import lombok.Setter;
 
-
-@NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class PostListDto {
 
     private Long postId;
@@ -18,19 +17,46 @@ public class PostListDto {
     private String modifiedAt;
     private int likeCount;
     private String category;
+    private boolean like;
 
+    // 전체 페이지 게시글 조회
+    public PostListDto(Post post, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int likeCount, Boolean like) {
+        this.postId = post.getId();
+        this.postTitle = post.getPostTitle();
+        this.imageUrl = post.getImageUrl();
+        this.price = post.getPrice();
+        this.location = post.getLocation();
+        this.createdAt = convertLocaldatetimeToTime;
+        this.modifiedAt = convertLocaldatetimeToTime1;
+        this.likeCount = likeCount;
+        this.category = post.getCategory();
+        this.like = like;
+    }
 
-    public PostListDto(Long id, String postTitle, String imageUrl, int price, String location, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int like, String category) {
-        this.postId = id;
+    // 유저 페이지 게시글 조회
+    public PostListDto(Post likedPost, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int likeCount) {
+        this.postId = likedPost.getId();
+        this.postTitle = likedPost.getPostTitle();
+        this.imageUrl = likedPost.getImageUrl();
+        this.price = likedPost.getPrice();
+        this.location = likedPost.getLocation();
+        this.createdAt = convertLocaldatetimeToTime;
+        this.modifiedAt = convertLocaldatetimeToTime1;
+        this.likeCount = likeCount;
+        this.category = likedPost.getCategory();
+        this.like = true;
+    }
+
+    public PostListDto(Long postId, String postTitle, String imageUrl, int price, String location, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int likeCount, String category, Boolean like) {
+        this.postId = postId;
         this.postTitle = postTitle;
         this.imageUrl = imageUrl;
         this.price = price;
         this.location = location;
         this.createdAt = convertLocaldatetimeToTime;
         this.modifiedAt = convertLocaldatetimeToTime1;
-        this.likeCount = like;
+        this.likeCount = likeCount;
         this.category = category;
+        this.like = like;
     }
 }
-
-

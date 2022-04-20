@@ -11,9 +11,11 @@ import java.util.List;
 public class PostsResponseDto {
     private List<PostListDto> postList;
     private int totalPage;
+//    private Long totalElements;
 
     public PostsResponseDto(Page<PostListDto> showAllPost) {
         this.postList = showAllPost.getContent();
         this.totalPage = showAllPost.getTotalPages();
+//        this.totalElements = showAllPost.getTotalElements();
     }
 }

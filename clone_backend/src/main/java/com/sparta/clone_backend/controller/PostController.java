@@ -7,6 +7,7 @@ import com.sparta.clone_backend.service.PostService;
 import com.sparta.clone_backend.service.S3Uploader;
 import com.sparta.clone_backend.utils.StatusMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
@@ -157,8 +158,8 @@ public class PostController {
 
     // 전체 게시글 조회, 페이징 처리 완료, 시간 변경 필요, 토큰 없이 조회 불가,,, 수정 필요
     @GetMapping("/api/posted/{pageno}")
-    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
-        return new PostsResponseDto(postService.showAllPost(pageno-1));
+    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new PostsResponseDto(postService.showAllPost(pageno-1, userDetails));
     }
 
 //    @GetMapping("/api/posted/{pageno}")
@@ -180,7 +181,7 @@ public class PostController {
 //        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 //        statusMessage.setStatus(StatusEnum.OK);
 //        statusMessage.setData();
-        return new ResponseEntity<PostResponseDto>(postService.editPost(postId,requestDto, userDetails.getUser()), HttpStatus.OK);
+        return new ResponseEntity<PostResponseDto>(postService.editPost(postId, requestDto, userDetails.getUser()), HttpStatus.OK);
     }
 
 
@@ -200,19 +201,28 @@ public class PostController {
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno){
         return new UserPageResponseDto(userDetails, postService.getUserPage(userDetails, pageno-1));
     }
+
     //검색 기능
-    @GetMapping("/api/search/{keyword}")
-    public List<PostListDto> getSearchPostList(
-            @PathVariable(value = "keyword", required = false) String keyword) throws UnsupportedEncodingException {
-        return postService.getSearchPost(keyword);
+    @GetMapping("/api/search/{keyword}/{pageno}")
+    public PostsResponseDto getSearchPostList(
+            @PathVariable(value = "keyword", required = false) String keyword, @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno) throws UnsupportedEncodingException {
+        return new PostsResponseDto(postService.getSearchPost(keyword, userDetails, pageno-1));
     }
 
     //카테고리별 조회
-    @GetMapping("/api/category/{category}")
-    public List<PostListDto> getCategoryPostList(
-            @PathVariable String category) throws UnsupportedEncodingException {
+    @GetMapping("/api/category/{category}/{pageno}")
+    public PostsResponseDto getCategoryPostList(
+            @PathVariable String category, @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno) throws UnsupportedEncodingException {
 
-        return postService.getCategoryPost(category);
+        return new PostsResponseDto(postService.getCategoryPost(category, userDetails, pageno-1));
     }
+
+//    //카테고리별 조회
+//    @GetMapping("/api/category/{category}")
+//    public List<PostListDto> getCategoryPostList(
+//            @PathVariable String category) throws UnsupportedEncodingException {
+//
+//        return postService.getCategoryPost(category);
+//    }
 
 }

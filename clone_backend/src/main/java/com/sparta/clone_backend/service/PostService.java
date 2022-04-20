@@ -102,29 +102,7 @@ public class PostService {
         return null;
     }
 
-//    //전체 게시글 조회
-//    public Page<PostListDto> getPost(Pageable pageable) {
-//
-//        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
-//        List<PostListDto> postsResponseDtos = new ArrayList<>();
-//
-//        for (Post post : posts) {
-//
-//            PostListDto postsResponseDto = new PostListDto(
-//                    post.getPostTitle(),
-//                    post.getImageUrl(),
-//                    post.getPrice(),
-//                    post.getLocation(),
-//                    convertLocaldatetimeToTime(post.getCreatedAt()),
-//                    convertLocaldatetimeToTime(post.getModifiedAt()),
-//                    post.getId(),
-//                    postLikeRepository.countByPost(post),
-//                    post.getCategory());
-//            postsResponseDtos.add(postsResponseDto);
-//        }
-//        Page<PostListDto> postspage = postRepository.findAllByOrderByModifiedAtDesc(pageable);
-//       return postspage;
-//    }
+
 
     //상세 게시글 조회
     public PostDetailResponseDto getPostDetail(Long postId) {
@@ -143,7 +121,7 @@ public class PostService {
         );
     }
 
-    // 마이 페이지 유저 정보 조회
+    // 유저 페이지,장바구니 조회
     public Page<PostListDto> getUserPage(UserDetailsImpl userDetails, int pageno) {
         String userName = userDetails.getUser().getUserName();
 
@@ -157,15 +135,10 @@ public class PostService {
             Post likedPost = postLikeObject.getPost();
 
             PostListDto postsResponseDto = new PostListDto(
-                    likedPost.getId(),
-                    likedPost.getPostTitle(),
-                    likedPost.getImageUrl(),
-                    likedPost.getPrice(),
-                    likedPost.getLocation(),
+                    likedPost,
                     convertLocaldatetimeToTime(likedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(likedPost.getModifiedAt()),
-                    postLikeRepository.countByPost(likedPost),
-                    likedPost.getCategory()
+                    postLikeRepository.countByPost(likedPost)
             );
             userLikeList.add(postsResponseDto);
 
@@ -225,31 +198,29 @@ public class PostService {
         return diffTime + "년 전";
     }
 
-    // 전체 게시글 조회 - 페이징 처리 완료, 시간 변경 실패(몇 초 전, 몇 분 전 변경 필요)
-    public Page<PostListDto> showAllPost(int pageno) {
-        List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
+    // 전체 게시글 조회 - 페이징 처리 완료
+    public Page<PostListDto> showAllPost(int pageno, UserDetailsImpl userDetails) {
+        String username = userDetails.getUser().getUserName();
+
+        List<Post> post = postRepository.findAllByOrderByCreatedAtDesc();
+
         Pageable pageable = getPageable(pageno);
         List<PostListDto> postListDto = new ArrayList<>();
-        forpostList(postList, postListDto);
+        forpostList(post,username, postListDto);
 
         int start = pageno * 10;
-        int end = Math.min((start + 10), postList.size());
+        int end = Math.min((start + 10), post.size());
 
         return validator.overPages(postListDto, start, end, pageable, pageno);
     }
 
-    private Pageable getPageable(int page) {
-        Sort.Direction direction = Sort.Direction.DESC;
-        Sort sort = Sort.by(direction, "id");
-        return PageRequest.of(page, 10, sort);
-    }
 
-    private void forpostList(List<Post> postList, List<PostListDto> postListDto) {
+    private void forpostList(List<Post> postList, String username, List<PostListDto> postListDto) {
         for (Post post : postList) {
-            int like = postLikeRepository.countAllByPostId(post.getId());
+            int likeCount = postLikeRepository.countAllByPostId(post.getId());
 
-            PostListDto postDto = new PostListDto(post.getId(), post.getPostTitle(), post.getImageUrl(),
-                    post.getPrice(), post.getLocation(), convertLocaldatetimeToTime(post.getCreatedAt()), convertLocaldatetimeToTime(post.getModifiedAt()), like, post.getCategory());
+            PostListDto postDto = new PostListDto(post, convertLocaldatetimeToTime(post.getCreatedAt()), convertLocaldatetimeToTime(post.getModifiedAt()), likeCount,
+                    postLikeRepository.findByUserNameAndPost(username,post).isPresent());
 
             postListDto.add(postDto);
         }
@@ -257,13 +228,15 @@ public class PostService {
 
 
 
+
     //검색한 내용에 대한 정보
     @Transactional
-    public List<PostListDto> getSearchPost(String keyword) throws UnsupportedEncodingException {
+    public Page<PostListDto> getSearchPost(String keyword, UserDetailsImpl userDetails, int pageno) throws UnsupportedEncodingException {
         List<Post> searchedPosts = new ArrayList<>();
 
         String decodeVal = URLDecoder.decode(keyword, "utf-8");
-
+        String username = userDetails.getUsername();
+        System.out.println("1"+username);
         searchedPosts = postRepository.searchByKeyword(decodeVal);
         List<PostListDto> postListDtos = new ArrayList<>();
         for (Post searchedPost : searchedPosts) {
@@ -277,20 +250,37 @@ public class PostService {
                     convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
                     postLikeRepository.countByPost(searchedPost),
-                    searchedPost.getCategory()
+                    searchedPost.getCategory(),
+                    postLikeRepository.findByUserNameAndPost(username, searchedPost).isPresent()
             );
             postListDtos.add(postListDto);
+            System.out.println("2"+postListDto.getPostTitle());
         }
-        return postListDtos;
+        Pageable pageable = getPageable(pageno);
+
+        forpostList(searchedPosts, username, postListDtos);
+
+        int start = pageno * 10;
+        int end = Math.min((start + 10), searchedPosts.size());
+
+        return validator.overPages(postListDtos, start, end, pageable, pageno);
     }
+
+    // 페이징 처리
+    private Pageable getPageable(int page) {
+        Sort.Direction direction = Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, "id");
+        return PageRequest.of(page, 10, sort);
+    }
+
     //카테고리별 내용에 대한 정보
     @Transactional
-    public List<PostListDto> getCategoryPost(String category) throws UnsupportedEncodingException {
+    public Page<PostListDto> getCategoryPost(String category, UserDetailsImpl userDetails, int pageno) throws UnsupportedEncodingException {
         List<Post> searchedPosts = new ArrayList<>();
 
         String decodeVal = URLDecoder.decode(category, "utf-8");
         searchedPosts = postRepository.searchByCategory(decodeVal);
-
+        String username = userDetails.getUsername();
 
         List<PostListDto> postListDtos = new ArrayList<>();
         for (Post searchedPost : searchedPosts) {
@@ -304,12 +294,20 @@ public class PostService {
                     convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
                     convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
                     postLikeRepository.countByPost(searchedPost),
-                    searchedPost.getCategory()
+                    searchedPost.getCategory(),
+                    postLikeRepository.findByUserNameAndPost(username, searchedPost).isPresent()
             );
             postListDtos.add(postListDto);
 
         }
-        return postListDtos;
+        Pageable pageable = getPageable(pageno);
+
+        forpostList(searchedPosts, username, postListDtos);
+
+        int start = pageno * 10;
+        int end = Math.min((start + 10), searchedPosts.size());
+
+        return validator.overPages(postListDtos, start, end, pageable, pageno);
     }
 }
 

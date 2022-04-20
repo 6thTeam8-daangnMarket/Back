@@ -5,13 +5,13 @@ import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.model.PostLike;
 import com.sparta.clone_backend.repository.PostLikeRepository;
 import com.sparta.clone_backend.repository.PostRepository;
-import com.sparta.clone_backend.repository.UserRepository;
 import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +24,7 @@ public class PostLikeService {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("판매되지 않는 상품입니다.")
         );
+//        Optional<PostLike> postLike = postLikeRepository.findByUserNameAndPost(userDetails.getUsername(), post);
         Optional<PostLike> postLike = postLikeRepository.findByUserNameAndPost(userDetails.getUsername(), post);
 
         if (!postLike.isPresent()) {

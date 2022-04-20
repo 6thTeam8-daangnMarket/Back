@@ -14,9 +14,6 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Post> findByIdAndUserId(Long postId, Long user);
-    Page<PostListDto> findAllByOrderByModifiedAtDesc(Pageable pageable);
-
-    List<Post> findAllByOrderByModifiedAtDesc();
 
     List<Post> findAllByOrderByCreatedAtDesc();
 
