@@ -38,7 +38,7 @@ public class KakaoUserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String kakaoLogin(String code) throws JsonProcessingException {
+    public User kakaoLogin(String code) throws JsonProcessingException {
         // 1. "인가 코드"로 "액세스 토큰" 요청
         System.out.println("인가코드 = "+code);
         String accessToken = getAccessToken(code);
@@ -53,9 +53,9 @@ public class KakaoUserService {
         User kakaoUser = registerKakaoUserIfNeeded(kakaoUserInfo);
 
         // 4. 강제 로그인 처리
-         String token = forceLogin(kakaoUser);
-        System.out.println("JWT토큰 = " + token);
-         return token;
+         forceLogin(kakaoUser);
+//        System.out.println("JWT토큰 = " + token);
+         return kakaoUser;
 
     }
 
@@ -67,7 +67,7 @@ public class KakaoUserService {
         // HTTP Body 생성
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", "d358b23f54bf03b7bc1822b251d45da7");
+        body.add("client_id", "e5f5fea758008d7f18afb53531cf5e92");
         body.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
         body.add("code", code);
 
@@ -132,18 +132,18 @@ public class KakaoUserService {
             // password: random UUID
             String password = UUID.randomUUID().toString();
             String passWordEncode = passwordEncoder.encode(password);
+            String location = "서울";
 
 
-            kakaoUser = new User(userName, nickName, passWordEncode,  kakaoId);
+            kakaoUser = new User(userName, nickName, passWordEncode,location,  kakaoId);
             userRepository.save(kakaoUser);
         }
         return kakaoUser;
     }
 
-    private String forceLogin(User kakaoUser) {
-        UserDetailsImpl userDetails = new UserDetailsImpl(kakaoUser);
+    private void forceLogin(User kakaoUser) {
+        UserDetails userDetails = new UserDetailsImpl(kakaoUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return JwtTokenUtils.generateJwtToken(userDetails);
     }
 }

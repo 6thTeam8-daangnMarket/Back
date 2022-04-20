@@ -204,5 +204,18 @@ public class PostController {
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.getUserPage(userDetails);
     }
+    @GetMapping("/api/search/{keyword}")
+    public List<PostListDto> getSearchPostList(
+            @PathVariable(value = "keyword", required = false) String keyword){
+        return postService.getSearchPost(keyword);
+    }
+
+    //카테고리별 조회
+    @GetMapping("/api/category/{category}")
+    public List<PostListDto> getCategoryPostList(
+            @PathVariable String category){
+
+        return postService.getCategoryPost(category);
+    }
 
 }

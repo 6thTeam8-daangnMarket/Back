@@ -38,10 +38,11 @@ public class User {
         this.passWord = passWordEncode;
         this.location = signupRequestDto.getLocation();
     }
-    public User(String userName, String nickName, String passWordEncode, Long kakaoId) {
+    public User(String userName, String nickName, String passWordEncode, String location, Long kakaoId) {
         this.userName = userName;
         this.nickName = nickName;
         this.passWord = passWordEncode;
+        this.location = location;
         this.kakaoId = kakaoId;
     }
 }

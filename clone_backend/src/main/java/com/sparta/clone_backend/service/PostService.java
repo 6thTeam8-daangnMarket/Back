@@ -249,5 +249,57 @@ public class PostService {
             postListDto.add(postDto);
         }
     }
+
+    //검색한 내용에 대한 정보
+    @Transactional
+    public List<PostListDto> getSearchPost(String keyword) {
+        List<Post> searchedPosts = new ArrayList<>();
+
+        searchedPosts = postRepository.searchByKeyword(keyword);
+        List<PostListDto> postListDtos = new ArrayList<>();
+        for (Post searchedPost : searchedPosts) {
+
+            PostListDto postListDto = new PostListDto(
+                    searchedPost.getId(),
+                    searchedPost.getPostTitle(),
+                    searchedPost.getImageUrl(),
+                    searchedPost.getPrice(),
+                    searchedPost.getLocation(),
+                    convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
+                    convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
+                    postLikeRepository.countByPost(searchedPost),
+                    searchedPost.getCategory()
+            );
+            postListDtos.add(postListDto);
+        }
+        return postListDtos;
+    }
+
+    //카테고리별 내용에 대한 정보
+    @Transactional
+    public List<PostListDto> getCategoryPost(String category) {
+        List<Post> searchedPosts = new ArrayList<>();
+
+        searchedPosts = postRepository.searchByCategory(category);
+
+        List<PostListDto> postListDtos = new ArrayList<>();
+        for (Post searchedPost : searchedPosts) {
+
+            PostListDto postListDto = new PostListDto(
+                    searchedPost.getId(),
+                    searchedPost.getPostTitle(),
+                    searchedPost.getImageUrl(),
+                    searchedPost.getPrice(),
+                    searchedPost.getLocation(),
+                    convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
+                    convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
+                    postLikeRepository.countByPost(searchedPost),
+                    searchedPost.getCategory()
+            );
+            postListDtos.add(postListDto);
+
+        }
+        return postListDtos;
+    }
 }
 
