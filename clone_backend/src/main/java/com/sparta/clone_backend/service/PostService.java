@@ -79,8 +79,25 @@ public class PostService {
                 .build();
     }
 
+    // 전체 게시글 조회 - 페이징 처리 완료
+    public Page<PostListDto> showAllPost(int pageno, UserDetailsImpl userDetails) {
+        String username = userDetails.getUser().getUserName();
+
+        List<Post> post = postRepository.findAllByOrderByCreatedAtDesc();
+
+        Pageable pageable = getPageable(pageno);
+        List<PostListDto> postListDto = new ArrayList<>();
+        forpostList(post,username, postListDto);
+
+        int start = pageno * 10;
+        int end = Math.min((start + 10), post.size());
+
+        return validator.overPages(postListDto, start, end, pageable, pageno);
+    }
+
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
+
 
     // 게시글 삭제
     @Transactional
@@ -101,8 +118,6 @@ public class PostService {
 
         return null;
     }
-
-
 
     //상세 게시글 조회
     public PostDetailResponseDto getPostDetail(Long postId) {
@@ -162,6 +177,7 @@ public class PostService {
         return responseDto;
     }
 
+    // 시간 변환
     public static String convertLocaldatetimeToTime(LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
 
@@ -198,21 +214,6 @@ public class PostService {
         return diffTime + "년 전";
     }
 
-    // 전체 게시글 조회 - 페이징 처리 완료
-    public Page<PostListDto> showAllPost(int pageno, UserDetailsImpl userDetails) {
-        String username = userDetails.getUser().getUserName();
-
-        List<Post> post = postRepository.findAllByOrderByCreatedAtDesc();
-
-        Pageable pageable = getPageable(pageno);
-        List<PostListDto> postListDto = new ArrayList<>();
-        forpostList(post,username, postListDto);
-
-        int start = pageno * 10;
-        int end = Math.min((start + 10), post.size());
-
-        return validator.overPages(postListDto, start, end, pageable, pageno);
-    }
 
 
     private void forpostList(List<Post> postList, String username, List<PostListDto> postListDto) {
@@ -225,8 +226,6 @@ public class PostService {
             postListDto.add(postDto);
         }
     }
-
-
 
 
     //검색한 내용에 대한 정보

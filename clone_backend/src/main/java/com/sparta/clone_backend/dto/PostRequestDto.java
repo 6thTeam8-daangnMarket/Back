@@ -17,6 +17,7 @@ public class PostRequestDto {
     private String category;
     private String createdAt;
 
+    // 게시글 등록
     public PostRequestDto(String postTitle, String postContents, String imageUrl, int price, String category) {
         this.postTitle = postTitle;
         this.postContents = postContents;

@@ -47,6 +47,7 @@ public class PostListDto {
         this.like = true;
     }
 
+    // 검색한 게시글만 조회
     public PostListDto(Long postId, String postTitle, String imageUrl, int price, String location, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int likeCount, String category, Boolean like) {
         this.postId = postId;
         this.postTitle = postTitle;

@@ -24,6 +24,7 @@ public class PostLikeController {
 
     private final PostLikeService postLikeService;
 
+    // 예외 처리
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<StatusMessage> nullex(Exception e) {
         System.err.println(e.getClass());

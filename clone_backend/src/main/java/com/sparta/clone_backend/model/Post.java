@@ -49,14 +49,6 @@ public class Post extends Timestamped{
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-//
-    public Post(PostRequestDto postRequestDto){
-        this.postTitle = postRequestDto.getPostTitle();
-        this.postContents = postRequestDto.getPostContents();
-        this.imageUrl = postRequestDto.getImageUrl();
-        this.price = postRequestDto.getPrice();
-        this.category = postRequestDto.getCategory();
-    }
 
     public void update(Long postId, String postTitle, String postContents, int price) {
         this.id= postId;

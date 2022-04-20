@@ -27,11 +27,6 @@ public class UserInfoValidator {
     }
 
     public String getValidMessage(SignupRequestDto signupRequestDto) {
-//        String pattern = "^[a-zA-Z0-9]*$";
-
-//        else if (requestDto.getPassword().length() < 6) {
-//            return "비밀번호를 6자 이상 입력하세요";
-//        }
 
         if (!signupRequestDto.getPassWord().equals(signupRequestDto.getPassWordCheck())) {
             return "비밀번호가 일치하지 않습니다";
