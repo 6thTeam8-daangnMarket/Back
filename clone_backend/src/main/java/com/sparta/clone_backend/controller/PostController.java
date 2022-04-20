@@ -81,10 +81,10 @@ public class PostController {
 
 //    특정게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public ResponseEntity<PostDetailResponseDto> getPostDetail(@PathVariable Long postId){
+    public ResponseEntity<PostDetailResponseDto> getPostDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return ResponseEntity.status(201)
                 .header("status","201")
-                .body(postService.getPostDetail(postId));
+                .body(postService.getPostDetail(postId, userDetails));
     }
 
     // 게시글 수정

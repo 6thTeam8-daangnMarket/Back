@@ -119,10 +119,11 @@ public class PostService {
     }
 
     // 상세 게시글 조회
-    public PostDetailResponseDto getPostDetail(Long postId) {
+    public PostDetailResponseDto getPostDetail(Long postId, UserDetailsImpl userDetails) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("해당 상품이 존재하지 않습니다.")
         );
+        String username = userDetails.getUser().getUserName();
 
         return new PostDetailResponseDto(
                 post.getPostTitle(),
@@ -133,7 +134,8 @@ public class PostService {
                 convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
                 post.getNickName(),
-                post.getCategory()
+                post.getCategory(),
+                postLikeRepository.findByUserNameAndPost(username,post).isPresent()
         );
     }
 
