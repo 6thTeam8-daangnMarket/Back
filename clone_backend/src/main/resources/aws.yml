@@ -1,0 +1,12 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIA6I6YGK7FHG4FPW6W
+      secretKey: 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
+      instanceProfile : true
+    s3:
+      bucket: clonedangunmarket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
