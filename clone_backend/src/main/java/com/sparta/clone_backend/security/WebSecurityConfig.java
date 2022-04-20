@@ -37,7 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             JWTAuthProvider jwtAuthProvider,
             HeaderTokenExtractor headerTokenExtractor
 
-
     ) {
         this.jwtAuthProvider = jwtAuthProvider;
         this.headerTokenExtractor = headerTokenExtractor;
