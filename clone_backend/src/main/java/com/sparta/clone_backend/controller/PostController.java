@@ -73,21 +73,18 @@ public class PostController {
                 .body("201");
 }
 
-    // 전체 게시글 조회, 페이징 처리 완료, 시간 변경 필요, 토큰 없이 조회 불가,,, 수정 필요
+    // 전체 게시글 조회, 페이징 처리 완료
     @GetMapping("/api/posted/{pageno}")
-public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
-    return new PostsResponseDto(postService.showAllPost(pageno-1));
-}
+    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
+        return new PostsResponseDto(postService.showAllPost(pageno - 1));
+    }
 
 //    특정게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        StatusMessage statusMessage = new StatusMessage();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusEnum.OK);
-        statusMessage.setData(postService.getPostDetail(postId));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+    public ResponseEntity<PostDetailResponseDto> getPostDetail(@PathVariable Long postId){
+        return ResponseEntity.status(201)
+                .header("status","201")
+                .body(postService.getPostDetail(postId));
     }
 
     // 게시글 수정
@@ -95,7 +92,6 @@ public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
     public ResponseEntity<PostResponseDto> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return new ResponseEntity<PostResponseDto>(postService.editPost(postId,requestDto, userDetails.getUser()), HttpStatus.OK);
     }
-
 
     // 게시글 삭제
     @DeleteMapping("api/posts/{postId}")
