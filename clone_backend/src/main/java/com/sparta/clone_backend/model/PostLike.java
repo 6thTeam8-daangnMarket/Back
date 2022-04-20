@@ -14,11 +14,16 @@ public class PostLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private String userName;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private Post post;
+
+
+    public PostLike(String userName, Post post) {
+        this.userName = userName;
+        this.post = post;
+    }
 }
