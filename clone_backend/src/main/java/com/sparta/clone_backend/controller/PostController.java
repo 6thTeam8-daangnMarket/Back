@@ -111,7 +111,7 @@ public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
 //     유저정보, 장바구니 조회
     @GetMapping("/user/mypage/{pageno}")
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno){
-        return new UserPageResponseDto(postService.getUserPage(userDetails, pageno-1));
+        return new UserPageResponseDto(userDetails, postService.getUserPage(userDetails, pageno-1));
     }
 
 }

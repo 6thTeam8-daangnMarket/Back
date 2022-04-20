@@ -172,7 +172,7 @@ public class PostService {
 //    }
 
     // 마이 페이지 유저 정보 조회
-    public Page<UserPageResponseDto> getUserPage(UserDetailsImpl userDetails, int pageno) {
+    public Page<PostListDto> getUserPage(UserDetailsImpl userDetails, int pageno) {
         String userName = userDetails.getUser().getUserName();
 
         List<PostLike> postLikes = postLikeRepository.findAllByUserName(userName);

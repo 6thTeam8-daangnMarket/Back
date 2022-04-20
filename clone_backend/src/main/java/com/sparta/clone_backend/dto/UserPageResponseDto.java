@@ -1,5 +1,6 @@
 package com.sparta.clone_backend.dto;
 
+import com.sparta.clone_backend.security.UserDetailsImpl;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder
+//@Builder
 public class UserPageResponseDto {
 
     private String nickName;
@@ -17,11 +18,9 @@ public class UserPageResponseDto {
     private int totalpage;
 
 
-    public UserPageResponseDto(Page<PostListDto> userPage) {
-        this.nickName = getNickName();
+    public UserPageResponseDto(UserDetailsImpl userDetails, Page<PostListDto> userPage) {
+        this.nickName = userDetails.getNickName();
         this.likeposts = userPage.getContent();
         this.totalpage = userPage.getTotalPages();
     }
 }
-
-
