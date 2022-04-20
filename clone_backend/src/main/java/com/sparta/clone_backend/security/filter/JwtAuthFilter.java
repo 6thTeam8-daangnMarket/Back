@@ -40,7 +40,9 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
 
         // JWT 값을 담아주는 변수 TokenPayload
         String tokenPayload = request.getHeader("Authorization");
-        if (tokenPayload == null) {
+//        String kakaotoken = response.getHeader("Authorization");
+        if (tokenPayload == null ) {
+//            response.sendRedirect("/user/logIn");
 //            response.sendRedirect("/user/logIn");
             response.sendRedirect("/user/logIn");
 //            response.setStatus(400);

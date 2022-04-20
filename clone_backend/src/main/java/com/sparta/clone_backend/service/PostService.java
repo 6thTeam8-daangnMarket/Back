@@ -143,17 +143,17 @@ public class PostService {
         );
     }
 
-    // 유저 페이지,장바구니 조회
-    public UserPageResponseDto getUserPage(UserDetailsImpl userDetails) {
+    // 마이 페이지 유저 정보 조회
+    public Page<PostListDto> getUserPage(UserDetailsImpl userDetails, int pageno) {
         String userName = userDetails.getUser().getUserName();
 
-        List<PostLike> postLikeObjects = postLikeRepository.findAllByUserName(userName);
+        List<PostLike> postLikes = postLikeRepository.findAllByUserName(userName);
 
-        List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
+        Pageable pageable = getPageable(pageno);
 
-        List<PostListDto> postsResponseDtos = new ArrayList<>();
+        List<PostListDto> userLikeList = new ArrayList<>();
 
-        for (PostLike postLikeObject : postLikeObjects) {
+        for (PostLike postLikeObject : postLikes) {
             Post likedPost = postLikeObject.getPost();
 
             PostListDto postsResponseDto = new PostListDto(
@@ -167,10 +167,13 @@ public class PostService {
                     postLikeRepository.countByPost(likedPost),
                     likedPost.getCategory()
             );
-            postsResponseDtos.add(postsResponseDto);
+            userLikeList.add(postsResponseDto);
 
         }
-        return new UserPageResponseDto(userDetails.getNickName(), postsResponseDtos);
+        int start = pageno * 10;
+        int end = Math.min((start + 10), userLikeList.size());
+
+        return validator.overPages(userLikeList, start, end, pageable, pageno);
     }
 
     // 게시글 수정 (아직은 내용만 수정 가능)

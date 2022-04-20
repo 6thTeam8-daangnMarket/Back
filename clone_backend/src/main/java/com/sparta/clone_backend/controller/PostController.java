@@ -165,18 +165,13 @@ public class PostController {
 //    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
 //        return new PostsResponseDto(postService.showAllPost(pageno-1));
 //    }
-
-//    특정게시글 조회
+//특정 게시글 조회
     @GetMapping("/api/posts/{postId}")
-    public ResponseEntity<StatusMessage> getPostDetail(@PathVariable Long postId){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        StatusMessage statusMessage = new StatusMessage();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        statusMessage.setStatus(StatusEnum.OK);
-        statusMessage.setData(postService.getPostDetail(postId));
-        return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
+    public ResponseEntity<PostDetailResponseDto> getPostDetail(@PathVariable Long postId){
+        return ResponseEntity.status(201)
+                .header("status","201")
+                .body(postService.getPostDetail(postId));
     }
-
     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
     public ResponseEntity<PostResponseDto> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -200,10 +195,10 @@ public class PostController {
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
-//     유저정보, 장바구니 조회
-    @GetMapping("/user/mypage")
-    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return postService.getUserPage(userDetails);
+    //     유저정보, 장바구니 조회
+    @GetMapping("/user/mypage/{pageno}")
+    public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno){
+        return new UserPageResponseDto(userDetails, postService.getUserPage(userDetails, pageno-1));
     }
     //검색 기능
     @GetMapping("/api/search/{keyword}")
