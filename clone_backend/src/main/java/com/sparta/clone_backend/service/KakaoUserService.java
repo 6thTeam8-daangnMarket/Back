@@ -68,7 +68,7 @@ public class KakaoUserService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", "e5f5fea758008d7f18afb53531cf5e92");
-        body.add("redirect_uri", "http://3.38.117.7/user/kakao/callback");
+        body.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
         body.add("code", code);
 
         // HTTP 요청 보내기
@@ -142,7 +142,7 @@ public class KakaoUserService {
     }
 
     private void forceLogin(User kakaoUser) {
-        UserDetails userDetails = new UserDetailsImpl(kakaoUser);
+        UserDetailsImpl userDetails = new UserDetailsImpl(kakaoUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
