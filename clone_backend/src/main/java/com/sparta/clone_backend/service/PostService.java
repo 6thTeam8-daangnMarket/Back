@@ -235,7 +235,7 @@ public class PostService {
 
         String decodeVal = URLDecoder.decode(keyword, "utf-8");
         String username = userDetails.getUsername();
-        System.out.println("1"+username);
+
         searchedPosts = postRepository.searchByKeyword(decodeVal);
         List<PostListDto> postListDtos = new ArrayList<>();
         for (Post searchedPost : searchedPosts) {
@@ -253,7 +253,7 @@ public class PostService {
                     postLikeRepository.findByUserNameAndPost(username, searchedPost).isPresent()
             );
             postListDtos.add(postListDto);
-            System.out.println("2"+postListDto.getPostTitle());
+
         }
         Pageable pageable = getPageable(pageno);
 
