@@ -1,0 +1,124 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]" date="1650520234705" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 2022-04-21 오후 2:50 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/checksums/checksums.lock" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/checksums/checksums.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/checksums.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/executionHistory.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/c9470218-da3a-49d5-b554-8d80570d24b1/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/checksums/sha1-checksums.bin" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/checksums/sha1-checksums.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/sha1-checksums.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/config/AmazonS3Config.class" />
+    <option name="AFTER_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/config/AmazonS3Config.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/AmazonS3Config.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/UserRepository.class" />
+    <option name="AFTER_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/UserRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/UserRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/fileHashes.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/baa14013-d98b-4b53-8674-c576f7b0b6a9/storage_v2/_src_/schema/mysql.osA4Bg.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/PostRepository.class" />
+    <option name="AFTER_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/PostRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/PostRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/file-system.probe" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/file-system.probe" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/file-system.probe" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/c9470218-da3a-49d5-b554-8d80570d24b1/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/baa14013-d98b-4b53-8674-c576f7b0b6a9/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/build/tmp/compileJava/previous-compilation-data.bin" />
+    <option name="AFTER_PATH" value="clone_backend/build/tmp/compileJava/previous-compilation-data.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/previous-compilation-data.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/baa14013-d98b-4b53-8674-c576f7b0b6a9/storage_v2/_src_/schema/sys.zb4BAA.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/executionHistory/executionHistory.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/executionHistory.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/resourceHashesCache.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/resourceHashesCache.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" />
+    <option name="AFTER_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/service/PostService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/PostService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/checksums/md5-checksums.bin" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/checksums/md5-checksums.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/md5-checksums.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/7.4.1/fileHashes/fileHashes.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/fileHashes.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/baa14013-d98b-4b53-8674-c576f7b0b6a9/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/c9470218-da3a-49d5-b554-8d80570d24b1/storage_v2/_src_/schema/mysql.osA4Bg.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="AFTER_PATH" value="clone_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/buildOutputCleanup.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".idea/dataSources/c9470218-da3a-49d5-b554-8d80570d24b1/storage_v2/_src_/schema/sys.zb4BAA.meta" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/ImageRepository.class" />
+    <option name="AFTER_PATH" value="clone_backend/build/classes/java/main/com/sparta/clone_backend/repository/ImageRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-04-21_오후_2_50_[Changes]/ImageRepository.class" />
+  </binary>
+</changelist>
