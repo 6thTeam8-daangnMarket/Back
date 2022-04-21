@@ -6,7 +6,9 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.sparta.clone_backend.model.Image;
+import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.repository.ImageRepository;
+import com.sparta.clone_backend.repository.PostRepository;
 import com.sparta.clone_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ import java.util.UUID;
 @Component
 public class S3Uploader {
     private final ImageRepository imageRepository;
+    private final PostRepository postRepository;
 
     private final AmazonS3Client amazonS3Client;
 
@@ -38,12 +41,33 @@ public class S3Uploader {
     @Value("${cloud.aws.credentials.secret-key}")
     private String secretKey;
 
+
+    //게시글 생성
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
                 .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
 
         return upload(uploadFile, dirName);
     }
+
+    //게시글 수정
+    public String updateImage(MultipartFile multipartFile, String dirName, Long postId)throws IOException{
+        File uploadFile = convert(multipartFile)
+                .orElseThrow(()->new IllegalArgumentException("error: MultipartFile -> File convert fail"));
+        return imageUpdate(uploadFile, dirName, postId);
+    }
+    // 게시글 수정
+    private String imageUpdate(File uploadFile, String dirName, Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(
+                ()-> new IllegalArgumentException("게시물이 없습니다")
+        );
+        String imageUrl = post.getImageUrl();
+        Image image = imageRepository.findByImageUrl(imageUrl);
+        String fileName = image.getFilename();
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        return upload(uploadFile, dirName);
+    }
+
 
     // S3로 파일 업로드하기
     private String upload(File uploadFile, String dirName) {

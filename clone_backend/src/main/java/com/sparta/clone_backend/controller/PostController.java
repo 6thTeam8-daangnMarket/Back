@@ -157,8 +157,8 @@ public class PostController {
 
     // 전체 게시글 조회, 페이징 처리 완료, 시간 변경 필요, 토큰 없이 조회 불가,,, 수정 필요
     @GetMapping("/api/posted/{pageno}")
-    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno) {
-        return new PostsResponseDto(postService.showAllPost(pageno-1));
+    public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new PostsResponseDto(postService.showAllPost(pageno-1, userDetails));
     }
 
 //    @GetMapping("/api/posted/{pageno}")
@@ -174,13 +174,27 @@ public class PostController {
     }
     // 게시글 수정
     @PutMapping("/api/posts/{postId}")
-    public ResponseEntity<PostResponseDto> editPost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        StatusMessage statusMessage = new StatusMessage();
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//        statusMessage.setStatus(StatusEnum.OK);
-//        statusMessage.setData();
-        return new ResponseEntity<PostResponseDto>(postService.editPost(postId,requestDto, userDetails.getUser()), HttpStatus.OK);
+    public ResponseEntity<String> editPost(@PathVariable Long postId,
+                                                    @RequestParam(value = "postTitle",required = false) String postTitle,
+                                                    @RequestParam(value = "postContents",required = false) String postContents,
+                                                    @RequestParam(value = "imageUrl", required = false) MultipartFile multipartFile,
+                                                    @RequestParam(value = "price", required = false) int price,
+                                                    @RequestParam(value = "category",required = false) String category,
+                                                    @AuthenticationPrincipal UserDetailsImpl userDetails)
+    throws IOException{
+        System.out.println(multipartFile);
+        if(multipartFile.isEmpty()){
+            System.out.println("postcontroller 게시글 제목" + postTitle);
+            PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents,  price, category);
+            postService.editPost(postId,postRequestDto, userDetails.getUser());
+        }else{
+            String imageUrl = S3Uploader.updateImage(multipartFile, "static", postId);
+            System.out.println("postcontroller 이미지Url : "+imageUrl);
+            PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, category);
+            postService.editPost(postId,postRequestDto, userDetails.getUser());
+        }
+
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
 
