@@ -1,6 +1,6 @@
 # mini22
 
-## Webmini project2 "개모임" Backend
+## Clone Coding Project "당근마켓" Backend
 
 만들고 싶은 프로젝트가 있을 때 함께 만들어갈 동료를 구하는 공간
 <br>
@@ -9,12 +9,12 @@
 
 ## 진행기간
 
-- 2022.04.08(금) ~ 2022.04.14(목)
+- 2022.04.16(금) ~ 2022.04.22(목)
   <br>
 
 ## ⚙ 주요 기능
 
-#### API설계 [노션](https://cyber-biology-9fd.notion.site/c303f02b79fc4506a025145a7adc4701)
+#### API설계 [노션](https://www.notion.so/8-00adac21af6d49699787e1bd1b5774c7)
 
 #### WIREFRAME [PIGMA](https://www.figma.com/file/B6WEXes2RDdsOecbfTQKqP/%EB%AF%B8%EB%8B%88%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0%3A1)
 
@@ -50,12 +50,12 @@
 
 |  이름  |                          깃허브 주소                           |       포지션       |
 | :----: | :------------------------------------------------------------: | :----------------: |
-| 지수민 |      [https://github.com/sumye](https://github.com/sumye)      |    백엔드(스프링)   |
-| 오예령 | [https://github.com/ohyeryung](https://github.com/ohyeryung)   |    백엔드(스프링)   |
-| 김빛찬 |   [https://github.com/blingbc9](https://github.com/blingbc9)   |    백엔드(스프링)   |
-| 엄성훈 |  [https://github.com/umsounghun](https://github.com/umsounghun)|    백엔드(스프링)   |
-| 변기원 |  [https://github.com/kiwonbyun](https://github.com/kiwonbyun)  |  프론트엔드(리액트) |
-| 서유나 |   [https://github.com/rriverr](https://github.com/rriverr)     | 프론트엔드(리액트)  |
+| 오예령 |      [https://github.com/sumye](https://github.com/sumye)      |    백엔드(스프링)   |
+| 김승재 | [https://github.com/ohyeryung](https://github.com/ohyeryung)   |    백엔드(스프링)   |
+| 김민성 |   [https://github.com/blingbc9](https://github.com/blingbc9)   |    백엔드(스프링)   |
+| 이춘 |  [https://github.com/umsounghun](https://github.com/umsounghun) |  프론트엔드(리액트) | 
+| 노현정 |  [https://github.com/kiwonbyun](https://github.com/kiwonbyun)  |  프론트엔드(리액트) |
+
 
 **BacK End** : https://github.com/ohyeryung/mini22.git
 
