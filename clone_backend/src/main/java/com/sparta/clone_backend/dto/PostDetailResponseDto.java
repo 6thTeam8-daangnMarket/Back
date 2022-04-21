@@ -20,6 +20,7 @@ public class PostDetailResponseDto {
     private int likeCount;
     private String nickName;
     private String category;
+    private boolean like;
 
     public PostDetailResponseDto(
             String postTitle,
@@ -30,7 +31,8 @@ public class PostDetailResponseDto {
             String createdAt,
             int likeCount,
             String nickName,
-            String category) {
+            String category,
+            boolean like) {
 
         this.postTitle = postTitle;
         this.postContents = postContents;
@@ -41,6 +43,7 @@ public class PostDetailResponseDto {
         this.likeCount = likeCount;
         this.nickName = nickName;
         this.category = category;
+        this.like = like;
     }
 
 }

@@ -4,8 +4,11 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.sparta.clone_backend.dto.PostRequestDto;
 import com.sparta.clone_backend.model.Image;
+import com.sparta.clone_backend.model.Post;
 import com.sparta.clone_backend.repository.ImageRepository;
+import com.sparta.clone_backend.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +28,8 @@ public class S3Uploader {
     private final ImageRepository imageRepository;
 
     private final AmazonS3Client amazonS3Client;
+
+    private final PostRepository postRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
@@ -53,6 +58,25 @@ public class S3Uploader {
         imageRepository.save(image);
 
         return uploadImageUrl;
+    }
+
+    //게시글 수정 (이미지 파일 변환)
+    public String updateImage(MultipartFile multipartFile, String dirName, Long postId)throws IOException{
+        File uploadFile = convert(multipartFile)
+                .orElseThrow(()->new IllegalArgumentException("error: MultipartFile -> File convert fail"));
+        return imageUpdate(uploadFile, dirName, postId);
+    }
+
+    // 게시글 수정 (이미지 파일 교체)
+    private String imageUpdate(File uploadFile, String dirName, Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(
+                ()-> new IllegalArgumentException("게시물이 없습니다")
+        );
+        String imageUrl = post.getImageUrl();
+        Image image = imageRepository.findByImageUrl(imageUrl);
+        String fileName = image.getFilename();
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        return upload(uploadFile, dirName);
     }
 
     // S3로 업로드
