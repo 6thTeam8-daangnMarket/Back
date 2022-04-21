@@ -102,7 +102,7 @@ public class PostService {
     @Transactional
     public Object deletePost(Long postId, User user) {
 
-        Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
+        Post post = postRepository.findByIdAndUser(postId,user).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 삭제 가능합니다.")
         );
 
@@ -170,7 +170,7 @@ public class PostService {
     @Transactional
     public PostResponseDto editPost(Long postId, PostRequestDto requestDto, User user) {
 
-        Post post = postRepository.findByIdAndUserId(postId,user.getId()).orElseThrow(
+        Post post = postRepository.findByIdAndUser(postId,user).orElseThrow(
                 () -> new IllegalArgumentException("작성자만 수정 가능합니다.")
         );
         post.update(postId, requestDto);

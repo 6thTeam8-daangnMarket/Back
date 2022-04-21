@@ -1,6 +1,7 @@
 package com.sparta.clone_backend.repository;
 
 import com.sparta.clone_backend.model.Post;
+import com.sparta.clone_backend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    Optional<Post> findByIdAndUserId(Long postId, Long user);
+    Optional<Post> findByIdAndUser(Long postId, User user);
 
     List<Post> findAllByOrderByCreatedAtDesc();
 

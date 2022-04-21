@@ -109,6 +109,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         FormLoginFilter formLoginFilter = new FormLoginFilter(authenticationManager());
         formLoginFilter.setFilterProcessesUrl("/user/logIn");
         formLoginFilter.setAuthenticationSuccessHandler(formLoginSuccessHandler());
+        formLoginFilter.setAuthenticationFailureHandler(authFailureHandler());
         formLoginFilter.afterPropertiesSet();
         return formLoginFilter;
     }
@@ -118,7 +119,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new FormLoginSuccessHandler();
     }
 
-
+    @Bean
+    public AuthFailureHandler authFailureHandler() {
+        return new AuthFailureHandler();
+    }
 
     @Bean
     public FormLoginAuthProvider formLoginAuthProvider() {
@@ -175,8 +179,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //cors 해결
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:3000"); // local 테스트 시
-        //corsConfiguration.addAllowedOrigin(""); //배포시
+//        corsConfiguration.addAllowedOrigin("http://localhost:3000"); // local 테스트 시
+        corsConfiguration.addAllowedOrigin("http://hanghae99coneproject.s3-website.ap-northeast-2.amazonaws.com/"); //배포시
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addExposedHeader("Authorization");
