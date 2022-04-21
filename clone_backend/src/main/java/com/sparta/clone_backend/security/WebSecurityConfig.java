@@ -118,6 +118,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new FormLoginSuccessHandler();
     }
 
+
+
     @Bean
     public FormLoginAuthProvider formLoginAuthProvider() {
         return new FormLoginAuthProvider(encodePassword());

@@ -67,7 +67,7 @@ public class PostController {
 }
 
 
-    // 전체 게시글 조회, 페이징 처리 완료, 시간 변경 필요, 토큰 없이 조회 불가,,, 수정 필요
+    // 전체 게시글 조회, 페이징 처리 완료
     @GetMapping("/api/posted/{pageno}")
     public PostsResponseDto showAllPost(@PathVariable("pageno") int pageno, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return new PostsResponseDto(postService.showAllPost(pageno-1, userDetails));
