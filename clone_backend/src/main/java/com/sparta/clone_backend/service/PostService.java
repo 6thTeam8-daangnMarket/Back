@@ -166,7 +166,7 @@ public class PostService {
         return validator.overPages(userLikeList, start, end, pageable, pageno);
     }
 
-    // 게시글 수정 (아직은 내용만 수정 가능)
+    // 게시글 수정
     @Transactional
     public PostResponseDto editPost(Long postId, PostRequestDto requestDto, User user) {
 
