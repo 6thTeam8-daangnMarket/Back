@@ -25,5 +25,11 @@ public class PostRequestDto {
         this.price = price;
         this.category = category;
     }
+    public PostRequestDto(String postTitle, String postContents,  int price, String category) {
+        this.postTitle = postTitle;
+        this.postContents = postContents;
+        this.price = price;
+        this.category = category;
+    }
 }
 

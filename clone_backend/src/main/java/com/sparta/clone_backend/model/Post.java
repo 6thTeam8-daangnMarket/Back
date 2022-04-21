@@ -58,8 +58,12 @@ public class Post extends Timestamped{
     }
 
     // 게시글 내용 수정
-    public void update(Long postId, String postContents) {
+    public void update(Long postId, PostRequestDto requestDto) {
         this.id = postId;
-        this.postContents = postContents;
+        this.postTitle = requestDto.getPostTitle();
+        this.postContents = requestDto.getPostContents();
+        this.imageUrl = requestDto.getImageUrl();
+        this.price = requestDto.getPrice();
+        this.category =requestDto.getCategory();
     }
 }

@@ -1,11 +1,13 @@
 package com.sparta.clone_backend.dto;
 
 import com.sparta.clone_backend.model.Post;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+
+@NoArgsConstructor
 @Getter
 @Setter
+
 public class PostListDto {
 
     private Long postId;
@@ -47,17 +49,16 @@ public class PostListDto {
         this.like = true;
     }
 
-    // 검색한 게시글만 조회
-    public PostListDto(Long postId, String postTitle, String imageUrl, int price, String location, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int likeCount, String category, Boolean like) {
-        this.postId = postId;
+    public PostListDto(Long id, String postTitle, String imageUrl, int price, String location, String convertLocaldatetimeToTime, String convertLocaldatetimeToTime1, int countByPost, String category) {
+        this.postId = id;
         this.postTitle = postTitle;
-        this.imageUrl = imageUrl;
-        this.price = price;
+        this.imageUrl= imageUrl;
+        this.price=price;
         this.location = location;
-        this.createdAt = convertLocaldatetimeToTime;
-        this.modifiedAt = convertLocaldatetimeToTime1;
-        this.likeCount = likeCount;
+        this.createdAt= convertLocaldatetimeToTime;
+        this.modifiedAt=convertLocaldatetimeToTime1;
+        this.likeCount=countByPost;
         this.category = category;
-        this.like = like;
     }
 }
+
