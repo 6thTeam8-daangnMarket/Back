@@ -33,7 +33,7 @@
 ### 3. 상세 페이지
     - 해당 상품에 관한 정보 조회
     - 게시글 수정, 삭제 가능 (작성자에 한함)
-    - 관심 상품 등록
+    - 관심 상품 등록 및 삭제
 
 ### 4. 마이 페이지
     - 회원가입 시 등록했던 정보 열람
@@ -172,13 +172,6 @@ corsConfiguration.setAllowCredentials(true);
 <summary>관심 상품 등록 삭제 시 게시물이 삭제</summary>
 <div markdown="1">
 
-
-```java
- @JsonIgnore
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "post")
-    private List<Likes> LikesList  = new ArrayList<>();
-```
-**cascade =** CascadeType.REMOVE 를 이용하여 해결
 
 </div>
 </details>
