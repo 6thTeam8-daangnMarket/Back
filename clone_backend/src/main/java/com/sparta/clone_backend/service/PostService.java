@@ -30,7 +30,6 @@ import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 
 import java.util.ArrayList;
@@ -130,7 +129,7 @@ public class PostService {
                 post.getImageUrl(),
                 post.getPrice(),
                 post.getUser().getLocation(),
-                convertLocaldatetimeToTime(post.getCreatedAt()),
+                Time.convertLocaldatetimeToTime(post.getCreatedAt()),
                 postLikeRepository.countByPost(post),
                 post.getNickName(),
                 post.getCategory(),
@@ -154,8 +153,8 @@ public class PostService {
 
             PostListDto postsResponseDto = new PostListDto(
                     likedPost,
-                    convertLocaldatetimeToTime(likedPost.getCreatedAt()),
-                    convertLocaldatetimeToTime(likedPost.getModifiedAt()),
+                    Time.convertLocaldatetimeToTime(likedPost.getCreatedAt()),
+                    Time.convertLocaldatetimeToTime(likedPost.getModifiedAt()),
                     postLikeRepository.countByPost(likedPost)
             );
             userLikeList.add(postsResponseDto);
@@ -180,57 +179,6 @@ public class PostService {
         return responseDto;
     }
 
-    // 시간 변환
-    public static String convertLocaldatetimeToTime(LocalDateTime localDateTime) {
-        LocalDateTime now = LocalDateTime.now();
-
-        long diffTime = localDateTime.until(now, ChronoUnit.SECONDS); // now보다 이후면 +, 전이면 -
-
-        int SEC = 60;
-        int MIN = 60;
-        int HOUR = 24;
-        int DAY = 30;
-        int MONTH = 12;
-
-        String msg = null;
-        if (diffTime < SEC){
-            return diffTime + "초전";
-        }
-        diffTime = diffTime / SEC;
-        if (diffTime < MIN) {
-            return diffTime + "분 전";
-        }
-        diffTime = diffTime / MIN;
-        if (diffTime < HOUR) {
-            return diffTime + "시간 전";
-        }
-        diffTime = diffTime / HOUR;
-        if (diffTime < DAY) {
-            return diffTime + "일 전";
-        }
-        diffTime = diffTime / DAY;
-        if (diffTime < MONTH) {
-            return diffTime + "개월 전";
-        }
-
-        diffTime = diffTime / MONTH;
-        return diffTime + "년 전";
-    }
-
-
-
-    private void forpostList(List<Post> postList, String username, List<PostListDto> postListDto) {
-        for (Post post : postList) {
-            int likeCount = postLikeRepository.countAllByPostId(post.getId());
-
-            PostListDto postDto = new PostListDto(post, convertLocaldatetimeToTime(post.getCreatedAt()), convertLocaldatetimeToTime(post.getModifiedAt()), likeCount,
-                    postLikeRepository.findByUserNameAndPost(username,post).isPresent());
-
-            postListDto.add(postDto);
-        }
-    }
-
-
     //검색한 내용에 대한 정보
     @Transactional
     public Page<PostListDto> getSearchPost(String keyword, UserDetailsImpl userDetails, int pageno) throws UnsupportedEncodingException {
@@ -249,8 +197,45 @@ public class PostService {
                     searchedPost.getImageUrl(),
                     searchedPost.getPrice(),
                     searchedPost.getLocation(),
-                    convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
-                    convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
+                    Time.convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
+                    Time.convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
+                    postLikeRepository.countByPost(searchedPost),
+                    searchedPost.getCategory(),
+                    postLikeRepository.findByUserNameAndPost(username, searchedPost).isPresent()
+            );
+            postListDtos.add(postListDto);
+
+        }
+        Pageable pageable = getPageable(pageno);
+
+        forpostList(searchedPosts, username, postListDtos);
+
+        int start = pageno * 10;
+        int end = Math.min((start + 10), searchedPosts.size());
+
+        return validator.overPages(postListDtos, start, end, pageable, pageno);
+    }
+
+    //카테고리별 내용에 대한 정보
+    @Transactional
+    public Page<PostListDto> getCategoryPost(String category, UserDetailsImpl userDetails, int pageno) throws UnsupportedEncodingException {
+        List<Post> searchedPosts = new ArrayList<>();
+
+        String decodeVal = URLDecoder.decode(category, "utf-8");
+        searchedPosts = postRepository.searchByCategory(decodeVal);
+        String username = userDetails.getUsername();
+
+        List<PostListDto> postListDtos = new ArrayList<>();
+        for (Post searchedPost : searchedPosts) {
+
+            PostListDto postListDto = new PostListDto(
+                    searchedPost.getId(),
+                    searchedPost.getPostTitle(),
+                    searchedPost.getImageUrl(),
+                    searchedPost.getPrice(),
+                    searchedPost.getLocation(),
+                    Time.convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
+                    Time.convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
                     postLikeRepository.countByPost(searchedPost),
                     searchedPost.getCategory(),
                     postLikeRepository.findByUserNameAndPost(username, searchedPost).isPresent()
@@ -275,41 +260,15 @@ public class PostService {
         return PageRequest.of(page, 10, sort);
     }
 
-    //카테고리별 내용에 대한 정보
-    @Transactional
-    public Page<PostListDto> getCategoryPost(String category, UserDetailsImpl userDetails, int pageno) throws UnsupportedEncodingException {
-        List<Post> searchedPosts = new ArrayList<>();
+    private void forpostList(List<Post> postList, String username, List<PostListDto> postListDto) {
+        for (Post post : postList) {
+            int likeCount = postLikeRepository.countAllByPostId(post.getId());
 
-        String decodeVal = URLDecoder.decode(category, "utf-8");
-        searchedPosts = postRepository.searchByCategory(decodeVal);
-        String username = userDetails.getUsername();
+            PostListDto postDto = new PostListDto(post, Time.convertLocaldatetimeToTime(post.getCreatedAt()), Time.convertLocaldatetimeToTime(post.getModifiedAt()), likeCount,
+                    postLikeRepository.findByUserNameAndPost(username,post).isPresent());
 
-        List<PostListDto> postListDtos = new ArrayList<>();
-        for (Post searchedPost : searchedPosts) {
-
-            PostListDto postListDto = new PostListDto(
-                    searchedPost.getId(),
-                    searchedPost.getPostTitle(),
-                    searchedPost.getImageUrl(),
-                    searchedPost.getPrice(),
-                    searchedPost.getLocation(),
-                    convertLocaldatetimeToTime(searchedPost.getCreatedAt()),
-                    convertLocaldatetimeToTime(searchedPost.getModifiedAt()),
-                    postLikeRepository.countByPost(searchedPost),
-                    searchedPost.getCategory(),
-                    postLikeRepository.findByUserNameAndPost(username, searchedPost).isPresent()
-            );
-            postListDtos.add(postListDto);
-
+            postListDto.add(postDto);
         }
-        Pageable pageable = getPageable(pageno);
-
-        forpostList(searchedPosts, username, postListDtos);
-
-        int start = pageno * 10;
-        int end = Math.min((start + 10), searchedPosts.size());
-
-        return validator.overPages(postListDtos, start, end, pageable, pageno);
     }
 }
 

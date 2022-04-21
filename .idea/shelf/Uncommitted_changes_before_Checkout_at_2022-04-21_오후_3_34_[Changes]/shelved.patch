@@ -1,0 +1,39 @@
+Index: clone_backend/src/main/java/com/sparta/clone_backend/repository/PostRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.sparta.clone_backend.repository;\r\n\r\nimport com.sparta.clone_backend.model.Post;\r\nimport org.springframework.data.jpa.repository.JpaRepository;\r\nimport org.springframework.stereotype.Repository;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\n@Repository\r\npublic interface PostRepository extends JpaRepository<Post, Long> {\r\n\r\n    Optional<Post> findByIdAndUserId(Long postId, Long user);\r\n//    Page<PostListDto> findAllByOrderByModifiedAtDesc(Pageable pageable);\r\n//\r\n//    List<Post> findAllByOrderByModifiedAtDesc();\r\n\r\n    List<Post> findAllByOrderByCreatedAtDesc();\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/clone_backend/src/main/java/com/sparta/clone_backend/repository/PostRepository.java b/clone_backend/src/main/java/com/sparta/clone_backend/repository/PostRepository.java
+--- a/clone_backend/src/main/java/com/sparta/clone_backend/repository/PostRepository.java	
++++ b/clone_backend/src/main/java/com/sparta/clone_backend/repository/PostRepository.java	
+@@ -2,6 +2,8 @@
+ 
+ import com.sparta.clone_backend.model.Post;
+ import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.data.jpa.repository.Query;
++import org.springframework.data.repository.query.Param;
+ import org.springframework.stereotype.Repository;
+ 
+ import java.util.List;
+@@ -11,10 +13,16 @@
+ public interface PostRepository extends JpaRepository<Post, Long> {
+ 
+     Optional<Post> findByIdAndUserId(Long postId, Long user);
+-//    Page<PostListDto> findAllByOrderByModifiedAtDesc(Pageable pageable);
+-//
+-//    List<Post> findAllByOrderByModifiedAtDesc();
+ 
+     List<Post> findAllByOrderByCreatedAtDesc();
+ 
++    //검색어를 받아서 최신순으로 정렬한다.
++    @Query(value = "select * from post p where p.post_title like %:keyword% order by p.modified_at desc", nativeQuery = true)
++    List<Post> searchByKeyword(@Param("keyword")String keyword);
++
++    //카테고리를 받아서 최신순으로 정렬한다.
++    @Query(value = "select * from post p where p.category=:category order by p.modified_at desc", nativeQuery = true)
++    List<Post> searchByCategory(@Param("category")String category);
++
++
+ }
