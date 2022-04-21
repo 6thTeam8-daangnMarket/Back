@@ -50,16 +50,16 @@
 
 |  이름  |                          깃허브 주소                           |       포지션       |
 | :----: | :------------------------------------------------------------: | :----------------: |
-| 오예령 |      [https://github.com/sumye](https://github.com/sumye)      |    백엔드(스프링)   |
-| 김승재 | [https://github.com/ohyeryung](https://github.com/ohyeryung)   |    백엔드(스프링)   |
-| 김민성 |   [https://github.com/blingbc9](https://github.com/blingbc9)   |    백엔드(스프링)   |
-| 이춘 |  [https://github.com/umsounghun](https://github.com/umsounghun) |  프론트엔드(리액트) | 
-| 노현정 |  [https://github.com/kiwonbyun](https://github.com/kiwonbyun)  |  프론트엔드(리액트) |
+| 오예령 |      [https://github.com/ohyeryung](https://github.com/ohyeryung)      |    백엔드(스프링)   |
+| 이승재 | [https://github.com/langho968](https://github.com/langho968)   |    백엔드(스프링)   |
+| 김민성 |   [https://github.com/lincoln-burrows](https://github.com/lincoln-burrows)   |    백엔드(스프링)   |
+| 이춘 |  [https://github.com/lee-chun-91](https://github.com/lee-chun-91) |  프론트엔드(리액트) | 
+| 노현정 |  [https://github.com/isabel-noh](https://github.com/isabel-noh)  |  프론트엔드(리액트) |
 
 
-**BacK End** : https://github.com/ohyeryung/mini22.git
+**BacK End** : hhttps://github.com/6thTeam8-daangnMarket/Back/tree/main/clone_backend
 
-**Front End** : https://github.com/bkw9603/hanghae99-gaemoim-FE
+**Front End** : https://github.com/6thTeam8-daangnMarket/Front
 
 
 <br>
@@ -76,14 +76,12 @@
 <code>
 /com.sparta.Webmini2
   └──/controller
-     ├── /BackController.java
-     ├── /CommentController.java
-     ├── /FrontController.java
      ├── /PostController.java
+     ├── /PostLikeController.java
      └── /UserController.java
   └──/dto
-     ├── /BackRequestDto.java
-     ├── /BackResponseDto.java
+     ├── /DuplicateChkDto.java
+     ├── /IsLoginDto.java
      ├── /CommentRequestDto.java
      ├── /CommentResponseDto.java
      ├── /FrontRequestDto.java
