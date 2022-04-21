@@ -99,20 +99,20 @@ public class PostController {
         return new ResponseEntity<>(statusMessage, httpHeaders, HttpStatus.OK);
     }
 
-    //     유저정보, 장바구니 조회
+    // 유저정보, 장바구니 조회
     @GetMapping("/user/mypage/{pageno}")
     public UserPageResponseDto getUserPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno){
         return new UserPageResponseDto(userDetails, postService.getUserPage(userDetails, pageno-1));
     }
 
-    //검색 기능
+    // 검색 기능
     @GetMapping("/api/search/{keyword}/{pageno}")
     public PostsResponseDto getSearchPostList(
             @PathVariable(value = "keyword", required = false) String keyword, @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno) throws UnsupportedEncodingException {
         return new PostsResponseDto(postService.getSearchPost(keyword, userDetails, pageno-1));
     }
 
-    //카테고리별 조회
+    // 카테고리별 조회
     @GetMapping("/api/category/{category}/{pageno}")
     public PostsResponseDto getCategoryPostList(
             @PathVariable String category, @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("pageno") int pageno) throws UnsupportedEncodingException {
