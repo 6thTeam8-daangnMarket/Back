@@ -187,15 +187,23 @@ corsConfiguration.setAllowCredentials(true);
 
 
 <details>
-<summary>거래를 한 상대에게 무한정으로 후기를 남길수 있는 문제</summary>
+<summary>JPA 내장함수로 구현하기 곤란한 검색기능 Query로 구현</summary>
 <div markdown="1">
 
-프론트측에 유저의 아이디만 받고 평점을 남기는 식으로 하였는데 이번에 post아이디도 함께 받아서 포스트에 boolean rated = false;//평가여부 항목을 추가하여 post 아이디를 받아서
-해당 게시물을 찾고 true로 바꿔서 거래를 한 게시물을 알려주었습니다.
+```java
+ //검색어를 받아서 최신순으로 정렬한다.
+@Query(value = "select * from post p where p.post_title like %:keyword% order by p.modified_at desc", nativeQuery = true)
+    List<Post> searchByKeyword(@Param("keyword")String keyword);
+
+//카테고리를 받아서 최신순으로 정렬한다.
+@Query(value = "select * from post p where p.category=:category order by p.modified_at desc", nativeQuery = true)
+    List<Post> searchByCategory(@Param("category")String category);
+    
+```
+검색기능을 구현할 때는 클라이언트로부터 검색어를 변수로 받아와야 하고, 해당 검색어가 제목 혹은 본문에 포함되어 있는 글을 지역별, 가격순, 최신순 등의 조건으로 가져오게 된다. JPA 함수의 경우에는 변수를 받아오는 것이 어렵고, Or 조건과 And 조건이 섞여 있는 경우도 해결하기 어렵기 때문에 Query를 사용하는 편이 훨씬 간단했다    
 
 </div>
 </details>
-
 
 
 
