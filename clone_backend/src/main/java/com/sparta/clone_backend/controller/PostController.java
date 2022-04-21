@@ -92,14 +92,14 @@ public class PostController {
                                                     @RequestParam(value = "category",required = false) String category,
                                                     @AuthenticationPrincipal UserDetailsImpl userDetails)
     throws IOException{
-        System.out.println(multipartFile);
+
         if(multipartFile.isEmpty()){
-            System.out.println("postcontroller 게시글 제목" + postTitle);
+
             PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents,  price, category);
             postService.editPost(postId,postRequestDto, userDetails.getUser());
         }else{
             String imageUrl = S3Uploader.updateImage(multipartFile, "static", postId);
-            System.out.println("postcontroller 이미지Url : "+imageUrl);
+
             PostRequestDto postRequestDto = new PostRequestDto(postTitle, postContents, imageUrl, price, category);
             postService.editPost(postId,postRequestDto, userDetails.getUser());
         }
